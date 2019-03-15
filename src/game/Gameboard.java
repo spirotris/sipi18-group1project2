@@ -1,7 +1,5 @@
 package game;
 
-import java.util.Arrays;
-
 public class Gameboard {
     
     private final int HEIGHT;
@@ -20,14 +18,9 @@ public class Gameboard {
                     boardGrid[i][j] = 1;
             }
         }
-        System.out.println(getBoard());
     }
     
     public int getPoint(int x, int y) {
         return boardGrid[y][x];
-    }
-
-    public String getBoard() {
-        return Arrays.deepToString(boardGrid).replace("], ", "]\n");
     }
 }
