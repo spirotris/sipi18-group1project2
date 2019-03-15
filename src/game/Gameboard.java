@@ -8,6 +8,7 @@ public class Gameboard {
 
     private final int FLOOR = 0;
     private final int WALL = 1;
+    private final int CHARACTER = 2;
     
     public Gameboard(int width, int height) {
         this.HEIGHT = height;
@@ -17,6 +18,9 @@ public class Gameboard {
             for (int j = 0; j < WIDTH; j++) {
                 if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1)
                     boardGrid[i][j] = new Point(i,j,WALL);
+                else if(i == 10 && j == 1) {
+                    boardGrid[i][j] = new Point(i,j,CHARACTER);
+                }
                 else
                     boardGrid[i][j] = new Point(i,j,FLOOR);
             }
