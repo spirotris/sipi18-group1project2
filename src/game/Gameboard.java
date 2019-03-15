@@ -38,4 +38,8 @@ public class Gameboard {
     public Point getPoint(int x, int y) {
         return boardGrid[y][x];
     }
+
+    public void moveCharacter(int direction) {
+
+    }
 }

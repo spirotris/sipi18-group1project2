@@ -48,4 +48,17 @@ public class GameLogicTests {
         // Assert
         assertEquals(2, characterPoint.getStatus());
     }
+
+    @Test
+    public void moveCharacterOnePositionToTheRight_GetInt2ReturnedFromNewPoint() {
+        // Arrange
+        Gameboard board = new Gameboard(20,20);
+        board.moveCharacter(1);
+
+        // Act
+        Point characterPoint = board.getPoint(2,10);
+
+        // Assert
+        assertEquals(2, characterPoint.getStatus());
+    }
 }
