@@ -11,9 +11,9 @@ public class Gameboard {
     public Gameboard(int width, int height) {
         this.HEIGHT = height;
         this.WIDTH = width;
-        boardGrid = new int[height][width];
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+        boardGrid = new int[HEIGHT][WIDTH];
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 boardGrid[i][j] = 0;
             }
         }
@@ -21,5 +21,9 @@ public class Gameboard {
     
     public int getPoint(int x, int y) {
         return boardGrid[y][x];
+    }
+
+    public String getBoard() {
+        return Arrays.deepToString(boardGrid).replace("], ", "]\n");
     }
 }
