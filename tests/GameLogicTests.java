@@ -1,3 +1,4 @@
+import game.Direction;
 import game.Gameboard;
 
 import static org.junit.Assert.*;
@@ -53,7 +54,7 @@ public class GameLogicTests {
     public void moveCharacterOnePositionToTheRight_GetInt2ReturnedFromNewPoint() {
         // Arrange
         Gameboard board = new Gameboard(20,20);
-        board.moveCharacter(1);
+        board.moveCharacter(Direction.RIGHT);
 
         // Act
         Point characterPoint = board.getPoint(2,10);
@@ -66,7 +67,7 @@ public class GameLogicTests {
     public void moveCharacterOnePositionDown_GetInt2ReturnedFromNewPoint() {
         // Arrange
         Gameboard board = new Gameboard(20,20);
-        board.moveCharacter(2);
+        board.moveCharacter(Direction.UP);
 
         // Act
         Point characterPoint = board.getPoint(1,11);
