@@ -4,8 +4,12 @@ import game.Gameboard;
 import static org.junit.Assert.*;
 
 import game.Point;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class GameLogicTests {
 
     @Test
@@ -51,26 +55,17 @@ public class GameLogicTests {
     }
 
     @Test
-    public void moveCharacterOnePositionToTheRight_GetInt2ReturnedFromNewPoint() {
+    @Parameters({
+            "2,10,RIGHT",
+            "1,11,UP"
+    })
+    public void moveCharacterOnePositionAccordingToDirection_GetInt2ReturnedFromNewPoint(int x, int y, Direction direction) {
         // Arrange
         Gameboard board = new Gameboard(20,20);
-        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(direction);
 
         // Act
-        Point characterPoint = board.getPoint(2,10);
-
-        // Assert
-        assertEquals(2, characterPoint.getStatus());
-    }
-
-    @Test
-    public void moveCharacterOnePositionDown_GetInt2ReturnedFromNewPoint() {
-        // Arrange
-        Gameboard board = new Gameboard(20,20);
-        board.moveCharacter(Direction.UP);
-
-        // Act
-        Point characterPoint = board.getPoint(1,11);
+        Point characterPoint = board.getPoint(x,y);
 
         // Assert
         assertEquals(2, characterPoint.getStatus());
