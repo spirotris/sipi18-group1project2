@@ -9,6 +9,7 @@ public class Gameboard {
     private final int FLOOR = 0;
     private final int WALL = 1;
     private final int CHARACTER = 2;
+    private final int DOOR = 4;
 
     private Point characterPosition;
     
@@ -32,7 +33,9 @@ public class Gameboard {
             // Adding the character to it's starting point, first row to the left in the middle of the height
             characterPosition = new Point(i, j, CHARACTER);
             boardGrid[i][j] = characterPosition;
-        } else {
+        } else if(i == 10 && j == WIDTH - 2 ) {
+            boardGrid[i][j] = new Point(i, j, DOOR);
+        } else{
             // Everything else is considered floor
             boardGrid[i][j] = new Point(i, j, FLOOR);
         }
