@@ -2,6 +2,7 @@ import game.Gameboard;
 
 import static org.junit.Assert.*;
 
+import game.Point;
 import org.junit.Test;
 
 public class GameLogicTests {
@@ -14,10 +15,10 @@ public class GameLogicTests {
         Gameboard board = new Gameboard(width, height);
 
         // Act
-        int point = board.getPoint(15, 5);
+        Point actual = board.getPoint(15, 5);
 
         // Assert
-        assertEquals(1, point);
+        assertEquals(0, actual.getStatus());
     }
 
     @Test
@@ -28,11 +29,11 @@ public class GameLogicTests {
         Gameboard board = new Gameboard(width, height);
 
         // Act
-        int wallPoint = board.getPoint(0, 0);
-        int floorPoint = board.getPoint(15, 5);
+        Point wallPoint = board.getPoint(0, 0);
+        Point floorPoint = board.getPoint(15, 5);
 
         // Assert
-        assertEquals(0, wallPoint);
-        assertEquals(1, floorPoint);
+        assertEquals(1, wallPoint.getStatus());
+        assertEquals(0, floorPoint.getStatus());
     }
 }

@@ -20,8 +20,7 @@ public class PointTest {
     })
     public void createPointGetTypeByInt(int y, int x, int status) {
         // Assert
-        Point p = new Point(y,x);
-        p.setStatus(status);
+        Point p = new Point(y, x, status);
 
         // Act
         int actual = p.getStatus();
