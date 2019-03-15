@@ -29,7 +29,7 @@ public class Gameboard {
             // Adding Outer Walls
             boardGrid[i][j] = new Point(i, j, WALL);
         } else if(i == (HEIGHT / 2) && j == 1) {
-            // Adding the character to it's startpoint, first row to the left in the middle of the height
+            // Adding the character to it's starting point, first row to the left in the middle of the height
             characterPosition = new Point(i, j, CHARACTER);
             boardGrid[i][j] = characterPosition;
         } else {
@@ -43,21 +43,14 @@ public class Gameboard {
         return boardGrid[y][x];
     }
 
-    // Moving character in choosen direction
+    // Moving character in desired direction
     public void moveCharacter(Direction direction) {
-        if(direction.equals(Direction.RIGHT)) { //Moving right
-            boardGrid[characterPosition.getY()][characterPosition.getX() + 1].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+        if(direction.equals(Direction.RIGHT ) || direction.equals(Direction.LEFT)) { //Moving right or left
+            boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
             boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
-        } else if(direction.equals(Direction.UP)) { // Moving up
-            boardGrid[characterPosition.getY() - 1][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+        } else if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) { // Moving up or down
+            boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
             boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
-        } else if (direction.equals(Direction.LEFT)) { // Moving left
-            boardGrid[characterPosition.getY()][characterPosition.getX() - 1].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
-        } else if(direction.equals(Direction.DOWN)) { // Moving down
-            boardGrid[characterPosition.getY() + 1][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
-
         }
     }
 }
