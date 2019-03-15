@@ -42,25 +42,18 @@ public class GameLogicTests {
         assertEquals(0, floorPoint.getStatus());
     }
 
+    @Parameters({
+            "20,20,10",
+            "25,25,13",
+            "10,10,5"
+    })
     @Test
-    public void addCharacterToGameBoard_GetInt2ReturnedFromPoint() {
+    public void addCharacterToGameBoard_PositionedLeftAsCloseTooMiddleAsPossible_GetInt2ReturnedFromPoint(int width, int height, int yPosition) {
         // Arrange
-        Gameboard board = new Gameboard(20,20);
+        Gameboard board = new Gameboard(width,height);
 
         // Act
-        Point characterPoint = board.getPoint(1,10);
-
-        // Assert
-        assertEquals(2, characterPoint.getStatus());
-    }
-
-    @Test
-    public void addCharacterToUnevenGameBoard_GetInt2ReturnedFromPoint() {
-        // Arrange
-        Gameboard board = new Gameboard(25,25);
-
-        // Act
-        Point characterPoint = board.getPoint(1,13);
+        Point characterPoint = board.getPoint(1,yPosition);
 
         // Assert
         assertEquals(2, characterPoint.getStatus());
