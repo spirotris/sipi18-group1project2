@@ -14,9 +14,13 @@ public class Gameboard {
         boardGrid = new int[HEIGHT][WIDTH];
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                boardGrid[i][j] = 0;
+                if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1)
+                    boardGrid[i][j] = 0;
+                else
+                    boardGrid[i][j] = 1;
             }
         }
+        System.out.println(getBoard());
     }
     
     public int getPoint(int x, int y) {
