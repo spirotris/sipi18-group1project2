@@ -42,6 +42,18 @@ public class GameLogicTests {
         assertEquals(0, floorPoint.getStatus());
     }
 
+    @Test
+    public void addDoorToGameBoard_PositionedRight_GetInt4ReturnedFromPoint() {
+        // Arrange
+        Gameboard board = new Gameboard(20,20);
+
+        // Act
+        Point doorPoint = board.getPoint(18,10);
+
+        // Assert
+        assertEquals(4, doorPoint.getStatus());
+    }
+
     @Parameters({
             "20,20,10",
             "25,25,13",
