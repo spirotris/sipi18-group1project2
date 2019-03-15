@@ -58,7 +58,8 @@ public class GameLogicTests {
     @Parameters({
             "2,10,RIGHT",
             "1,9,UP",
-            "0,10,LEFT"
+            "0,10,LEFT",
+            "1,11,DOWN"
     })
     public void moveCharacterOnePositionAccordingToDirection_GetInt2ReturnedFromNewPoint(int x, int y, Direction direction) {
         // Arrange
