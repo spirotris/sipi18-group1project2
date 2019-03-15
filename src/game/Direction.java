@@ -2,5 +2,6 @@ package game;
 
 public enum Direction {
     RIGHT,
-    UP
+    UP,
+    LEFT
 }
