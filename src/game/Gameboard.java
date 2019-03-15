@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Arrays;
+
 public class Gameboard {
     
     private final int HEIGHT;
@@ -10,7 +12,7 @@ public class Gameboard {
         this.HEIGHT = height;
         this.WIDTH = width;
         boardGrid = new int[height][width];
-         for (int i = 0; i < height; i++) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 boardGrid[i][j] = 0;
             }
