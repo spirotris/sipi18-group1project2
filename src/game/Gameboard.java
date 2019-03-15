@@ -21,16 +21,20 @@ public class Gameboard {
         }
     }
 
+    // Adding the Points to the gameboard
     private void addPointToBoard(int i, int j) {
         if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1)
+            // Adding Outer Walls
             boardGrid[i][j] = new Point(i,j,WALL);
-        else if(i == (HEIGHT / 2) && j == 1) {
+        else if(i == (HEIGHT / 2) && j == 1)
+            // Adding the character to it's startpoint, first row to the left in the middle of the height
             boardGrid[i][j] = new Point(i,j,CHARACTER);
-        }
         else
+            // Everything else is considered floor
             boardGrid[i][j] = new Point(i,j,FLOOR);
     }
 
+    // Returning the Point of requested position
     public Point getPoint(int x, int y) {
         return boardGrid[y][x];
     }
