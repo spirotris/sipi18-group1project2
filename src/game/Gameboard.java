@@ -40,6 +40,6 @@ public class Gameboard {
     }
 
     public void moveCharacter(int direction) {
-
+        boardGrid[10][2] = new Point(10,1 + direction, CHARACTER);
     }
 }
