@@ -55,6 +55,18 @@ public class GameLogicTests {
     }
 
     @Test
+    public void addCharacterToUnevenGameBoard_GetInt2ReturnedFromPoint() {
+        // Arrange
+        Gameboard board = new Gameboard(25,25);
+
+        // Act
+        Point characterPoint = board.getPoint(1,13);
+
+        // Assert
+        assertEquals(2, characterPoint.getStatus());
+    }
+
+    @Test
     @Parameters({
             "2,10,RIGHT",
             "1,9,UP",
