@@ -28,7 +28,7 @@ public class Gameboard {
         if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1) {
             // Adding Outer Walls
             boardGrid[i][j] = new Point(i, j, WALL);
-        } else if(i == (HEIGHT / 2) && j == 1) {
+        } else if(i == (int)Math.ceil((double)HEIGHT / (double)2) && j == 1) {
             // Adding the character to it's starting point, first row to the left in the middle of the height
             characterPosition = new Point(i, j, CHARACTER);
             boardGrid[i][j] = characterPosition;
