@@ -12,11 +12,18 @@ public class Point {
         this.status = status;
     }
 
-    // Returns the points kind
+    // Getters
     public int getStatus() {
         return status;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
 
     // Setting the status
     public void setStatus(int status) {

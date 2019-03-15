@@ -9,6 +9,8 @@ public class Gameboard {
     private final int FLOOR = 0;
     private final int WALL = 1;
     private final int CHARACTER = 2;
+
+    private Point characterPosition;
     
     public Gameboard(int width, int height) {
         this.HEIGHT = height;
@@ -23,15 +25,17 @@ public class Gameboard {
 
     // Adding the Points to the gameboard
     private void addPointToBoard(int i, int j) {
-        if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1)
+        if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1) {
             // Adding Outer Walls
-            boardGrid[i][j] = new Point(i,j,WALL);
-        else if(i == (HEIGHT / 2) && j == 1)
+            boardGrid[i][j] = new Point(i, j, WALL);
+        } else if(i == (HEIGHT / 2) && j == 1) {
             // Adding the character to it's startpoint, first row to the left in the middle of the height
-            boardGrid[i][j] = new Point(i,j,CHARACTER);
-        else
+            characterPosition = new Point(i, j, CHARACTER);
+            boardGrid[i][j] = characterPosition;
+        } else {
             // Everything else is considered floor
-            boardGrid[i][j] = new Point(i,j,FLOOR);
+            boardGrid[i][j] = new Point(i, j, FLOOR);
+        }
     }
 
     // Returning the Point of requested position
@@ -39,7 +43,9 @@ public class Gameboard {
         return boardGrid[y][x];
     }
 
+    // Moving character in choosen direction
     public void moveCharacter(int direction) {
-        boardGrid[10][2] = new Point(10,1 + direction, CHARACTER);
+        boardGrid[characterPosition.getY()][characterPosition.getX() + direction].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+        boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
     }
 }
