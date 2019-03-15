@@ -52,4 +52,20 @@ public class GameLogicTests {
         // Assert
         assertEquals(expectedBoard, actual);
     }
+
+    @Test
+    public void SetTheBoardsOuterEdgesToWalls() {
+        // Arrange
+        int width = 20;
+        int height = 20;
+        Gameboard board = new Gameboard(width, height);
+
+        // Act
+        int wallPoint = board.getPoint(0, 0);
+        int floorPoint = board.getPoint(15, 5);
+
+        // Assert
+        assertEquals(0, wallPoint);
+        assertEquals(1, floorPoint);
+    }
 }
