@@ -36,4 +36,16 @@ public class GameLogicTests {
         assertEquals(1, wallPoint.getStatus());
         assertEquals(0, floorPoint.getStatus());
     }
+
+    @Test
+    public void addCharacterToGameBoard_GetInt2ReturnedFromPoint() {
+        // Arrange
+        Gameboard board = new Gameboard(20,20);
+
+        // Act
+        Point characterPoint = board.getPoint(1,10);
+
+        // Assert
+        assertEquals(2, characterPoint.getStatus());
+    }
 }
