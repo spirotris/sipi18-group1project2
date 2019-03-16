@@ -49,13 +49,16 @@ public class Gameboard {
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
         if(direction.equals(Direction.RIGHT ) || direction.equals(Direction.LEFT)) { //Moving right or left
-            boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+            if(!onCollision(boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()])) {
+                boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+                boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                return true;
+            }
         } else if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) { // Moving up or down
             boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
             boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
         }
-        return true;
+        return false;
     }
 
     public boolean onCollision(Point p) {
