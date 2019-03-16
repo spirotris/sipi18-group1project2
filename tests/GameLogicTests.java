@@ -107,15 +107,21 @@ public class GameLogicTests {
         assertEquals(expected, actual);
     }
 
+    @Parameters({
+            "UP, true",
+            "RIGHT, true",
+            "DOWN, true",
+            "LEFT, false"
+    })
     @Test
-    public void moveCharacterIntoWall_GettingFalseIfThereWasACollideAndMovementWasNotPossible() {
+    public void moveCharacterIntoWall_GettingFalseIfThereWasACollideAndMovementWasNotPossible(Direction direction, boolean expected) {
         // Arrange
         Gameboard board = new Gameboard(20,20);
 
         // Act
-        boolean actual = board.moveCharacter(Direction.LEFT);
+        boolean actual = board.moveCharacter(direction);
 
         // Assert
-        assertFalse(actual);
+        assertEquals(actual, expected);
     }
 }
