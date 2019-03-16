@@ -122,6 +122,6 @@ public class GameLogicTests {
         boolean actual = board.moveCharacter(direction);
 
         // Assert
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 }
