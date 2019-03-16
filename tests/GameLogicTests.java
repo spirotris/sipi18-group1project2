@@ -90,15 +90,20 @@ public class GameLogicTests {
         assertEquals(2, characterPoint.getStatus());
     }
 
+    @Parameters({
+            "0, 1, true", // Wall
+            "1, 10, false", // Character
+            "5, 5, false" // Floor
+    })
     @Test
-    public void sendingAPointWhereThereIsFloor_GetBooleanFalseFromOnCollision() {
+    public void gettingAPointToCheckWhatsThere_GetBooleanFalseIfThereIsAWall(int x, int y, boolean expected) {
         // Arrange
         Gameboard board = new Gameboard(20,20);
 
         // Act
-        boolean actual = board.onCollision(board.getPoint(2,10));
+        boolean actual = board.onCollision(board.getPoint(x, y));
 
         // Assert
-        assertFalse(actual);
+        assertEquals(expected, actual);
     }
 }
