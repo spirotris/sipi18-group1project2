@@ -89,4 +89,17 @@ public class GameLogicTests {
         // Assert
         assertEquals(2, characterPoint.getStatus());
     }
+
+    @Test
+    public void moveCharacterIntoWall_GetBooleanFalseFromGetAlive() {
+        // Arrange
+        Gameboard board = new Gameboard(20,20);
+        board.moveCharacter(Direction.LEFT);
+
+        // Act
+        boolean actual = board.onCollision();
+
+        // Assert
+        assertFalse(actual);
+    }
 }

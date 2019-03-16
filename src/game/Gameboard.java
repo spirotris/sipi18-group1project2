@@ -12,7 +12,7 @@ public class Gameboard {
     private final int DOOR = 4;
 
     private Point characterPosition;
-    
+
     public Gameboard(int width, int height) {
         this.HEIGHT = height;
         this.WIDTH = width;
@@ -55,5 +55,9 @@ public class Gameboard {
             boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
             boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
         }
+    }
+
+    public boolean onCollision() {
+        return true;
     }
 }
