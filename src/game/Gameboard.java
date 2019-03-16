@@ -57,7 +57,7 @@ public class Gameboard {
         }
     }
 
-    public boolean onCollision() {
-        return false;
+    public boolean onCollision(Point p) {
+        return p.getStatus() == 1;
     }
 }

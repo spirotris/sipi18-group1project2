@@ -96,7 +96,7 @@ public class GameLogicTests {
         Gameboard board = new Gameboard(20,20);
 
         // Act
-        boolean actual = board.onCollision();
+        boolean actual = board.onCollision(board.getPoint(2,10));
 
         // Assert
         assertFalse(actual);
