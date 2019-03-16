@@ -106,4 +106,16 @@ public class GameLogicTests {
         // Assert
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void moveCharacterIntoWall_GettingFalseIfThereWasACollideAndMovementWasNotPossible() {
+        // Arrange
+        Gameboard board = new Gameboard(20,20);
+
+        // Act
+        boolean actual = board.moveCharacter(Direction.LEFT);
+
+        // Assert
+        assertFalse(actual);
+    }
 }
