@@ -91,10 +91,9 @@ public class GameLogicTests {
     }
 
     @Test
-    public void moveCharacterIntoWall_GetBooleanFalseFromGetAlive() {
+    public void sendingAPointWhereThereIsFloor_GetBooleanFalseFromOnCollision() {
         // Arrange
         Gameboard board = new Gameboard(20,20);
-        board.moveCharacter(Direction.LEFT);
 
         // Act
         boolean actual = board.onCollision();
