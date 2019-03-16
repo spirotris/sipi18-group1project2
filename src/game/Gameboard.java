@@ -55,8 +55,11 @@ public class Gameboard {
                 return true;
             }
         } else if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) { // Moving up or down
-            boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+            if(!onCollision(boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()])) {
+                boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+                boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                return true;
+            }
         }
         return false;
     }
