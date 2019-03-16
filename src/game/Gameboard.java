@@ -58,6 +58,6 @@ public class Gameboard {
     }
 
     public boolean onCollision() {
-        return true;
+        return false;
     }
 }
