@@ -6,12 +6,12 @@ package game;
  * @version 0.1
  */
 public class Player extends Point{
-	public Player(int y, int x, int status) {
-		super(y, x, status);
+	public Player(int x, int y, int status) {
+		super(x, y, status);
 	}
 	
 	public Player(Point p) {
-		super(p.getY(), p.getX(), p.getStatus());
+		super(p.getX(), p.getY(), p.getStatus());
 	}
 
 	private String name;

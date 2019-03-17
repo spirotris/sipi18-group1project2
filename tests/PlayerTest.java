@@ -46,13 +46,13 @@ public class PlayerTest {
 	        "20,10,4", // Door
 	        "10,5,5" // Laser
 	        })
-	public void testGetPositionThroughPlayerClass(int y, int x, int status) {	
+	public void testGetPositionThroughPlayerClass(int x, int y, int status) {	
 		// Act
 		//Set the player position
-		p.setPosition(new Point(y, x, status));
+		p.setPosition(new Point(x, y, status));
 		
 		// Assert
 		//Check that the players postion equals what we set it to
-		assertTrue(p.getPosition().compare(new Point(y, x, status)));
+		assertTrue(p.getPosition().compare(new Point(x, y, status)));
 	}
 }
