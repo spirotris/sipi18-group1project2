@@ -18,6 +18,10 @@ public class Point {
     	this.status = p.getStatus();
     }
     
+    protected Point getPoint() {
+    	return new Point(x,y,status);
+    }
+    
     protected int setX(int x) {
     	this.x = x;
     }

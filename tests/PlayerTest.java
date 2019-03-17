@@ -37,14 +37,23 @@ public class PlayerTest {
 	}
 
 	@Test
-	@Parameters({ "" })
-	public void testGetPosition(Point po) {
+	 @Parameters({ 
+	    	"1,1,0", // Floor
+	        "0,0,1", // Wall
+	        "2,2,2", // Character
+	        "5,5,3", // Treasure
+	        "20,10,4", // Door
+	        "10,5,5" // Laser
+	        })
+	public void testGetPositionThroughPlayerClass(int y, int x, int status) {
 		// Arrange
-		p.setPosition(po);
+		//Set the player position
+		p.setPosition(new Point(y, x, status));
 
 		// Act
 		Point pNew = p.getPosition();
 		// Assert
-		assertEquals(pNew, po);		
+		//Check that the players postion equals what we set it to 
+		assertEquals(pNew, new Point(y, x, status));		
 	}
 }

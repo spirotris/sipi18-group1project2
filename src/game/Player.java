@@ -28,7 +28,7 @@ public class Player extends Point{
 	}
 
 	public Point getPosition() {
-		return this;
+		return super.getPoint();
 	}
 
 	public void setPosition(Point position) {
