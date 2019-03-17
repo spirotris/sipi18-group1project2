@@ -26,14 +26,14 @@ public class Gameboard {
 
     // Adding the Points to the gameboard
     private void addPointToBoard(int i, int j) {
-        if(i == 0 || j == 0 || i == HEIGHT -1 || j == WIDTH -1) {
+        if(i == 0 || j == 0 || i == WIDTH -1 || j == HEIGHT -1) {
             // Adding Outer Walls
             boardGrid[i][j] = new Point(i, j, WALL);
-        } else if(i == (int)Math.ceil((double)HEIGHT / (double)2) && j == 1) {
+        } else if(i == (int)Math.ceil((double)WIDTH / (double)2) && j == 1) {
             // Adding the character to it's starting point, first row to the left in the middle of the height
             characterPosition = new Point(i, j, CHARACTER);
             boardGrid[i][j] = characterPosition;
-        } else if(i == 10 && j == WIDTH - 2 ) {
+        } else if(i == 10 && j == HEIGHT - 2 ) {
             boardGrid[i][j] = new Point(i, j, DOOR);
         } else{
             // Everything else is considered floor
