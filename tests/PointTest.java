@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class PointTest {
@@ -38,7 +39,7 @@ public class PointTest {
         "20,10,4", // Door
         "10,5,5" // Laser
         })
-    public void createPointAtGetObjectBack(int y, int x, int status) {
+    public void createPointCompareToEqualValue(int y, int x, int status) {
     	// Assert
         Point p = new Point(y, x, status);
 
@@ -46,7 +47,7 @@ public class PointTest {
         Point actual = p.getPoint();
 
         // Assert
-        assertEquals(status,actual);
+        assertTrue(p.compare(actual));
     }
 }
 
