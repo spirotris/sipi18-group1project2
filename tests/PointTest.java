@@ -15,12 +15,12 @@ public class PointTest {
             "0,0,1", // Wall
             "2,2,2", // Character
             "5,5,3", // Treasure
-            "20,10,4", // Door
-            "10,5,5" // Laser
+            "10,20,4", // Door
+            "5,10,5" // Laser
     })
-    public void createPointGetTypeByInt(int y, int x, int status) {
+    public void createPointGetTypeByInt(int x, int y, int status) {
         // Assert
-        Point p = new Point(y, x, status);
+        Point p = new Point(x, y, status);
 
         // Act
         int actual = p.getStatus();
