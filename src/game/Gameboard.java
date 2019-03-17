@@ -12,7 +12,7 @@ public class Gameboard {
     private final int DOOR = 4;
 
     private Point characterPosition;
-    
+
     public Gameboard(int width, int height) {
         this.HEIGHT = height;
         this.WIDTH = width;
@@ -47,13 +47,26 @@ public class Gameboard {
     }
 
     // Moving character in desired direction
-    public void moveCharacter(Direction direction) {
+    public boolean moveCharacter(Direction direction) {
         if(direction.equals(Direction.RIGHT ) || direction.equals(Direction.LEFT)) { //Moving right or left
-            boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+            if(!onCollision(boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()])) {  // If there isn't a wall movement is possible
+                boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+                boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                return true;
+            }
         } else if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) { // Moving up or down
-            boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
-            boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+            if(!onCollision(boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()])) { // If there isn't a wall movement is possible
+                boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+                boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                return true;
+            }
         }
+        // There was a wall in the way
+        return false;
+    }
+
+    // Checks if the movement results in collision with a wall
+    public boolean onCollision(Point p) {
+        return p.getStatus() == 1; // Comparing with 1 since it is the value of walls
     }
 }
