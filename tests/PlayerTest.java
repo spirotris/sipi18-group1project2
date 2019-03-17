@@ -9,26 +9,22 @@ import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import game.Point;
+import game.Player;
 
 @RunWith(JUnitParamsRunner.class)
 public class PlayerTest {
+	Player p;
 
 	@Before
-	public void setup() {
-		Player p = new Player();
+	public void setup() {		
+		p = new Player(new Point(1,1,0));
 	}
-
-	@After
-	public void reset() {
-		p.reset();
-	}
-
+	
 	@Test
 	@Parameters({ "Tommy", "Emil", "Bob", "Marcus", "\n\t", "" })
 	public void testSettingPlayerName(String name) {

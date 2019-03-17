@@ -11,6 +11,25 @@ public class Point {
         this.x = x;
         this.status = status;
     }
+    
+    protected void setPoint(Point p) {
+    	this.x = p.getX();
+    	this.y = p.getY();
+    	this.status = p.getStatus();
+    }
+    
+    protected int setX(int x) {
+    	this.x = x;
+    }
+    
+    protected int setY(int y) {
+    	this.y = y;
+    }
+    
+    protected int setStatus(int status) {
+    	this.status = status;
+    }
+    
 
     // Getters
     public int getStatus() {
