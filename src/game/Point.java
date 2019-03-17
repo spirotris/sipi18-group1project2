@@ -18,22 +18,23 @@ public class Point {
     	this.status = p.getStatus();
     }
     
-    protected Point getPoint() {
+    public boolean compare(Point p) {
+    	if(x == p.getX() && y == p.getY() && status == p.getStatus())
+    		return true;
+    	return false;
+    }
+    
+    public Point getPoint() {
     	return new Point(x,y,status);
     }
     
-    protected int setX(int x) {
+    protected void setX(int x) {
     	this.x = x;
     }
     
-    protected int setY(int y) {
+    protected void setY(int y) {
     	this.y = y;
     }
-    
-    protected int setStatus(int status) {
-    	this.status = status;
-    }
-    
 
     // Getters
     public int getStatus() {

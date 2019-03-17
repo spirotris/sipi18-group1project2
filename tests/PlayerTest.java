@@ -8,6 +8,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	 @Parameters({ 
+	@Parameters({ 
 	    	"1,1,0", // Floor
 	        "0,0,1", // Wall
 	        "2,2,2", // Character
@@ -45,15 +46,13 @@ public class PlayerTest {
 	        "20,10,4", // Door
 	        "10,5,5" // Laser
 	        })
-	public void testGetPositionThroughPlayerClass(int y, int x, int status) {
-		// Arrange
+	public void testGetPositionThroughPlayerClass(int y, int x, int status) {	
+		// Act
 		//Set the player position
 		p.setPosition(new Point(y, x, status));
-
-		// Act
-		Point pNew = p.getPosition();
+		
 		// Assert
-		//Check that the players postion equals what we set it to 
-		assertEquals(pNew, new Point(y, x, status));		
+		//Check that the players postion equals what we set it to
+		assertTrue(p.getPosition().compare(new Point(y, x, status)));
 	}
 }
