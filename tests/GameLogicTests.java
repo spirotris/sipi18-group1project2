@@ -103,4 +103,35 @@ public class GameLogicTests {
         // Assert
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void moveCharacterTwoSteps_ShouldReturnTrueSinceTheresIsntAWall() {
+        // Arrange
+        Gameboard board = new Gameboard(1);
+
+        // Act
+        board.moveCharacter(Direction.RIGHT);
+        boolean actual = board.moveCharacter(Direction.RIGHT);
+
+        // Assert
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void moveCharacterMultipleSteps_GettingFalseSinceItIsHittingAWall() {
+        // Arrange
+        Gameboard board = new Gameboard(1);
+
+        // Act
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        boolean actual = board.moveCharacter(Direction.UP);
+
+        // Assert
+        assertEquals(false, actual);
+    }
 }
