@@ -6,7 +6,7 @@ public class Point {
     private int x; // On what x-axis the point is on
     private int status; // What kind of point it is
 
-    public Point(int x, int y, int status) {
+    public Point(int y, int x, int status) {
         this.y = y;
         this.x = x;
         this.status = status;

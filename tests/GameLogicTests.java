@@ -15,9 +15,7 @@ public class GameLogicTests {
     @Test
     public void testCreateGameBoard() {
         // Arrange
-        int width = 20;
-        int height = 20;
-        Gameboard board = new Gameboard(width, height);
+        Gameboard board = new Gameboard(1);
 
         // Act
         Point actual = board.getPoint(5, 15);
@@ -29,9 +27,7 @@ public class GameLogicTests {
     @Test
     public void SetTheBoardsOuterEdgesToWalls() {
         // Arrange
-        int width = 20;
-        int height = 20;
-        Gameboard board = new Gameboard(width, height);
+        Gameboard board = new Gameboard(1);
 
         // Act
         Point wallPoint = board.getPoint(0, 0);
@@ -45,46 +41,29 @@ public class GameLogicTests {
     @Test
     public void addDoorToGameBoard_PositionedRight_GetInt4ReturnedFromPoint() {
         // Arrange
-        Gameboard board = new Gameboard(20,20);
+        Gameboard board = new Gameboard(1);
 
         // Act
-        Point doorPoint = board.getPoint(10, 18);
+        Point doorPoint = board.getPoint(9, 18);
 
         // Assert
         assertEquals(4, doorPoint.getStatus());
     }
 
-    @Parameters({
-            "20,20,10,0",
-            "25,25,13,0",
-            "10,10,5,0"
-    })
-    @Test
-    public void addCharacterToGameBoard_PositionedLeftAsCloseTooMiddleAsPossible_GetInt2ReturnedFromPoint(int width, int height, int yPosition, int expected) {
-        // Arrange
-        Gameboard board = new Gameboard(width,height);
-
-        // Act
-        Point characterPoint = board.getPoint(1,yPosition);
-
-        // Assert
-        assertEquals(expected, characterPoint.getStatus());
-    }
-
     @Test
     @Parameters({
-            "2,10,RIGHT,0",
-            "1,9,UP,0",
-            "0,10,LEFT,1",
-            "1,11,DOWN,0"
+            "9,2,RIGHT,2",
+            "8,1,UP,2",
+            "9,0,LEFT,1",
+            "10,1,DOWN,2"
     })
-    public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int x, int y, Direction direction, int expected) {
+    public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int y, int x, Direction direction, int expected) {
         // Arrange
-        Gameboard board = new Gameboard(20,20);
+        Gameboard board = new Gameboard(1);
         board.moveCharacter(direction);
 
         // Act
-        Point actual = board.getPoint(x,y);
+        Point actual = board.getPoint(y, x);
 
         // Assert
         assertEquals(expected, actual.getStatus());
@@ -96,9 +75,9 @@ public class GameLogicTests {
             "5, 5, false" // Floor
     })
     @Test
-    public void gettingAPointToCheckWhatsThere_GetBooleanFalseIfThereIsAWall(int x, int y, boolean expected) {
+    public void gettingAPointToCheckWhatsThere_GetBooleanFalseIfThereIsAWall(int y, int x, boolean expected) {
         // Arrange
-        Gameboard board = new Gameboard(20,20);
+        Gameboard board = new Gameboard(1);
 
         // Act
         boolean actual = board.onCollision(board.getPoint(x, y));
@@ -116,7 +95,7 @@ public class GameLogicTests {
     @Test
     public void moveCharacterIntoWall_GettingFalseIfThereWasACollideAndMovementWasNotPossible(Direction direction, boolean expected) {
         // Arrange
-        Gameboard board = new Gameboard(20,20);
+        Gameboard board = new Gameboard(1);
 
         // Act
         boolean actual = board.moveCharacter(direction);

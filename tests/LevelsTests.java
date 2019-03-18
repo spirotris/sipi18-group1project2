@@ -18,7 +18,7 @@ public class LevelsTests {
             "4, 17, 19"
     })
     @Test
-    public void setLevelOne_Get2dArrayInReturn(int levelParam, int pointX, int pointY) {
+    public void setLevelOne_Get2dArrayInReturn(int levelParam, int pointY, int pointX) {
         // Arrange
         Levels level = new Levels();
 
@@ -26,7 +26,7 @@ public class LevelsTests {
         Point[][] board = level.getLevel(levelParam);
         System.out.println(Arrays.deepToString(board).replace("[", "{").replace("], ", "}\n"));
 
-        int actual = board[pointX][pointY].getStatus();
+        int actual = board[pointY][pointX].getStatus();
 
         // Assert
         assertEquals(1, actual);
