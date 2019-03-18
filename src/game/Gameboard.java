@@ -44,6 +44,10 @@ public class Gameboard {
     public Point getPoint(int x, int y) {
         return boardGrid[x][y];
     }
+    
+    public Point getCharPosition() {
+        return characterPosition;
+    }
 
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
@@ -54,14 +58,12 @@ public class Gameboard {
             if (!onCollision(boardGrid[x][y + move])) {
                 boardGrid[x][y + move].setStatus(CHARACTER);
                 boardGrid[x][y].setStatus(FLOOR);
-                characterPosition.setPosition(x, y);
                 return true;
             }
         } else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
             if (!onCollision(boardGrid[x + move][y])) {
                 boardGrid[x + move][y].setStatus(CHARACTER);
                 boardGrid[x][y].setStatus(FLOOR);
-                characterPosition.setPosition(x, y);
                 return true;
             }
         }
