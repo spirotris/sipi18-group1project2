@@ -1,4 +1,5 @@
 import game.Point;
+import game.TileType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -11,22 +12,22 @@ public class PointTest {
 
     @Test
     @Parameters({
-            "1,1,0", // Floor
-            "0,0,1", // Wall
-            "2,2,2", // Character
-            "5,5,3", // Treasure
-            "10,20,4", // Door
-            "5,10,5" // Laser
+            "1,1,FLOOR", // Floor
+            "0,0,WALL", // Wall
+            "2,2,CHARACTER", // Character
+            "5,5,TREASURE", // Treasure
+            "10,20,DOOR", // Door
+            "5,10,LASER" // Laser
     })
-    public void createPointGetTypeByInt(int x, int y, int status) {
+    public void createPointGetTypeByInt(int x, int y, TileType tileType) {
         // Assert
-        Point p = new Point(x, y, status);
+        Point p = new Point(x, y, tileType);
 
         // Act
-        int actual = p.getStatus();
+        TileType actual = p.getTileType();
 
         // Assert
-        assertEquals(status,actual);
+        assertEquals(tileType,actual);
     }
 }
 
