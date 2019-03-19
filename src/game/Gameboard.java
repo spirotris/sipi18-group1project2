@@ -22,6 +22,10 @@ public class Gameboard {
     public Point getPoint(int y, int x) {
         return boardGrid[y][x];
     }
+    
+    public Point getCharacterPosition() {
+        return characterPosition;
+    }
 
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
