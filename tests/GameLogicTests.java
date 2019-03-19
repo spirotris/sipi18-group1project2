@@ -139,4 +139,32 @@ public class GameLogicTests {
         // Assert
         assertFalse(actual);
     }
+
+    @Test
+    public void checkIfMonsterIsAddedToTheBoard_ReturnsThe2dArrayWhichIsLoopedThroughToFindMONSTER() {
+        // Arrange
+        Gameboard board = new Gameboard();
+        board.getPoint(10,10).setTileType(MONSTER);
+
+        // Act
+        TileType actual = board.getPoint(10, 10).getTileType();
+
+        // Assert
+        assertEquals(MONSTER, actual);
+    }
+
+    @Test
+    public void characterCollisionsWithMonster_BooleanIsAliveSetsToFalseAndPlayerDead() {
+        // Arrange
+        Gameboard board = new Gameboard();
+        board.getPoint(9, 3).setTileType(MONSTER);
+
+        // Act
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(RIGHT);
+        boolean actual = board.getIsAlive();
+
+        // Assert
+        assertFalse(actual);
+    }
 }

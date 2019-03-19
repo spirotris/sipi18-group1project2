@@ -11,6 +11,7 @@ public class Gameboard {
     private Point doorPosition = new Point(9,18, DOOR);
 
     private Levels levels;
+    private boolean isAlive;
 
     public Gameboard() {
         levels = new Levels(level);
@@ -52,8 +53,22 @@ public class Gameboard {
         return false;
     }
 
-    // Checks if the movement results in collision with a wall
+    // Checks if the movement results in a collision
     public boolean onCollision(Point p) {
-        return p.getTileType() == WALL; // Comparing with 1 since it is the value of walls
+        if(p.getTileType() == WALL)
+            return true; // Can't move, wall in the way
+        else if(p.getTileType() == MONSTER) {
+            // Returns true to show that character really stepped onto monster
+            // Game is although over
+            isAlive = false;
+            return false;
+        } else {
+            // Otherwise movement is a okay
+            return false;
+        }
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
     }
 }
