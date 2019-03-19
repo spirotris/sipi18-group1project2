@@ -40,8 +40,8 @@ public class PlayerTest {
 	}
 
 	@Test
-	@Parameters({"10", "0"})
-	public void testGetTreasureCount(int treasureCount) {
+	@Parameters({"10", "0", "-1"})
+	public void testSetAndGetTreasureCount(int treasureCount) {
 		//Arrange
 		p.setTreasure(treasureCount);
 		
@@ -53,26 +53,29 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testPlayerWalkIntoWallWithZeroTreasuresGameExit() {
+	@Parameters({"0, 1", "0, -1"})	
+	public void testPlayerWalkOntoTreasureAndCollectIt(int startTreasure, int nrOfFoundTreasures) {
 		//Arrange
 		Gameboard g = new Gameboard();
-		Point po, wall;
+		p.setTreasure(startTreasure);
+		Point po, treasure;
 		
 		//Act
 		//Sätt spelaren på plats 0,0
 		po = g.getPoint(0,0);
-		po.setStatus(3); //3 = Player
+		po.setStatus(2); //2 = Player
 		
-		//Skapa en vägg på plats 0,1
-		wall = g.getPoint(0,1);
-		wall.setStatus(1); //1 = Wall
-		
-		//Flytta spelaren in i väggen
-		boolean w = false;
-		if(g.moveCharacter(Direction.DOWN) == TileType.WALL)
-			w = true;	//Om spelaren rörade sig in i en vägg		
+		//Skapa en skatt på plats 0,1
+		treasure = g.getPoint(0,1);
+		treasure.setStatus(TileType.TREASURE);
+		int actual = 0;
+		//Flytta spelaren till skatten
+		if(g.moveCharacter(Direction.DOWN) == TileType.TREASURE) {
+			p.setTreasure(nrOfFoundTreasures);
+			actual = p.getTreasure();
+		}
 		
 		//Assert
-		assertTrue(w);
+		assertEquals(actual, nrOfFoundTreasures);
 		}
 }
