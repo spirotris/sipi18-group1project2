@@ -25,7 +25,7 @@ public class Point {
     }
     
     public Point getPoint() {
-    	return new Point(y,x,status);
+    	return this;
     }
     
     protected void setX(int x) {

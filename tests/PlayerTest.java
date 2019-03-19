@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 
 import game.Point;
 import game.Player;
+import game.Gameboard;
+import game.Direction;
 
 @RunWith(JUnitParamsRunner.class)
 public class PlayerTest {
@@ -23,7 +25,7 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {		
-		p = new Player(new Point(1,1,0));
+		p = new Player();
 	}
 	
 	@Test
@@ -38,21 +40,39 @@ public class PlayerTest {
 	}
 
 	@Test
-	@Parameters({ 
-	    	"1,1,0", // Floor
-	        "0,0,1", // Wall
-	        "2,2,2", // Character
-	        "5,5,3", // Treasure
-	        "20,10,4", // Door
-	        "10,5,5" // Laser
-	        })
-	public void testGetPositionThroughPlayerClass(int x, int y, int status) {	
-		// Act
-		//Set the player position
-		p.setPosition(new Point(x, y, status));
+	@Parameters({"10", "0"})
+	public void testGetTreasureCount(int treasureCount) {
+		//Arrange
+		p.setTreasure(treasureCount);
 		
-		// Assert
-		//Check that the players postion equals what we set it to
-		assertTrue(p.getPosition().compare(new Point(x, y, status)));
+		//Act
+		int actual = p.getTreasureCount();
+				
+		//Assert
+		assertEquals(actual, treasureCount);		
 	}
+	
+	@Test
+	public void testPlayerWalkIntoWallWithZeroTreasuresGameExit() {
+		//Arrange
+		Gameboard g = new Gameboard();
+		Point po, wall;
+		
+		//Act
+		//Sätt spelaren på plats 0,0
+		po = g.getPoint(0,0);
+		po.setStatus(3); //3 = Player
+		
+		//Skapa en vägg på plats 0,1
+		wall = g.getPoint(0,1);
+		wall.setStatus(1); //1 = Wall
+		
+		//Flytta spelaren in i väggen
+		boolean w = false;
+		if(g.moveCharacter(Direction.DOWN) == TileType.WALL)
+			w = true;	//Om spelaren rörade sig in i en vägg		
+		
+		//Assert
+		assertTrue(w);
+		}
 }
