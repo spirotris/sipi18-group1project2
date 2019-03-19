@@ -1,5 +1,6 @@
 import game.Levels;
 import game.Point;
+import game.TileType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -21,9 +22,9 @@ public class LevelsTests {
         // Act
         Point[][] board = level.getBoard();
 
-        int actual = board[pointY][pointX].getStatus();
+        TileType actual = board[pointY][pointX].getTileType();
 
         // Assert
-        assertEquals(1, actual);
+        assertEquals(TileType.FLOOR, actual);
     }
 }

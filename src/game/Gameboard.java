@@ -5,22 +5,17 @@ public class Gameboard {
     private final Point[][] boardGrid;
     private int level = 1;
 
-    private final int FLOOR = 0;
-    private final int WALL = 1;
-    private final int CHARACTER = 2;
-    private final int DOOR = 4;
-
-    private Point characterPosition = new Point(9,1,CHARACTER);
-    private Point doorPosition = new Point(9,18,DOOR);
+    private Point characterPosition = new Point(9,1, TileType.CHARACTER);
+    private Point doorPosition = new Point(9,18, TileType.DOOR);
 
     private Levels levels;
 
     public Gameboard() {
         levels = new Levels(level);
         boardGrid = levels.getBoard();
-        boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(CHARACTER);
-        boardGrid[doorPosition.getY()][doorPosition.getX()].setStatus(DOOR);
-        boardGrid[18][9].setStatus(5);
+        boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(TileType.CHARACTER);
+        boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(TileType.DOOR);
+        boardGrid[18][9].setTileType(TileType.TREASURE);
     }
 
     // Returning the Point of requested position
@@ -35,16 +30,18 @@ public class Gameboard {
         int move = direction.getValue();
         if (direction.equals(Direction.RIGHT) || direction.equals(Direction.LEFT)) {
             if (!onCollision(boardGrid[y][x + move])) {
-                boardGrid[y][x + move].setStatus(CHARACTER);
-                characterPosition = new Point(characterPosition.getY(), characterPosition.getX() + direction.getValue(), CHARACTER);
-                boardGrid[y][x].setStatus(FLOOR);
+                boardGrid[y][x + move].setTileType(TileType.CHARACTER);
+                boardGrid[y][x].setTileType(TileType.FLOOR);
+
+                characterPosition = boardGrid[y][x + move];
                 return true;
             }
         } else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
             if (!onCollision(boardGrid[y + move][x])) {
-                boardGrid[y + move][x].setStatus(CHARACTER);
-                characterPosition = new Point(characterPosition.getY() + direction.getValue(), characterPosition.getX(), CHARACTER);
-                boardGrid[y][x].setStatus(FLOOR);
+                boardGrid[y + move][x].setTileType(TileType.CHARACTER);
+                boardGrid[y][x].setTileType(TileType.FLOOR);
+
+                characterPosition = boardGrid[y + move][x];
                 return true;
             }
         }
@@ -55,6 +52,6 @@ public class Gameboard {
 
     // Checks if the movement results in collision with a wall
     public boolean onCollision(Point p) {
-        return p.getStatus() == 1; // Comparing with 1 since it is the value of walls
+        return p.getTileType() == TileType.WALL; // Comparing with 1 since it is the value of walls
     }
 }

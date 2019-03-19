@@ -4,17 +4,17 @@ public class Point {
 
     private int y; // On what y-axis the point is on
     private int x; // On what x-axis the point is on
-    private int status; // What kind of point it is
+    private TileType tileType; // What kind of point it is
 
-    public Point(int y, int x, int status) {
+    public Point(int y, int x, TileType tileType) {
         this.y = y;
         this.x = x;
-        this.status = status;
+        this.tileType = tileType;
     }
 
     // Getters
-    public int getStatus() {
-        return status;
+    public TileType getTileType() {
+        return tileType;
     }
 
     public int getY() {
@@ -25,8 +25,8 @@ public class Point {
         return x;
     }
 
-    // Setting the status
-    public void setStatus(int status) {
-        this.status = status;
+    // Setting the tileType
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
     }
 }

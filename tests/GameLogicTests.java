@@ -4,6 +4,7 @@ import game.Gameboard;
 import static org.junit.Assert.*;
 
 import game.Point;
+import game.TileType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class GameLogicTests {
         Point actual = board.getPoint(5, 15);
 
         // Assert
-        assertEquals(0, actual.getStatus());
+        assertEquals(TileType.FLOOR, actual.getTileType());
     }
 
     @Test
@@ -34,8 +35,8 @@ public class GameLogicTests {
         Point floorPoint = board.getPoint(5, 15);
 
         // Assert
-        assertEquals(1, wallPoint.getStatus());
-        assertEquals(0, floorPoint.getStatus());
+        assertEquals(TileType.WALL, wallPoint.getTileType());
+        assertEquals(TileType.FLOOR, floorPoint.getTileType());
     }
 
     @Test
@@ -47,17 +48,17 @@ public class GameLogicTests {
         Point doorPoint = board.getPoint(9, 18);
 
         // Assert
-        assertEquals(4, doorPoint.getStatus());
+        assertEquals(TileType.DOOR, doorPoint.getTileType());
     }
 
     @Test
     @Parameters({
-            "9,2,RIGHT,2",
-            "8,1,UP,2",
-            "9,0,LEFT,1",
-            "10,1,DOWN,2"
+            "9,2,RIGHT,CHARACTER",
+            "8,1,UP,CHARACTER",
+            "9,0,LEFT,WALL",
+            "10,1,DOWN,CHARACTER"
     })
-    public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int y, int x, Direction direction, int expected) {
+    public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int y, int x, Direction direction, TileType expected) {
         // Arrange
         Gameboard board = new Gameboard();
         board.moveCharacter(direction);
@@ -66,7 +67,7 @@ public class GameLogicTests {
         Point actual = board.getPoint(y, x);
 
         // Assert
-        assertEquals(expected, actual.getStatus());
+        assertEquals(expected, actual.getTileType());
     }
 
     @Parameters({
