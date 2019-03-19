@@ -29,9 +29,4 @@ public class Point {
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
-
-    @Override
-    public String toString() {
-        return Integer.toString(status);
-    }
 }
