@@ -3,6 +3,7 @@ package game;
 public class Gameboard {
 
     private final Point[][] boardGrid;
+    private int level = 1;
 
     private final int FLOOR = 0;
     private final int WALL = 1;
@@ -12,10 +13,11 @@ public class Gameboard {
     private Point characterPosition = new Point(9,1,CHARACTER);
     private Point doorPosition = new Point(9,18,DOOR);
 
-    Levels levels = new Levels();
+    private Levels levels;
 
-    public Gameboard(int level) {
-        boardGrid = levels.getLevel(level);
+    public Gameboard() {
+        levels = new Levels(level);
+        boardGrid = levels.getBoard();
         boardGrid[characterPosition.getY()][characterPosition.getX()].setStatus(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setStatus(DOOR);
         boardGrid[18][9].setStatus(5);
@@ -28,21 +30,25 @@ public class Gameboard {
 
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
-        if(direction.equals(Direction.RIGHT ) || direction.equals(Direction.LEFT)) { //Moving right or left
-            if(!onCollision(boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()])) {  // If there isn't a wall movement is possible
-                boardGrid[characterPosition.getY()][characterPosition.getX() + direction.getValue()] = characterPosition; // Sets the status of new position to CHARACTER
+        int y = characterPosition.getY();
+        int x = characterPosition.getX();
+        int move = direction.getValue();
+        if (direction.equals(Direction.RIGHT) || direction.equals(Direction.LEFT)) {
+            if (!onCollision(boardGrid[y][x + move])) {
+                boardGrid[y][x + move].setStatus(CHARACTER);
                 characterPosition = new Point(characterPosition.getY(), characterPosition.getX() + direction.getValue(), CHARACTER);
-                boardGrid[characterPosition.getY()][characterPosition.getX() - direction.getValue()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                boardGrid[y][x].setStatus(FLOOR);
                 return true;
             }
-        } else if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) { // Moving up or down
-            if(!onCollision(boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()])) { // If there isn't a wall movement is possible
-                boardGrid[characterPosition.getY() + direction.getValue()][characterPosition.getX()].setStatus(CHARACTER); // Sets the status of new position to CHARACTER
+        } else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
+            if (!onCollision(boardGrid[y + move][x])) {
+                boardGrid[y + move][x].setStatus(CHARACTER);
                 characterPosition = new Point(characterPosition.getY() + direction.getValue(), characterPosition.getX(), CHARACTER);
-                boardGrid[characterPosition.getY() - direction.getValue()][characterPosition.getX()].setStatus(FLOOR); // Sets the status of old position to FLOOR
+                boardGrid[y][x].setStatus(FLOOR);
                 return true;
             }
         }
+
         // There was a wall in the way
         return false;
     }

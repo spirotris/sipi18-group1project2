@@ -15,7 +15,7 @@ public class GameLogicTests {
     @Test
     public void testCreateGameBoard() {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         Point actual = board.getPoint(5, 15);
@@ -27,7 +27,7 @@ public class GameLogicTests {
     @Test
     public void SetTheBoardsOuterEdgesToWalls() {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         Point wallPoint = board.getPoint(0, 0);
@@ -41,7 +41,7 @@ public class GameLogicTests {
     @Test
     public void addDoorToGameBoard_PositionedRight_GetInt4ReturnedFromPoint() {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         Point doorPoint = board.getPoint(9, 18);
@@ -59,7 +59,7 @@ public class GameLogicTests {
     })
     public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int y, int x, Direction direction, int expected) {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
         board.moveCharacter(direction);
 
         // Act
@@ -77,7 +77,7 @@ public class GameLogicTests {
     @Test
     public void gettingAPointToCheckWhatsThere_GetBooleanFalseIfThereIsAWall(int y, int x, boolean expected) {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         boolean actual = board.onCollision(board.getPoint(x, y));
@@ -95,7 +95,7 @@ public class GameLogicTests {
     @Test
     public void moveCharacterIntoWall_GettingFalseIfThereWasACollideAndMovementWasNotPossible(Direction direction, boolean expected) {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         boolean actual = board.moveCharacter(direction);
@@ -107,7 +107,7 @@ public class GameLogicTests {
     @Test
     public void moveCharacterTwoSteps_ShouldReturnTrueSinceTheresIsntAWall() {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         board.moveCharacter(Direction.RIGHT);
@@ -120,16 +120,18 @@ public class GameLogicTests {
     @Test
     public void moveCharacterMultipleSteps_GettingFalseSinceItIsHittingAWall() {
         // Arrange
-        Gameboard board = new Gameboard(1);
+        Gameboard board = new Gameboard();
 
         // Act
         board.moveCharacter(Direction.RIGHT);
-        board.moveCharacter(Direction.RIGHT);
         board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.RIGHT);
-        board.moveCharacter(Direction.RIGHT);
-        board.moveCharacter(Direction.RIGHT);
-        boolean actual = board.moveCharacter(Direction.UP);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.DOWN);
+        boolean actual = board.moveCharacter(Direction.DOWN);
 
         // Assert
         assertEquals(false, actual);

@@ -5,26 +5,21 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class LevelsTests {
     @Parameters ({
             "1, 3, 6",
-            "2, 2, 6",
-            "3, 2, 4",
-            "4, 17, 19"
+            "2, 17, 5"
     })
     @Test
     public void setLevelOne_Get2dArrayInReturn(int levelParam, int pointY, int pointX) {
         // Arrange
-        Levels level = new Levels();
+        Levels level = new Levels(levelParam);
 
         // Act
-        Point[][] board = level.getLevel(levelParam);
-        System.out.println(Arrays.deepToString(board).replace("[", "{").replace("], ", "}\n"));
+        Point[][] board = level.getBoard();
 
         int actual = board[pointY][pointX].getStatus();
 
