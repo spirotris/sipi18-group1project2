@@ -2,83 +2,56 @@ package game;
 
 public class Gameboard {
 
-    private final int HEIGHT;
-    private final int WIDTH;
     private final Point[][] boardGrid;
+    private int level = 1;
 
-    public static final int FLOOR = 0;
-    public static final int WALL = 1;
-    public static final int CHARACTER = 2;
-    public static final int DOOR = 4;
-    public static final int TREASURE = 5;
-    public static final int MONSTER = 6;
+    private Point characterPosition = new Point(9,1, TileType.CHARACTER);
+    private Point doorPosition = new Point(9,18, TileType.DOOR);
 
-    private Point characterPosition;
+    private Levels levels;
 
-    public Gameboard(int width, int height) {
-        this.HEIGHT = height;
-        this.WIDTH = width;
-        boardGrid = new Point[WIDTH][HEIGHT];
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                addPointToBoard(i, j);
-            }
-        }
+    public Gameboard() {
+        levels = new Levels(level);
+        boardGrid = levels.getBoard();
+        boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(TileType.CHARACTER);
+        boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(TileType.DOOR);
+        boardGrid[18][9].setTileType(TileType.TREASURE);
     }
 
-    // Adding the Points to the gameboard
-    private void addPointToBoard(int i, int j) {
-        if (i == 0 || j == 0 || i == WIDTH - 1 || j == HEIGHT - 1) {
-            boardGrid[i][j] = new Point(i, j, WALL);
-        } else if (i == (int) Math.ceil((double) WIDTH / (double) 2) && j == 1) {
-            // Adding the character to it's starting point, first row to the left in the middle of the height
-            characterPosition = new Point(i, j, CHARACTER);
-            boardGrid[i][j] = characterPosition;
-        } else if (i == 10 && j == HEIGHT - 2) {
-            boardGrid[i][j] = new Point(i, j, DOOR);
-        } else {
-            boardGrid[i][j] = new Point(i, j, FLOOR);
-        }
-    }
-
-    public Point getPoint(int x, int y) {
-        return boardGrid[x][y];
-    }
-    
-    public Point getCharPosition() {
-        return characterPosition;
+    // Returning the Point of requested position
+    public Point getPoint(int y, int x) {
+        return boardGrid[y][x];
     }
 
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
-        int x = characterPosition.getX();
         int y = characterPosition.getY();
+        int x = characterPosition.getX();
         int move = direction.getValue();
         if (direction.equals(Direction.RIGHT) || direction.equals(Direction.LEFT)) {
-            if (!onCollision(boardGrid[x][y + move])) {
-                boardGrid[x][y + move].setStatus(CHARACTER);
-                boardGrid[x][y].setStatus(FLOOR);
+            if (!onCollision(boardGrid[y][x + move])) {
+                boardGrid[y][x + move].setTileType(TileType.CHARACTER);
+                boardGrid[y][x].setTileType(TileType.FLOOR);
+
+                characterPosition = boardGrid[y][x + move];
                 return true;
             }
         } else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
-            if (!onCollision(boardGrid[x + move][y])) {
-                boardGrid[x + move][y].setStatus(CHARACTER);
-                boardGrid[x][y].setStatus(FLOOR);
+            if (!onCollision(boardGrid[y + move][x])) {
+                boardGrid[y + move][x].setTileType(TileType.CHARACTER);
+                boardGrid[y][x].setTileType(TileType.FLOOR);
+
+                characterPosition = boardGrid[y + move][x];
                 return true;
             }
         }
+
+        // There was a wall in the way
         return false;
     }
 
+    // Checks if the movement results in collision with a wall
     public boolean onCollision(Point p) {
-        return p.getStatus() == 1; // Comparing with 1 since it is the value of walls
-    }
-
-    public int getHeight() {
-        return HEIGHT;
-    }
-
-    public int getWidth() {
-        return WIDTH;
+        return p.getTileType() == TileType.WALL; // Comparing with 1 since it is the value of walls
     }
 }
