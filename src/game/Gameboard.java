@@ -2,7 +2,7 @@ package game;
 
 public class Gameboard {
 
-    private final Point[][] boardGrid;
+    private Point[][] boardGrid;
     private int level = 1;
 
     private Point characterPosition = new Point(9,1, TileType.CHARACTER);
@@ -12,10 +12,15 @@ public class Gameboard {
 
     public Gameboard() {
         levels = new Levels(level);
+        initializeBoard();
+    }
+
+    public void initializeBoard() {
         boardGrid = levels.getBoard();
         boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(TileType.CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(TileType.DOOR);
         boardGrid[18][9].setTileType(TileType.TREASURE);
+
     }
 
     // Returning the Point of requested position
@@ -53,5 +58,10 @@ public class Gameboard {
     // Checks if the movement results in collision with a wall
     public boolean onCollision(Point p) {
         return p.getTileType() == TileType.WALL; // Comparing with 1 since it is the value of walls
+    }
+
+    public void setLevel(int level) {
+        levels = new Levels(level);
+        initializeBoard();
     }
 }

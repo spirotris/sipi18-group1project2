@@ -125,16 +125,32 @@ public class GameLogicTests {
 
         // Act
         board.moveCharacter(Direction.RIGHT);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        boolean actual = board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.UP);
+        board.moveCharacter(Direction.UP);
+        board.moveCharacter(Direction.UP);
+        boolean actual = board.moveCharacter(Direction.UP);
 
         // Assert
-        assertEquals(false, actual);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void moveCharacterMultipleStepsOnLevelThree_ReturnsFalseSinceHittingWall() {
+        Gameboard board = new Gameboard();
+        board.setLevel(3);
+
+        // Act
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(Direction.RIGHT);
+        boolean actual = board.moveCharacter(Direction.RIGHT);
+
+        // Assert
+        assertFalse(actual);
     }
 }

@@ -15,19 +15,32 @@ public class Levels {
     private void levelDesigner(int level) {
         switch (level){
             case 1:
-                int wallLength = 6;
-                for (int y = 0; y < wallLength; y++){
-                    boardGrid[y][6].setTileType(TileType.WALL);
-                }
+                setWalls(true, 0, 6, 6);
+                break;
             case 2:
-                int wallLengthOne = 6;
-                int wallLengthTwo = 7;
-                for (int y = 0; y < wallLengthOne;y++) {
-                    boardGrid[y][6].setTileType(TileType.WALL);
-                }
-                for (int x = 0; x < wallLengthTwo; x++) {
-                    boardGrid[17][x].setTileType(TileType.WALL);
-                }
+                setWalls(true, 0, 6, 6);
+                setWalls(false, 17, 0, 7);
+                break;
+            case 3:
+                setWalls(true, 4,10, 10);
+                setWalls(false, 4,5, 15);
+                setWalls(true,2,5,10);
+                setWalls(false, 10, 1, 5);
+                setWalls(true, 0, 16, 17);
+                setWalls(false, 6, 12, 7);
+                break;
+        }
+    }
+
+    private void setWalls(boolean isYAxis, int startPositionY, int startPositionX, int wallLength) {
+        if(isYAxis) {
+            for (int y = startPositionY; y < wallLength; y++) {
+                boardGrid[y][startPositionX].setTileType(TileType.WALL);
+            }
+        } else {
+            for (int x = startPositionX; x < wallLength; x++) {
+                boardGrid[startPositionY][x].setTileType(TileType.WALL);
+            }
         }
     }
 
