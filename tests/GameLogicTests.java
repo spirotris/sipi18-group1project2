@@ -2,6 +2,8 @@ import game.Direction;
 import game.Gameboard;
 
 import static org.junit.Assert.*;
+import static game.TileType.*;
+import static game.Direction.*;
 
 import game.Point;
 import game.TileType;
@@ -22,7 +24,7 @@ public class GameLogicTests {
         Point actual = board.getPoint(5, 15);
 
         // Assert
-        assertEquals(TileType.FLOOR, actual.getTileType());
+        assertEquals(FLOOR, actual.getTileType());
     }
 
     @Test
@@ -35,8 +37,8 @@ public class GameLogicTests {
         Point floorPoint = board.getPoint(5, 15);
 
         // Assert
-        assertEquals(TileType.WALL, wallPoint.getTileType());
-        assertEquals(TileType.FLOOR, floorPoint.getTileType());
+        assertEquals(WALL, wallPoint.getTileType());
+        assertEquals(FLOOR, floorPoint.getTileType());
     }
 
     @Test
@@ -48,7 +50,7 @@ public class GameLogicTests {
         Point doorPoint = board.getPoint(9, 18);
 
         // Assert
-        assertEquals(TileType.DOOR, doorPoint.getTileType());
+        assertEquals(DOOR, doorPoint.getTileType());
     }
 
     @Test
@@ -111,11 +113,11 @@ public class GameLogicTests {
         Gameboard board = new Gameboard();
 
         // Act
-        board.moveCharacter(Direction.RIGHT);
-        boolean actual = board.moveCharacter(Direction.RIGHT);
+        board.moveCharacter(RIGHT);
+        boolean actual = board.moveCharacter(RIGHT);
 
         // Assert
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
@@ -124,17 +126,45 @@ public class GameLogicTests {
         Gameboard board = new Gameboard();
 
         // Act
-        board.moveCharacter(Direction.RIGHT);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        board.moveCharacter(Direction.DOWN);
-        boolean actual = board.moveCharacter(Direction.DOWN);
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        board.moveCharacter(DOWN);
+        boolean actual = board.moveCharacter(DOWN);
 
         // Assert
-        assertEquals(false, actual);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void checkIfMonsterIsAddedToTheBoard_ReturnsThe2dArrayWhichIsLoopedThroughToFindMONSTER() {
+        // Arrange
+        Gameboard board = new Gameboard();
+        board.getPoint(10,10).setTileType(MONSTER);
+
+        // Act
+        TileType actual = board.getPoint(10, 10).getTileType();
+
+        // Assert
+        assertEquals(MONSTER, actual);
+    }
+
+    @Test
+    public void characterCollisionsWithMonster_BooleanIsAliveSetsToFalseAndPlayerDead() {
+        // Arrange
+        Gameboard board = new Gameboard();
+        board.getPoint(9, 3).setTileType(MONSTER);
+
+        // Act
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(RIGHT);
+        boolean actual = board.getIsAlive();
+
+        // Assert
+        assertFalse(actual);
     }
 }
