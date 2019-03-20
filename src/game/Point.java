@@ -11,6 +11,24 @@ public class Point {
         this.x = x;
         this.tileType = tileType;
     }
+    
+    protected void setPoint(Point p) {
+    	this.x = p.getX();
+    	this.y = p.getY();
+    	this.tileType = p.getTileType();
+    }
+    
+    public Point getPoint() {
+    	return this;
+    }
+    
+    protected void setX(int x) {
+    	this.x = x;
+    }
+    
+    protected void setY(int y) {
+    	this.y = y;
+    }
 
     // Getters
     public TileType getTileType() {
@@ -28,5 +46,10 @@ public class Point {
     // Setting the tileType
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
+    }
+
+    @Override
+    public String toString() {
+        return tileType.toString();
     }
 }

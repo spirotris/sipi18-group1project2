@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class PointTest {
@@ -17,7 +18,7 @@ public class PointTest {
             "2,2,CHARACTER", // Character
             "5,5,TREASURE", // Treasure
             "10,20,DOOR", // Door
-            "5,10,LASER" // Laser
+            "5,10,MONSTER" // Laser
     })
     public void createPointGetTypeByInt(int x, int y, TileType tileType) {
         // Assert
@@ -28,6 +29,6 @@ public class PointTest {
 
         // Assert
         assertEquals(tileType,actual);
-    }
+    }    
 }
 
