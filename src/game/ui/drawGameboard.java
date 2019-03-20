@@ -8,7 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.util.Random;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,18 +18,18 @@ public class drawGameboard extends JPanel {
     private final Gameboard BOARD;
     private final int TILESIZE = 32;
     private final int DELAY = 50;
-    private Image floorArray[];
-    private Image wall;
-    private Image character;
-    private Image ladder;
-    private Image treasure;
-    private Image monster;
-    private Image floor;
+    private Image floorArray[], wall, character, ladder, treasure, monster, floor;
 
     public drawGameboard(Gameboard board) {
         this.BOARD = board;
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
+            if (!BOARD.getIsAlive()) {
+                JOptionPane.showInputDialog(this, "LOL U DEDD!!!!!");
+            }
+            if (BOARD.isFinished()) {
+                JOptionPane.showInputDialog(this, "LOL U ZE WINNARR!!!!!!!");
+            }
             repaint();
         });
         timer.start();
@@ -41,7 +42,7 @@ public class drawGameboard extends JPanel {
                     .getImage("src/res/graphics/floor_" + (i + 1) + ".png");
         }
         floor = Toolkit.getDefaultToolkit()
-                    .getImage("src/res/graphics/floor_1.png");
+                .getImage("src/res/graphics/floor_1.png");
         wall = Toolkit.getDefaultToolkit()
                 .getImage("src/res/graphics/wall_right.png");
         character = Toolkit.getDefaultToolkit()
@@ -81,7 +82,7 @@ public class drawGameboard extends JPanel {
 
     private void drawTile(TileType type, Graphics2D g2, int x, int y) {
         // x starts 35 px from top to make space for treasure images
-        x = x * TILESIZE + 35; 
+        x = x * TILESIZE + 35;
         y = y * TILESIZE;
 
         switch (type) {
@@ -102,7 +103,7 @@ public class drawGameboard extends JPanel {
                 g2.drawImage(floor, y, x, TILESIZE, TILESIZE, this);
                 g2.drawImage(treasure, y, x, TILESIZE, TILESIZE, this);
                 break;
-            case LASER:
+            case MONSTER:
                 g2.drawImage(floor, y, x, TILESIZE, TILESIZE, this);
                 g2.drawImage(monster, y, x, TILESIZE, TILESIZE, this);
                 break;
