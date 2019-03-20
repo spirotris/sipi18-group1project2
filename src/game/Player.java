@@ -16,6 +16,7 @@ public class Player {
 	
 	public void setTreasure(int treasures) {
 		this.treasures = treasures;
+	}
 
 	public String getName() {
 		return name;

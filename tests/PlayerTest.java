@@ -80,7 +80,7 @@ public class PlayerTest {
 	}
 		
 	@Test
-	Parameters({"true", "false"})	
+	@Parameters({"true", "false"})	
 	public void testPlayerWalkingOntoDoorWithTreasures(boolean hasTreasure ) {
 		//Arrange		
 		Gameboard g = new Gameboard();

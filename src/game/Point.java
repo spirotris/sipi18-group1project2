@@ -15,13 +15,7 @@ public class Point {
     protected void setPoint(Point p) {
     	this.x = p.getX();
     	this.y = p.getY();
-    	this.status = p.getStatus();
-    }
-    
-    public boolean compare(Point p) {
-    	if(x == p.getX() && y == p.getY() && status == p.getStatus())
-    		return true;
-    	return false;
+    	this.tiletype = p.getTileType();
     }
     
     public Point getPoint() {
