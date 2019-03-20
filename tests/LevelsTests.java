@@ -1,7 +1,7 @@
-import game.Direction;
 import game.Levels;
 import game.Point;
 import game.TileType;
+
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
