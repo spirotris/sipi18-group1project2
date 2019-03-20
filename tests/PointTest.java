@@ -18,7 +18,7 @@ public class PointTest {
             "2,2,CHARACTER", // Character
             "5,5,TREASURE", // Treasure
             "10,20,DOOR", // Door
-            "5,10,LASER" // Laser
+            "5,10,MONSTER" // Laser
     })
     public void createPointGetTypeByInt(int x, int y, TileType tileType) {
         // Assert

@@ -11,23 +11,28 @@ public class Gameboard {
     private Point doorPosition = new Point(9,18, DOOR);
 
     private Levels levels;
+    private Player player;
 
     private boolean isAlive;
+    private boolean isFinished;
 
     public Gameboard() {
         levels = new Levels(level);
+        player = new Player();
+        player.setName("Kalle");
         boardGrid = levels.getBoard();
         boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
-        boardGrid[18][9].setTileType(TREASURE);
+        boardGrid[9][14].setTileType(TREASURE);
+        boardGrid[10][3].setTileType(MONSTER);
     }
     
     public boolean getPlayerAlive() {
-		return playerAlive;
+		return isAlive;
 	}
 	
 	public void setPlayerAlive(boolean playerAlive) {
-		this.playerAlive = playerAlive;
+		this.isAlive = playerAlive;
 	}
 
     // Returning the Point of requested position
@@ -71,6 +76,13 @@ public class Gameboard {
             // Game is although over
             isAlive = false;
             return false;
+        } else if(p.getTileType() == TREASURE) {
+            player.setTreasure(1);
+            return false;
+        } else if(p.getTileType() == DOOR) {
+            if(player.getTreasure() > 0)
+                isFinished = true;
+            return false;
         } else {
             // Otherwise movement is a okay
             return false;
@@ -79,5 +91,9 @@ public class Gameboard {
 
     public boolean getIsAlive() {
         return isAlive;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
     }
 }

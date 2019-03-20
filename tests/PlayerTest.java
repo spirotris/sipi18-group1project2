@@ -80,56 +80,31 @@ public class PlayerTest {
 	}
 		
 	@Test
-	@Parameters({"true", "false"})	
-	public void testPlayerWalkingOntoDoorWithTreasures(boolean hasTreasure ) {
+	public void testPlayerWalkingOntoDoorWithTreasures() {
 		//Arrange		
 		Gameboard g = new Gameboard();
-		Point po, door;
-			
-		//Move the player onto point 0,0
-		po = g.getPoint(0,0);
-		po.setTileType(TileType.CHARACTER);
-		
-		//Create a treasure at 0,1
-		door = g.getPoint(0,1);
-		door.setTileType(TileType.DOOR);
-			
+
 		//Act
-		boolean actual = false;
 		//Move player onto door
-		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN.getValue()).getTileType() == TileType.DOOR) {
-			actual = true;
+		for(int i =1; i <18; i++) {
+			g.moveCharacter(Direction.RIGHT);
 		}
-		
+
 		//Assert
-		if(hasTreasure)
-			assertTrue(actual);
-		else
-			assertFalse(actual);
+		assertTrue(g.isFinished());
 	}
 
-	/*
 	@Test
-	public void testPlayerWalkingOntoLaseResultsInGameOver() {
+	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
 		//Arrange		
 		Gameboard g = new Gameboard();
-		Point po, laser;
-		
-		g.setPlayerAlive(true);
-		
-		//Move the player onto point 0,0
-		po = g.getPoint(0,0);
-		po.setTileType(TileType.CHARACTER);
-		
-		//Create a laser at 0,1
-		door = g.getPoint(0,1);
-		door.setTileType(TileType.LASER);
-		
+
 		//Act
-		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN).TileType == TileType.LASER)
-			g.setPlayerAlive(false);
-		
+		g.moveCharacter(Direction.RIGHT);
+		g.moveCharacter(Direction.RIGHT);
+		g.moveCharacter(Direction.DOWN);
+
 		//Assert
 		assertFalse(g.getPlayerAlive());
-	}*/
+	}
 }
