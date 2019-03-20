@@ -167,4 +167,60 @@ public class GameLogicTests {
         // Assert
         assertFalse(actual);
     }
+    
+    @Test
+	@Parameters({"0, 1", "0, -1"})
+	public void testPlayerWalkOntoTreasureAndCollectIt(int startTreasure, int nrOfFoundTreasures) {
+		//Arrange
+		Gameboard g = new Gameboard();
+		player.setTreasure(startTreasure);
+		Point po, treasure;
+		
+		//Act
+		//Move the player onto point 0,0
+		po = g.getPoint(0,0);
+		po.setTileType(CHARACTER);
+		
+		//Create a treasure at 0,1
+		treasure = g.getPoint(0,1);
+		treasure.setTileType(TREASURE);
+		int actual = 0;
+		//Move player onto treasure
+		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN.getValue()).getTileType() == TileType.TREASURE) {
+			player.setTreasure(nrOfFoundTreasures);
+			actual = player.getTreasure();
+		}
+			
+		//Assert
+		assertEquals(actual, nrOfFoundTreasures);
+	}
+		
+	@Test
+	public void testPlayerWalkingOntoDoorWithTreasures() {
+		//Arrange		
+		Gameboard g = new Gameboard();
+
+		//Act
+		//Move player onto door
+		for(int i =1; i <18; i++) {
+			g.moveCharacter(Direction.RIGHT);
+		}
+
+		//Assert
+		assertTrue(g.isFinished());
+	}
+
+	@Test
+	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
+		//Arrange		
+		Gameboard g = new Gameboard();
+
+		//Act
+		g.moveCharacter(Direction.RIGHT);
+		g.moveCharacter(Direction.RIGHT);
+		g.moveCharacter(Direction.DOWN);
+
+		//Assert
+		assertFalse(g.);
+	}
 }
