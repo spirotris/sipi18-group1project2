@@ -1,7 +1,7 @@
 /**
  * @author Marcus Laitala
  * @Date 2019-03-17 
- * @version 0.3
+ * @version 0.4
  */
 
 import junitparams.JUnitParamsRunner;
@@ -18,6 +18,7 @@ import game.Point;
 import game.Player;
 import game.Gameboard;
 import game.Direction;
+import game.TileType;
 
 @RunWith(JUnitParamsRunner.class)
 public class PlayerTest {
@@ -25,16 +26,16 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {		
-		p = new Player();
+		player = new Player();
 	}
 	
 	@Test
 	@Parameters({ "Tommy", "Emil", "Bob", "Marcus", "\n\t", "" })
 	public void testSettingPlayerName(String name) {
 		// Arrange
-		p.setName(name);
+		player.setName(name);
 		// Act
-		String actual = p.getName();
+		String actual = player.getName();
 		// Assert
 		assertEquals(actual, name);
 	}
@@ -43,10 +44,10 @@ public class PlayerTest {
 	@Parameters({"10", "0", "-1"})
 	public void testSetAndGetTreasureCount(int treasureCount) {
 		//Arrange
-		p.setTreasure(treasureCount);
+		player.setTreasure(treasureCount);
 		
 		//Act
-		int actual = p.getTreasureCount();
+		int actual = player.getTreasure();
 				
 		//Assert
 		assertEquals(actual, treasureCount);		
@@ -57,22 +58,22 @@ public class PlayerTest {
 	public void testPlayerWalkOntoTreasureAndCollectIt(int startTreasure, int nrOfFoundTreasures) {
 		//Arrange
 		Gameboard g = new Gameboard();
-		p.setTreasure(startTreasure);
+		player.setTreasure(startTreasure);
 		Point po, treasure;
 		
 		//Act
 		//Move the player onto point 0,0
 		po = g.getPoint(0,0);
-		po.setStatus(TileType.CHARACTER);
+		po.setTileType(TileType.CHARACTER);
 		
 		//Create a treasure at 0,1
 		treasure = g.getPoint(0,1);
-		treasure.setStatus(TileType.TREASURE);
+		treasure.setTileType(TileType.TREASURE);
 		int actual = 0;
 		//Move player onto treasure
-		if(g.moveCharacter(Direction.DOWN) == TileType.TREASURE) {
-			p.setTreasure(nrOfFoundTreasures);
-			actual = p.getTreasure();
+		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN).TileType == TileType.TREASURE) {
+			player.setTreasure(nrOfFoundTreasures);
+			actual = player.getTreasure();
 		}
 			
 		//Assert
@@ -88,16 +89,16 @@ public class PlayerTest {
 			
 		//Move the player onto point 0,0
 		po = g.getPoint(0,0);
-		po.setStatus(TileType.CHARACTER);
+		po.setTileType(TileType.CHARACTER);
 		
 		//Create a treasure at 0,1
 		door = g.getPoint(0,1);
-		door.setStatus(TileType.DOOR);
+		door.setTileType(TileType.DOOR);
 			
 		//Act
 		boolean actual = false;
 		//Move player onto door
-		if(g.moveCharacter(Direction.DOWN) == TileType.DOOR) {
+		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN).TileType == TileType.DOOR) {
 			actual = true;
 		}
 		
@@ -118,15 +119,15 @@ public class PlayerTest {
 		
 		//Move the player onto point 0,0
 		po = g.getPoint(0,0);
-		po.setStatus(TileType.CHARACTER);
+		po.setTileType(TileType.CHARACTER);
 		
 		//Create a laser at 0,1
 		door = g.getPoint(0,1);
-		door.setStatus(TileType.LASER);
+		door.setTileType(TileType.LASER);
 		
 		//Act
-		if(g.moveCharacter(Direction.Down) == TileType.LASER)
-				g.setPlayerAlive(false);
+		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN).TileType == TileType.LASER)
+			g.setPlayerAlive(false);
 		
 		//Assert
 		assertFalse(g.getPlayerAlive());
