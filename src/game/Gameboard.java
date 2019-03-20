@@ -7,14 +7,14 @@ public class Gameboard {
     private final Point[][] boardGrid;
     private int level = 1;
 
-    private Point characterPosition = new Point(9,1, CHARACTER);
-    private Point doorPosition = new Point(9,18, DOOR);
+    private Point characterPosition = new Point(9, 1, CHARACTER);
+    private Point doorPosition = new Point(9, 18, DOOR);
 
     private Levels levels;
     private Player player;
 
-    private boolean isAlive;
-    private boolean isFinished;
+    private boolean isAlive = true;
+    private boolean isFinished = false;
 
     public Gameboard() {
         levels = new Levels(level);
@@ -26,14 +26,14 @@ public class Gameboard {
         boardGrid[9][14].setTileType(TREASURE);
         boardGrid[10][3].setTileType(MONSTER);
     }
-    
+
     public boolean getPlayerAlive() {
-		return isAlive;
-	}
-	
-	public void setPlayerAlive(boolean playerAlive) {
-		this.isAlive = playerAlive;
-	}
+        return isAlive;
+    }
+
+    public void setPlayerAlive(boolean playerAlive) {
+        this.isAlive = playerAlive;
+    }
 
     // Returning the Point of requested position
     public Point getPoint(int y, int x) {
@@ -69,19 +69,20 @@ public class Gameboard {
 
     // Checks if the movement results in a collision
     public boolean onCollision(Point p) {
-        if(p.getTileType() == WALL)
+        if (p.getTileType() == WALL) {
             return true; // Can't move, wall in the way
-        else if(p.getTileType() == MONSTER) {
+        } else if (p.getTileType() == MONSTER) {
             // Returns true to show that character really stepped onto monster
             // Game is although over
             isAlive = false;
             return false;
-        } else if(p.getTileType() == TREASURE) {
+        } else if (p.getTileType() == TREASURE) {
             player.setTreasure(1);
             return false;
-        } else if(p.getTileType() == DOOR) {
-            if(player.getTreasure() > 0)
+        } else if (p.getTileType() == DOOR) {
+            if (player.getTreasure() > 0) {
                 isFinished = true;
+            }
             return false;
         } else {
             // Otherwise movement is a okay
