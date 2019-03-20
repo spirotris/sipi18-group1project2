@@ -3,25 +3,14 @@ import game.Direction;
 import game.Gameboard;
 import game.Point;
 import game.ui.MainWindow;
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
 public class GuiTests {
 
-
-    /*@Before
-    public void setUp() throws Exception {
-
-    }*/
     @Test
     public void testSwingWindowCreation() {
         MainWindow ui = new MainWindow();
@@ -38,21 +27,19 @@ public class GuiTests {
     }
 
     @Test
-    public void testSwingRightKeyMovesCharacterRight() throws AWTException {
+    public void testSwingRightKeyMovesCharacterRight() {
         try {
             SwingUtilities.invokeAndWait(() -> {
                 MainWindow ui = new MainWindow();
                 Gameboard board = ui.getBoard();
                 Point charPos = board.getCharacterPosition();
                 ui.requestFocus();
-                ui.getComponent(0).getComponentAt(0, 0);
-                System.out.println(ui.getComponent(0).getComponentAt(0, 0));
-
-                ui.dispatchEvent(new KeyEvent(ui.getComponent(0), 0, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED));
+                KeyEvent rArrow = new KeyEvent(ui.getComponent(0), 0, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED); 
+                ui.getComponent(0).getComponentAt(0, 0).dispatchEvent(rArrow);
                 Point newCharPos = board.getCharacterPosition();
                 assertNotSame(charPos, newCharPos);
             });
-        } catch (InterruptedException | InvocationTargetException ex) {
+        } catch (InvocationTargetException | InterruptedException ex) {
             fail(ex.getCause().getMessage());
         }
     }
