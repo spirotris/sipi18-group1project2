@@ -15,7 +15,7 @@ public class Point {
     protected void setPoint(Point p) {
     	this.x = p.getX();
     	this.y = p.getY();
-    	this.tiletype = p.getTileType();
+    	this.tileType = p.getTileType();
     }
     
     public Point getPoint() {
