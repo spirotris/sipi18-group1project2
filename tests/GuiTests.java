@@ -1,11 +1,11 @@
 
+import game.Direction;
 import game.Gameboard;
 import game.Point;
 import game.ui.MainWindow;
-import java.awt.AWTEvent;
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import static java.awt.event.KeyEvent.CHAR_UNDEFINED;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,32 +16,50 @@ import org.junit.Test;
 
 public class GuiTests {
 
-    MainWindow ui = null;
-    
-    @Before
+
+    /*@Before
     public void setUp() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            ui = new MainWindow();
-        });
-    }
-    
+
+    }*/
+
     @Test
     public void testSwingWindowCreation() {
+        MainWindow ui = new MainWindow();
         assert ui.getComponentCount() > 0;
     }
 
     @Test
-    public void testSwingRightKeyMovesCharacterRight() {
+    public void testMoveCharacter() {
+        Gameboard board = new Gameboard();
+        Point charPos = board.getCharacterPosition();
+        board.moveCharacter(Direction.RIGHT);
+        Point newCharPos = board.getCharacterPosition();
+        assertNotEquals(charPos, newCharPos);
+    }
+    
+    @Test
+    public void testSwingRightKeyMovesCharacterRight() throws AWTException {
         try {
             SwingUtilities.invokeAndWait(() -> {
+                MainWindow ui = new MainWindow();
+                Robot robot = null;
+                try {
+                    robot = new Robot();
+                } catch (AWTException ex) {
+                    Logger.getLogger(GuiTests.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 Gameboard board = ui.getBoard();
                 Point charPos = board.getCharacterPosition();
-                ui.dispatchEvent(new KeyEvent(ui, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, CHAR_UNDEFINED));
+                ui.requestFocus();
+                robot.keyPress(KeyEvent.VK_RIGHT);
+                robot.delay(20);
+                robot.keyRelease(KeyEvent.VK_RIGHT);
                 Point newCharPos = board.getCharacterPosition();
+                board.moveCharacter(Direction.RIGHT);
                 assertNotSame(charPos, newCharPos);
             });
         } catch (InterruptedException | InvocationTargetException ex) {
-            fail(ex.getLocalizedMessage());
+            fail(ex.getCause().getMessage());
         }
     }
 }
