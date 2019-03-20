@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -25,10 +24,12 @@ public class drawGameboard extends JPanel {
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
             if (!BOARD.getIsAlive()) {
-                JOptionPane.showInputDialog(this, "LOL U DEDD!!!!!");
+                JOptionPane.showConfirmDialog(this, "LOL U DEDD!!!!!");
+                System.exit(0);
             }
             if (BOARD.isFinished()) {
-                JOptionPane.showInputDialog(this, "LOL U ZE WINNARR!!!!!!!");
+                JOptionPane.showConfirmDialog(this, "LOL U ZE WINNARR!!!!!!!");
+                System.exit(0);
             }
             repaint();
         });

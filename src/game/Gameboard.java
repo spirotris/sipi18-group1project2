@@ -7,27 +7,37 @@ public class Gameboard {
     private final Point[][] boardGrid;
     private int level = 1;
 
-    private Point characterPosition = new Point(9,1, CHARACTER);
-    private Point doorPosition = new Point(9,18, DOOR);
+    private Point characterPosition = new Point(9, 1, CHARACTER);
+    private Point doorPosition = new Point(9, 18, DOOR);
 
     private Levels levels;
-    private boolean isAlive;
+    private Player player;
+
+    private boolean isAlive = true;
+    private boolean isFinished = false;
 
     public Gameboard() {
         levels = new Levels(level);
+        player = new Player();
+        player.setName("Kalle");
         boardGrid = levels.getBoard();
         boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
-        boardGrid[18][9].setTileType(TREASURE);
+        boardGrid[9][14].setTileType(TREASURE);
+        boardGrid[10][3].setTileType(MONSTER);
+    }
+
+    public boolean getPlayerAlive() {
+        return isAlive;
+    }
+
+    public void setPlayerAlive(boolean playerAlive) {
+        this.isAlive = playerAlive;
     }
 
     // Returning the Point of requested position
     public Point getPoint(int y, int x) {
         return boardGrid[y][x];
-    }
-    
-    public Point getCharacterPosition() {
-        return characterPosition;
     }
 
     // Moving character in desired direction
@@ -59,12 +69,20 @@ public class Gameboard {
 
     // Checks if the movement results in a collision
     public boolean onCollision(Point p) {
-        if(p.getTileType() == WALL)
+        if (p.getTileType() == WALL) {
             return true; // Can't move, wall in the way
-        else if(p.getTileType() == MONSTER) {
+        } else if (p.getTileType() == MONSTER) {
             // Returns true to show that character really stepped onto monster
             // Game is although over
             isAlive = false;
+            return false;
+        } else if (p.getTileType() == TREASURE) {
+            player.setTreasure(1);
+            return false;
+        } else if (p.getTileType() == DOOR) {
+            if (player.getTreasure() > 0) {
+                isFinished = true;
+            }
             return false;
         } else {
             // Otherwise movement is a okay
@@ -74,5 +92,9 @@ public class Gameboard {
 
     public boolean getIsAlive() {
         return isAlive;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
     }
 }
