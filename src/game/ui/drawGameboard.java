@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import javax.swing.BorderFactory;
+import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,25 +17,53 @@ public class drawGameboard extends JPanel {
     private final Gameboard BOARD;
     private final int TILESIZE = 32;
     private final int DELAY = 50;
-    
+    private Image floorArray[];
+    private Image wall;
+    private Image character;
+    private Image ladder;
+    private Image treasure;
+    private Image monster;
+    private Image floor;
+
     public drawGameboard(Gameboard board) {
         this.BOARD = board;
+        setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
             repaint();
         });
         timer.start();
     }
 
+    private void setUpImages() {
+        floorArray = new Image[8];
+        for (int i = 0; i < floorArray.length; i++) {
+            floorArray[i] = Toolkit.getDefaultToolkit()
+                    .getImage("src/res/graphics/floor_" + (i + 1) + ".png");
+        }
+        floor = Toolkit.getDefaultToolkit()
+                    .getImage("src/res/graphics/floor_1.png");
+        wall = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/wall_right.png");
+        character = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/imp_idle_anim_f0.png");
+        ladder = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/floor_ladder.png");
+        treasure = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/chest_empty_open_anim_f0.png");
+        monster = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/goblin_idle_anim_f0.png");
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         Graphics2D g2 = (Graphics2D) g;
         g.setColor(Color.gray);
         g.fillRect(0, 0, 700, 50);
-        //Image background = Toolkit.getDefaultToolkit()
-        //        .getImage("src/res/graphics/bg.png");
-        //g2.drawImage(background, 0, 0, this);
+
         drawHearts(g2);
+
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
                 drawTile(BOARD.getPoint(j, i).getTileType(), g2, j, i);
@@ -52,21 +80,9 @@ public class drawGameboard extends JPanel {
     }
 
     private void drawTile(TileType type, Graphics2D g2, int x, int y) {
-        x = x * 32 + 35;
-        y = y * 32;
-
-        Image floor = Toolkit.getDefaultToolkit()
-        .getImage("src/res/graphics/floor_1.png");
-        Image wall = Toolkit.getDefaultToolkit()
-                .getImage("src/res/graphics/wall_right.png");
-        Image character = Toolkit.getDefaultToolkit()
-                .getImage("src/res/graphics/imp_idle_anim_f0.png");
-        Image ladder = Toolkit.getDefaultToolkit()
-                .getImage("src/res/graphics/floor_ladder.png");
-        Image treasure = Toolkit.getDefaultToolkit()
-                .getImage("src/res/graphics/chest_empty_open_anim_f0.png");
-        Image monster = Toolkit.getDefaultToolkit()
-                .getImage("src/res/graphics/goblin_idle_anim_f0.png");
+        // x starts 35 px from top to make space for treasure images
+        x = x * TILESIZE + 35; 
+        y = y * TILESIZE;
 
         switch (type) {
             case WALL:
