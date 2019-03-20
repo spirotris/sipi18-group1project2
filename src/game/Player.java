@@ -3,7 +3,7 @@ package game;
 /**
  * @author Marcus
  * @Date 2019-03-17
- * @version 0.1
+ * @version 0.3
  */
 public class Player {
 

@@ -9,6 +9,7 @@ public class Gameboard {
     private Point doorPosition = new Point(9,18, TileType.DOOR);
 
     private Levels levels;
+    private boolean playerAlive;
 
     public Gameboard() {
         levels = new Levels(level);
@@ -16,7 +17,16 @@ public class Gameboard {
         boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(TileType.CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(TileType.DOOR);
         boardGrid[18][9].setTileType(TileType.TREASURE);
+        playerAlive = true;
     }
+    
+    public boolean getPlayerAlive() {
+		return playerAlive;
+	}
+	
+	public void setPlayerAlive(boolean playerAlive) {
+		this.playerAlive = playerAlive;
+	}
 
     // Returning the Point of requested position
     public Point getPoint(int y, int x) {
