@@ -69,6 +69,7 @@ public class Gameboard {
     // Checks if the movement results in a collision
     public boolean onCollision(Point p) {
         if (p.getTileType() == WALL) {
+            levels.monsterDelegator(true);
             return true; // Can't move, wall in the way
         } else if (p.getTileType() == MONSTER) {
             // Returns true to show that character really stepped onto monster
@@ -95,5 +96,9 @@ public class Gameboard {
 
     public boolean isFinished() {
         return isFinished;
+    }
+
+    public Point getCharacterPosition() {
+        return characterPosition;
     }
 }

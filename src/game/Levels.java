@@ -8,6 +8,8 @@ public class Levels {
     private Point[][] boardGrid = new Point[20][20];
     private List<Monster> monsters = new ArrayList<>();
 
+    private Random rnd = new Random();
+
     public Levels(int level) {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -15,7 +17,7 @@ public class Levels {
             }
         }
         levelDesigner(level);
-        monsterDelegator();
+        monsterDelegator(false);
     }
 
     private void levelDesigner(int level) {
@@ -49,10 +51,27 @@ public class Levels {
         }
     }
 
-    private void monsterDelegator() {
-        for (Monster m :
-                monsters) {
-            boardGrid[m.getY()][m.getX()] = m;
+    public void monsterDelegator(boolean moveMonsters) {
+        if(moveMonsters) {
+            for (Monster m :
+                    monsters) {
+                while(true) {
+                    int y = rnd.nextInt(17) + 1;
+                    int x = rnd.nextInt(17) + 1;
+                    if (boardGrid[y][x].getTileType() == FLOOR) {
+                        boardGrid[m.getY()][m.getX()] = new Point(m.getY(), m.getX(), FLOOR);
+                        boardGrid[y][x] = new Monster(y, x, MONSTER);
+                        m.setY(y);
+                        m.setX(x);
+                        break;
+                    }
+                }
+            }
+        }else {
+            for (Monster m :
+                    monsters) {
+                boardGrid[m.getY()][m.getX()] = m;
+            }
         }
     }
 
