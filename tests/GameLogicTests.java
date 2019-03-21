@@ -1,6 +1,5 @@
 import game.Direction;
 import game.Gameboard;
-import game.Player;
 import game.Point;
 import game.TileType;
 

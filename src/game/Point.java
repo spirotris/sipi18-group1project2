@@ -38,5 +38,12 @@ public class Point {
     
     public void setX(int x) {
     	this.x = x;    	
+    }    
+   
+    public boolean equals(Point p) {
+    	if(this.x == p.getX() && this.y == p.getY() && p.getTileType() == p.getTileType())
+    		return true;
+    	return false;
+    	
     }
 }
