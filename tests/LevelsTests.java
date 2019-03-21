@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 public class LevelsTests {
     @Parameters ({
             "1, 3, 6, WALL",
-            "2, 17, 5, WALL"
+            "2, 17, 5, WALL",
+            "3, 10, 4, WALL"
     })
     @Test
     public void setLevelOne_Get2dArrayInReturn(int levelParam, int pointY, int pointX, TileType tileType) {
@@ -28,4 +29,6 @@ public class LevelsTests {
         // Assert
         assertEquals(tileType, actual);
     }
+
+
 }
