@@ -1,7 +1,10 @@
 package game;
 
+import java.util.*;
+
 public class Levels {
     private Point[][] boardGrid = new Point[20][20];
+    private List<Monster> monsters = new ArrayList<>();
 
     public Levels(int level) {
         for (int y = 0; y < 20; y++) {
@@ -10,18 +13,37 @@ public class Levels {
             }
         }
         levelDesigner(level);
+        monsterDelegator();
+    }
+
+    private void monsterDelegator() {
+        for (Monster m :
+                monsters) {
+            boardGrid[m.getY()][m.getX()] = m;
+            m.setActive(true);
+        }
     }
 
     private void levelDesigner(int level) {
         switch (level){
             case 1:
+                monsters.add(new Monster(3,10, TileType.MONSTER));
                 setWalls(true, 0, 6, 6);
                 break;
             case 2:
+                monsters.add(new Monster(3, 10, TileType.MONSTER));
+                monsters.add(new Monster(9, 15, TileType.MONSTER));
+                monsters.add(new Monster(9, 4, TileType.MONSTER));
                 setWalls(true, 0, 6, 6);
                 setWalls(false, 17, 0, 7);
                 break;
             case 3:
+                monsters.add(new Monster(3, 10, TileType.MONSTER));
+                monsters.add(new Monster(9, 15, TileType.MONSTER));
+                monsters.add(new Monster(9, 4, TileType.MONSTER));
+                monsters.add(new Monster(15,3, TileType.MONSTER));
+                monsters.add(new Monster(10, 18, TileType.MONSTER));
+                monsters.add(new Monster(12, 17, TileType.MONSTER));
                 setWalls(true, 4,10, 10);
                 setWalls(false, 4,5, 15);
                 setWalls(true,2,5,10);
