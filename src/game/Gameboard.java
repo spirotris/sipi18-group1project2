@@ -36,23 +36,23 @@ public class Gameboard {
 
     // Moving character in desired direction
     public boolean moveCharacter(Direction direction) {
-        int y = characterPosition.getY();
-        int x = characterPosition.getX();
+        int y = player.getY();
+        int x = player.getX();
         int move = direction.getValue();
         if (direction.equals(Direction.RIGHT) || direction.equals(Direction.LEFT)) {
             if (!onCollision(boardGrid[y][x + move])) {
                 boardGrid[y][x + move].setTileType(CHARACTER);
                 boardGrid[y][x].setTileType(FLOOR);
 
-                characterPosition = boardGrid[y][x + move];
+                player.movePlayer(boardGrid[y][x + move]);
                 return true;
             }
         } else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
             if (!onCollision(boardGrid[y + move][x])) {
                 boardGrid[y + move][x].setTileType(CHARACTER);
                 boardGrid[y][x].setTileType(FLOOR);
-
-                characterPosition = boardGrid[y + move][x];
+                
+                player.movePlayer(boardGrid[y + move][x]);
                 return true;
             }
         }

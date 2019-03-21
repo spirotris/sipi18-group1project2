@@ -25,4 +25,10 @@ public class Player extends Point{
 	public boolean getAlive() {
         return isAlive;
     }
+	
+	public void movePlayer(Point p) {
+		this.setY(p.getY());
+		this.setX(p.getX());
+		this.setTileType(p.getTileType());
+	}
 }
