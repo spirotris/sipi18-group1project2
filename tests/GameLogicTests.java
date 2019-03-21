@@ -1,9 +1,9 @@
 import game.Direction;
 import game.Gameboard;
-
-import static org.junit.Assert.*;
 import static game.TileType.*;
 import static game.Direction.*;
+
+import static org.junit.Assert.*;
 
 import game.Point;
 import game.TileType;

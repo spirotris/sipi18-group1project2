@@ -24,7 +24,6 @@ public class Gameboard {
         boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
         boardGrid[9][14].setTileType(TREASURE);
-        boardGrid[10][3].setTileType(MONSTER);
     }
 
     public boolean getPlayerAlive() {

@@ -1,7 +1,4 @@
-import game.Levels;
-import game.Monster;
-import game.Point;
-import game.TileType;
+import game.*;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -48,8 +45,7 @@ public class LevelsTests {
 
         // Act
         if(board[y][x].getClass() == Monster.class) {
-            Monster m = (Monster)board[y][x];
-            actual = m.isActive();
+            actual = true;
         } else {
             actual = false;
         }
