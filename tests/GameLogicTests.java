@@ -1,9 +1,9 @@
 import game.Direction;
 import game.Gameboard;
-
-import static org.junit.Assert.*;
 import static game.TileType.*;
 import static game.Direction.*;
+
+import static org.junit.Assert.*;
 
 import game.Point;
 import game.TileType;
@@ -121,20 +121,20 @@ public class GameLogicTests {
     }
 
     @Test
-    public void moveCharacterMultipleSteps_GettingFalseSinceItIsHittingAWall() {
+    public void moveCharacterMultipleSteps_OnLevelONE_GettingFalseSinceItIsHittingAWall() {
         // Arrange
         Gameboard board = new Gameboard();
 
         // Act
         board.moveCharacter(RIGHT);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        board.moveCharacter(DOWN);
-        boolean actual = board.moveCharacter(DOWN);
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(RIGHT);
+        board.moveCharacter(UP);
+        board.moveCharacter(UP);
+        board.moveCharacter(UP);
+        boolean actual = board.moveCharacter(UP);
 
         // Assert
         assertFalse(actual);
