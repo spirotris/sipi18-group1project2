@@ -1,12 +1,12 @@
 import game.Direction;
 import game.Gameboard;
-import game.Point;
-import game.TileType;
-
-import static org.junit.Assert.*;
 import static game.TileType.*;
 import static game.Direction.*;
 
+import static org.junit.Assert.*;
+
+import game.Point;
+import game.TileType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -165,13 +165,13 @@ public class GameLogicTests {
 		//Arrange
 		Gameboard g = new Gameboard();
 		Point po, treasure;
-		
+
 		//Act
 		//Move the player onto point 0,0
 		po = g.getPoint(0,0);
 		po.setTileType(CHARACTER);
 		g.getPlayer().movePlayer(po);
-		
+
 		//Create a treasure at 0,1
 		treasure = g.getPoint(0,1);
 		treasure.setTileType(TREASURE);
@@ -181,7 +181,7 @@ public class GameLogicTests {
 			g.getPlayer().setTreasure(nrOfFoundTreasures);
 			actual = g.getPlayer().getTreasure();
 		}
-			
+
 		//Assert
 		assertEquals(actual, nrOfFoundTreasures);
 	}
@@ -203,7 +203,7 @@ public class GameLogicTests {
 
 	@Test
 	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
-		//Arrange		
+		//Arrange
 		Gameboard g = new Gameboard();
 
 		//Act
