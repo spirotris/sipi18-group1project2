@@ -84,4 +84,40 @@ public class LevelsTests {
         // Assert
         assertFalse(actual);
     }
+
+    @Test
+    public void timerTest_checksWhetherAMonsterMovesAfterDesiredTime_BooleanFalseExpected() {
+        // Arrange
+        Levels level = new Levels(1);
+        Point[][] firstBoard = level.getBoard();
+        Point[][] updatedBoard;
+        Point monsterFirstBoard = null;
+
+        // Act
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        updatedBoard = level.getBoard();
+        boolean actual;
+
+        for (int y = 0; y < firstBoard.length; y++) {
+            for (int x = 0; x < firstBoard.length; x++) {
+                if (firstBoard[y][x].getTileType() == TileType.MONSTER && monsterFirstBoard == null) {
+                    monsterFirstBoard = firstBoard[y][x];
+                }
+            }
+        }
+        if(monsterFirstBoard == null) {
+            actual = true;
+        }  else if(updatedBoard[monsterFirstBoard.getY()][monsterFirstBoard.getX()].getTileType() == monsterFirstBoard.getTileType()) {
+            actual = false;
+        } else {
+            actual = true;
+        }
+
+        // Assert
+        assertFalse(actual);
+    }
 }

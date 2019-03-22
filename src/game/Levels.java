@@ -13,13 +13,17 @@ public class Levels {
     public Levels(int level) {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
-                addPointToBoard(y, x);
+                createTheBasicBoard(y, x); // Generates the basic board
             }
         }
-        levelDesigner(level);
-        monsterDelegator(false);
+        levelDesigner(level); // Create level
+        monsterDelegator(false); // Put monsters in startposition
+        monsterTimer(); // Start the timer for moving the monsters
     }
 
+    // Sets the level
+    // Number of monsters for the actual level is set
+    // And the layout
     private void levelDesigner(int level) {
         switch (level){
             case 1:
@@ -51,7 +55,10 @@ public class Levels {
         }
     }
 
+    // Loops through the List of monsters and puts the in the board
     public void monsterDelegator(boolean moveMonsters) {
+        // If it isn't the first time the monsters are placed on the board
+        // then the monsters are randomly placed
         if(moveMonsters) {
             for (Monster m :
                     monsters) {
@@ -75,6 +82,21 @@ public class Levels {
         }
     }
 
+    // Timer that moves the monsters every one and a half second
+    private void monsterTimer() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                monsterDelegator(true);
+            }
+        };
+
+        Timer timer = new Timer("MonsterTimer");
+
+        timer.scheduleAtFixedRate(task, 100, 1500);
+    }
+
+    // Add the walls to the board
     private void setWalls(boolean isYAxis, int startPositionY, int startPositionX, int wallLength) {
         if(isYAxis) {
             for (int y = startPositionY; y < wallLength; y++) {
@@ -87,7 +109,8 @@ public class Levels {
         }
     }
 
-    private void addPointToBoard(int y, int x) {
+    // Generating the basic board
+    private void createTheBasicBoard(int y, int x) {
         if (y == 0 || x == 0 || y == 19 || x == 19)
             boardGrid[y][x] = new Point(y, x, WALL);
         else
