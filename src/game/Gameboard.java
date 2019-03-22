@@ -6,8 +6,7 @@ public class Gameboard {
 
     private final Point[][] boardGrid;
     private int level = 1;
-
-    private Point characterPosition = new Point(9, 1, CHARACTER);
+   
     private Point doorPosition = new Point(9, 18, DOOR);
 
     private Levels levels;
@@ -19,7 +18,7 @@ public class Gameboard {
         levels = new Levels(level);
         player = new Player(9,1, CHARACTER);
         boardGrid = levels.getBoard();
-        boardGrid[characterPosition.getY()][characterPosition.getX()].setTileType(CHARACTER);
+        boardGrid[player.getY()][player.getX()].setTileType(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
         boardGrid[9][14].setTileType(TREASURE);
     }
@@ -84,9 +83,5 @@ public class Gameboard {
 
     public boolean isFinished() {
         return isFinished;
-    }
-
-    public Point getCharacterPosition() {
-        return characterPosition;
-    }
+    }    
 }

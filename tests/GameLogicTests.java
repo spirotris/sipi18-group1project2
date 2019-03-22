@@ -112,20 +112,20 @@ public class GameLogicTests {
 	}
 
 	@Test
-	public void moveCharacterMultipleSteps_GettingFalseSinceItIsHittingAWall() {
+	public void moveCharacterMultipleSteps_OnLevelONE_GettingFalseSinceItIsHittingAWall() {
 		// Arrange
 		Gameboard board = new Gameboard();
 
 		// Act
 		board.moveCharacter(RIGHT);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		board.moveCharacter(DOWN);
-		boolean actual = board.moveCharacter(DOWN);
+		board.moveCharacter(RIGHT);
+		board.moveCharacter(RIGHT);
+		board.moveCharacter(RIGHT);
+		board.moveCharacter(RIGHT);
+		board.moveCharacter(UP);
+		board.moveCharacter(UP);
+		board.moveCharacter(UP);
+		boolean actual = board.moveCharacter(UP);
 
 		// Assert
 		assertFalse(actual);
@@ -160,29 +160,30 @@ public class GameLogicTests {
 	}
 
 	@Test
-	@Parameters({"1"})
+	@Parameters({ "1" })
 	public void testPlayerWalkOntoTreasureAndCollectIt(int nrOfFoundTreasures) {
-		//Arrange
+		// Arrange
 		Gameboard g = new Gameboard();
 		Point po, treasure;
 
-		//Act
-		//Move the player onto point 0,0
-		po = g.getPoint(0,0);
+		// Act
+		// Move the player onto point 0,0
+		po = g.getPoint(0, 0);
 		po.setTileType(CHARACTER);
 		g.getPlayer().movePlayer(po);
 
-		//Create a treasure at 0,1
-		treasure = g.getPoint(0,1);
+		// Create a treasure at 0,1
+		treasure = g.getPoint(0, 1);
 		treasure.setTileType(TREASURE);
 		int actual = 0;
-		//Move player onto treasure
-		if(g.moveCharacter(Direction.DOWN) && g.getPoint(po.getX(), po.getY() + Direction.DOWN.getValue()).getTileType() == TileType.TREASURE) {
+		// Move player onto treasure
+		if (g.moveCharacter(Direction.DOWN)
+				&& g.getPoint(po.getX(), po.getY() + Direction.DOWN.getValue()).getTileType() == TileType.TREASURE) {
 			g.getPlayer().setTreasure(nrOfFoundTreasures);
 			actual = g.getPlayer().getTreasure();
 		}
 
-		//Assert
+		// Assert
 		assertEquals(actual, nrOfFoundTreasures);
 	}
 
@@ -203,15 +204,15 @@ public class GameLogicTests {
 
 	@Test
 	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
-		//Arrange
+		// Arrange
 		Gameboard g = new Gameboard();
 
-		//Act
+		// Act
 		g.moveCharacter(Direction.RIGHT);
 		g.moveCharacter(Direction.RIGHT);
 		g.moveCharacter(Direction.DOWN);
 
-		//Assert
-		assertFalse(g.getPlayer().getAlive()); //My first guess
+		// Assert
+		assertFalse(g.getPlayer().getAlive()); // My first guess
 	}
 }
