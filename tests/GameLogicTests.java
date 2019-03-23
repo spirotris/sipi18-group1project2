@@ -209,12 +209,12 @@ public class GameLogicTests {
 	}
 	
 	@Test
-	public void testPersistanceOfDoorWhenPlayerMoves() {
+	public void testPersistanceOfDoorWhenPlayerMovesOverIT() {
 		//Arrange
 		Gameboard board = new Gameboard();
 		Point door = board.getPoint(9, 2);
 		
-		door.setTileType(DOOR);				
+		door.setTileType(DOOR);
 			
 		//Act
 		//Move onto the Door
