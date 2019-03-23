@@ -70,7 +70,7 @@ public class Gameboard {
 					fixPreviousTile(y, x + move, CHARACTER);
 				}
 				// Update the players coordinates
-				player.movePlayer(boardGrid[y][x + move]);
+				player.move(boardGrid[y][x + move]);
 				return true;
 			}
 		} else if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
@@ -89,7 +89,7 @@ public class Gameboard {
 					fixPreviousTile(y + move, x, CHARACTER);
 				}
 				// Update the players coordinates
-				player.movePlayer(boardGrid[y + move][x]);
+				player.move(boardGrid[y + move][x]);
 
 				return true;
 			}

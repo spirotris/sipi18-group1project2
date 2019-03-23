@@ -5,7 +5,7 @@ package game;
  * @Date 2019-03-17
  * @version 0.3
  */
-public class Player extends Point{
+public class Player extends MoveableCharacter {
 
 	public Player(int y, int x, TileType tileType) {
 		super(y, x, tileType);		
@@ -29,10 +29,4 @@ public class Player extends Point{
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
-	
-	public void movePlayer(Point p) {
-		this.setY(p.getY());
-		this.setX(p.getX());
-		this.setTileType(p.getTileType());
-	}	
 }

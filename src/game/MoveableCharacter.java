@@ -16,9 +16,11 @@ public abstract class MoveableCharacter extends Point {
 	 */
 	public MoveableCharacter(int y, int x, TileType tileType) {
 		super(y, x, tileType);
-		// TODO Auto-generated constructor stub
 	}
 	
-	
-
+	public void move(Point p) {
+		this.setY(p.getY());
+		this.setX(p.getX());
+		this.setTileType(p.getTileType());
+	}
 }
