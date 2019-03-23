@@ -78,12 +78,15 @@ public class Gameboard {
 				// Mostly, the player will be walking on floor, makes sense to have this first
 				if (!isPlayerOnDoor) {
 					// Move the character on the board
-					fixPreviousTile(y + move, x, CHARACTER);
 					fixPreviousTile(y, x, FLOOR);
+					fixPreviousTile(y + move, x, CHARACTER);
 				} else {
+					if (boardGrid[y + move][x].getTileType() == DOOR)
+						fixPreviousTile(y, x, FLOOR);
+					else
+						fixPreviousTile(y, x, DOOR);
 					// Move the character on the board
 					fixPreviousTile(y + move, x, CHARACTER);
-					fixPreviousTile(y, x, DOOR);
 				}
 				// Update the players coordinates
 				player.movePlayer(boardGrid[y + move][x]);
@@ -100,10 +103,8 @@ public class Gameboard {
 	public boolean onCollision(Point p) {
 		if (p.getTileType() == WALL) {
 			return true; // Can't move, wall in the way
-		} else if (p.getTileType() == MONSTER) {
-			// Returns true to show that character really stepped onto monster
-			player.setAlive(false);			
-			// Game is over
+		} else if (p.getTileType() == MONSTER) {			
+			player.setAlive(false);	
 			return true;
 		} else if (p.getTileType() == TREASURE) {
 			player.setTreasure(1);
