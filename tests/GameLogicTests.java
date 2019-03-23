@@ -1,6 +1,5 @@
 import game.Direction;
 import game.Gameboard;
-import game.Player;
 
 import static game.TileType.*;
 import static game.Direction.*;
@@ -184,19 +183,19 @@ public class GameLogicTests {
 	}
 
 	@Test
-	public void testPersistanceOfDoorWhenPlayerMovesOverIT() {
+	@Parameters(method = "parametersFortestPersistanceOfDoorWhenPlayerMovesOverIT")
+	public void testPersistanceOfDoorWhenPlayerMovesOverIT(Direction[] direction) {
 		// Arrange
 		Gameboard board = new Gameboard();
-		Point door = board.getPoint(9, 2);
+		Point door = board.getPoint(board.getPlayer().getY(), board.getPlayer().getX()+1);
 
 		door.setTileType(DOOR);
-
+		//direction = (Direction[]) direction;
 		// Act
-		// Move onto the Door
-		board.moveCharacter(RIGHT);
-
-		// Move away from the door
-		board.moveCharacter(RIGHT);
+		// Move onto the Door and past it
+		for (int i = 0; i < direction.length; i++) {
+			board.moveCharacter(direction[i]);
+		}
 
 		boolean isPointStillDoor = false;
 		if (door.getTileType() == DOOR)
@@ -205,6 +204,16 @@ public class GameLogicTests {
 		// Assert
 		assertTrue(isPointStillDoor);
 
+	}	
+	
+	@SuppressWarnings({"unused"})
+	private Object[] parametersFortestPersistanceOfDoorWhenPlayerMovesOverIT() {
+		return new Object[] {
+		new Direction[] {RIGHT, RIGHT},
+		new Direction[] {UP,RIGHT,DOWN,DOWN},
+		new Direction[] {DOWN, RIGHT, UP, UP},
+		new Direction[] {DOWN, RIGHT, RIGHT, UP, LEFT, LEFT}
+		};
 	}
 
 	@Test
@@ -220,4 +229,6 @@ public class GameLogicTests {
 		// Assert
 		assertFalse(g.getPlayer().getAlive());
 	}
+	
+	
 }
