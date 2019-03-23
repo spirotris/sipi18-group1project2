@@ -1,28 +1,38 @@
 package game;
 
 /**
- * @author Marcus
+ * @author Marcus Laitala
  * @Date 2019-03-17
  * @version 0.3
  */
-public class Player {
+public class Player extends Point{
 
-	private String name;
+	public Player(int y, int x, TileType tileType) {
+		super(y, x, tileType);		
+	}
+	
 	private int treasures;
+    private boolean alive = true;
 	
 	public int getTreasure() {
 		return treasures;
 	}
 	
 	public void setTreasure(int treasures) {
-		this.treasures = treasures;
+		this.treasures += treasures;
 	}
 
-	public String getName() {
-		return name;
+	public boolean getAlive() {
+        return alive;
+    }
+	
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	public void movePlayer(Point p) {
+		this.setY(p.getY());
+		this.setX(p.getX());
+		this.setTileType(p.getTileType());
 	}	
 }

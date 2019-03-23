@@ -25,16 +25,24 @@ public class Point {
         return x;
     }
 
+    //Setters
+
     // Setters
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
 
     public void setY(int y) {
-        this.y = y;
+    	this.y = y;
     }
 
     public void setX(int x) {
-        this.x = x;
+    	this.x = x;
+    }
+
+    public boolean equals(Point p) {
+    	if(this.x == p.getX() && this.y == p.getY() && p.getTileType() == p.getTileType())
+    		return true;
+    	return false;
     }
 }
