@@ -54,4 +54,16 @@ public class PlayerTest {
 		assertTrue(actual.equals(player));
 
 	}
+	
+	@Test
+	public void testSetPlayerAlive() {
+		//Arrange
+		Boolean alive = false;
+		
+		//Act
+		player.setAlive(alive);
+		
+		//Assert
+		assertFalse(player.getAlive());
+	}
 }

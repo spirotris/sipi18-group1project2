@@ -147,7 +147,7 @@ public class GameLogicTests {
 		// Assert
 		assertEquals(MONSTER, actual);
 	}
-	
+
 	@Ignore
 	@Test
 	public void characterCollisionsWithMonster_BooleanIsAliveSetsToFalseAndPlayerDead() {
@@ -163,40 +163,31 @@ public class GameLogicTests {
 		// Assert
 		assertFalse(actual);
 	}
-	
-	@Ignore
+
 	@Test
-	@Parameters({ "1" })
-	public void testPlayerWalkOntoTreasureAndCollectIt(int nrOfFoundTreasures) {
+	public void testPlayerWalkOntoTreasureAndCollectIt() {
 		// Arrange
 		Gameboard board = new Gameboard();
-		Point po, treasure;
+		Point treasure = board.getPoint(9, 2);
+
+		// Create a treasure at 9,2
+		treasure.setTileType(TREASURE);
 
 		// Act
-		// Move the player onto point 0,0
-		po = board.getPoint(0, 0);
-		po.setTileType(CHARACTER);
-		board.getPlayer().movePlayer(po);
+		// Move onto the treasure which should automatically collect it
+		board.moveCharacter(RIGHT);
 
-		// Create a treasure at 0,1
-		treasure = board.getPoint(0, 1);
-		treasure.setTileType(TREASURE);
-		int actual = 0;
-		// Move player onto treasure
-		if (board.moveCharacter(Direction.DOWN)
-				&& board.getPoint(po.getX(), po.getY() + Direction.DOWN.getValue()).getTileType() == TileType.TREASURE) {
-			board.getPlayer().setTreasure(nrOfFoundTreasures);
-			actual = board.getPlayer().getTreasure();
-		}
+		// How many treasures do we expect the player to collect
+		int actual = 1;
 
 		// Assert
-		assertEquals(actual, nrOfFoundTreasures);
+		assertEquals(actual, board.getPlayer().getTreasure());
 	}
 
 	@Test
 	public void testPlayerWalkingOntoDoorWithTreasures() {
 		// Arrange
-		Gameboard board = new Gameboard();		
+		Gameboard board = new Gameboard();
 
 		// Act
 		// Move player onto door
@@ -207,32 +198,31 @@ public class GameLogicTests {
 		// Assert
 		assertTrue(board.isFinished());
 	}
-	
+
 	@Test
 	public void testPersistanceOfDoorWhenPlayerMovesOverIT() {
-		//Arrange
+		// Arrange
 		Gameboard board = new Gameboard();
 		Point door = board.getPoint(9, 2);
-		
+
 		door.setTileType(DOOR);
-			
-		//Act
-		//Move onto the Door
+
+		// Act
+		// Move onto the Door
 		board.moveCharacter(RIGHT);
-		
-		//Move away from the door
+
+		// Move away from the door
 		board.moveCharacter(RIGHT);
-		
+
 		boolean isPointStillDoor = false;
-		if(door.getTileType() == DOOR)
+		if (door.getTileType() == DOOR)
 			isPointStillDoor = true;
-		
-		//Assert
+
+		// Assert
 		assertTrue(isPointStillDoor);
-		
+
 	}
 
-	@Ignore
 	@Test
 	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
 		// Arrange

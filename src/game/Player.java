@@ -12,23 +12,27 @@ public class Player extends Point{
 	}
 	
 	private int treasures;
-    private boolean isAlive = true;
+    private boolean alive = true;
 	
 	public int getTreasure() {
 		return treasures;
 	}
 	
 	public void setTreasure(int treasures) {
-		this.treasures = treasures;
+		this.treasures += treasures;
 	}
 
 	public boolean getAlive() {
-        return isAlive;
+        return alive;
     }
+	
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
 	
 	public void movePlayer(Point p) {
 		this.setY(p.getY());
 		this.setX(p.getX());
 		this.setTileType(p.getTileType());
-	}
+	}	
 }
