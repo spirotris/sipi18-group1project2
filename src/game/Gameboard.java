@@ -102,8 +102,9 @@ public class Gameboard {
 			return true; // Can't move, wall in the way
 		} else if (p.getTileType() == MONSTER) {
 			// Returns true to show that character really stepped onto monster
-			// Game is although over
-			return false;
+			player.setAlive(false);			
+			// Game is over
+			return true;
 		} else if (p.getTileType() == TREASURE) {
 			player.setTreasure(1);
 			return false;

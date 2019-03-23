@@ -146,23 +146,7 @@ public class GameLogicTests {
 
 		// Assert
 		assertEquals(MONSTER, actual);
-	}
-
-	@Ignore
-	@Test
-	public void characterCollisionsWithMonster_BooleanIsAliveSetsToFalseAndPlayerDead() {
-		// Arrange
-		Gameboard board = new Gameboard();
-		board.getPoint(9, 3).setTileType(MONSTER);
-
-		// Act
-		board.moveCharacter(RIGHT);
-		board.moveCharacter(RIGHT);
-		boolean actual = board.getPlayer().getAlive();
-
-		// Assert
-		assertFalse(actual);
-	}
+	}	
 
 	@Test
 	public void testPlayerWalkOntoTreasureAndCollectIt() {
@@ -234,6 +218,6 @@ public class GameLogicTests {
 		g.moveCharacter(Direction.DOWN);
 
 		// Assert
-		assertFalse(g.getPlayer().getAlive()); // My first guess
+		assertFalse(g.getPlayer().getAlive());
 	}
 }
