@@ -23,7 +23,7 @@ public class drawGameboard extends JPanel {
         this.BOARD = board;
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
-            if (!BOARD.getIsAlive()) {
+            if (!BOARD.getPlayer().getAlive()) {
                 JOptionPane.showConfirmDialog(this, "LOL U DEDD!!!!!");
                 System.exit(0);
             }
