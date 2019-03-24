@@ -64,7 +64,6 @@ public class Levels {
             for (Monster m : monsters) {
                 while (true) {
                     int y = m.getY() + (rnd.nextInt(3) - 1);
-                    System.out.println("y: " + (rnd.nextInt(3) - 1));
                     int x = m.getX() + (rnd.nextInt(3) - 1);
                     if (boardGrid[y][x].getTileType() == FLOOR) {
                         boardGrid[m.getY()][m.getX()] = new Point(m.getY(), m.getX(), FLOOR);
