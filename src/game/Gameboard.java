@@ -101,7 +101,7 @@ public class Gameboard {
                 player.addTreasure();
                 return false;
             case DOOR:
-                if (player.getTreasure() > levels.getTreasureCount(level)) {
+                if (player.getTreasure() >= levels.getTreasureCount(level)) {
                     isFinished = true;
                 }
                 isPlayerOnDoor = true;

@@ -30,6 +30,8 @@ public class Levels {
             case 1:
                 monsters.add(new Monster(3, 10));
                 monsters.add(new Monster(10, 3));
+                boardGrid[18][4].setTileType(TREASURE);
+                boardGrid[4][17].setTileType(TREASURE);
                 setWalls(true, 0, 6, 6);
                 break;
             case 2:
@@ -136,7 +138,7 @@ public class Levels {
     public int getTreasureCount(int level) {
         switch (level) {
             case 1:
-                return 1;
+                return 2;
             case 2:
                 return 1;
             case 3:
