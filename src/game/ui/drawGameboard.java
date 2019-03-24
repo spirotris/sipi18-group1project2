@@ -74,11 +74,19 @@ public class drawGameboard extends JPanel {
     }
 
     private void drawHearts(Graphics2D g2) {
-        Image heart = Toolkit.getDefaultToolkit()
+        Image closedChest = Toolkit.getDefaultToolkit()
                 .getImage("src/res/graphics/chest_empty_open_anim_f0.png");
-        for (int i = 0; i < 10; i++) {
-            g2.drawImage(heart, i * 36, 1, TILESIZE, TILESIZE, this);
+        Image openChest = Toolkit.getDefaultToolkit()
+                .getImage("src/res/graphics/chest_empty_open_anim_f2.png");
+        int collectedTreasures = BOARD.getPlayer().getTreasure();
+        int treasuresInLevel = BOARD.getLevels().getTreasureCount(BOARD.getCurrentLevel());
+        for (int i = 0; i < collectedTreasures; i++) {
+            g2.drawImage(openChest, i * 36, 1, TILESIZE, TILESIZE, this);
         }
+        for (int i = collectedTreasures; i < treasuresInLevel; i++) {
+            g2.drawImage(closedChest, i * 36, 1, TILESIZE, TILESIZE, this);
+        }
+
     }
 
     private void drawTile(TileType type, Graphics2D g2, int x, int y) {

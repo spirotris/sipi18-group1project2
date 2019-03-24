@@ -16,6 +16,10 @@ public class Player extends Point {
     public void addTreasure() {
         treasures++;
     }
+    
+    public void resetTreasure() {
+        treasures = 0;
+    }
 
     public void setAlive(boolean status) {
         alive = status;

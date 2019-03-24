@@ -38,6 +38,7 @@ public class Levels {
                 monsters.add(new Monster(3, 10));
                 monsters.add(new Monster(9, 15));
                 monsters.add(new Monster(9, 4));
+                boardGrid[4][17].setTileType(TREASURE);
                 setWalls(true, 0, 6, 6);
                 setWalls(false, 17, 0, 7);
                 break;
@@ -48,6 +49,9 @@ public class Levels {
                 monsters.add(new Monster(15, 3));
                 monsters.add(new Monster(10, 18));
                 monsters.add(new Monster(12, 17));
+                boardGrid[4][17].setTileType(TREASURE);
+                boardGrid[5][17].setTileType(TREASURE);
+                boardGrid[6][17].setTileType(TREASURE);
                 setWalls(true, 4, 10, 10);
                 setWalls(false, 4, 5, 15);
                 setWalls(true, 2, 5, 10);
