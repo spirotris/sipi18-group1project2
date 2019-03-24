@@ -24,11 +24,13 @@ public class drawGameboard extends JPanel {
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
             if (!BOARD.getPlayer().isAlive()) {
-                JOptionPane.showConfirmDialog(this, "LOL U DEDD!!!!!");
+                drawGameOverScreen(getGraphics(), "Game over! You died!");
+                JOptionPane.showMessageDialog(this, "Game over!");
                 System.exit(0);
             }
             if (BOARD.isFinished()) {
-                JOptionPane.showConfirmDialog(this, "LOL U ZE WINNARR!!!!!!!");
+                drawGameOverScreen(getGraphics(), "Game over! You WON!");
+                JOptionPane.showMessageDialog(this, "Game over!");
                 System.exit(0);
             }
             repaint();
@@ -119,5 +121,13 @@ public class drawGameboard extends JPanel {
             default:
                 g2.drawImage(floor, y, x, this);
         }
+    }
+
+    private void drawGameOverScreen(Graphics g, String str) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.setColor(Color.WHITE);
+        g2.drawString(str, (getWidth() / 2)-str.length(), getHeight() / 4);
     }
 }
