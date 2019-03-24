@@ -4,51 +4,41 @@ import static game.TileType.*;
 
 public class Gameboard {
 
-	private final Point[][] boardGrid;
-	private int level = 1;
+    private final Point[][] boardGrid;
+    private int level = 1;
 
-	private Point doorPosition = new Point(9, 18, DOOR);
+    private Point doorPosition = new Point(9, 18, DOOR);
 
-	private Levels levels;
-	private Player player;
+    private Levels levels;
+    private Player player;
 
-	private boolean isPlayerOnDoor = false;
-	private boolean isFinished = false;
+    private boolean isPlayerOnDoor = false;
+    private boolean isFinished = false;
 
-	public Gameboard() {
-		levels = new Levels(level);
-		player = new Player(9, 1, CHARACTER);
-		boardGrid = levels.getBoard();
-		boardGrid[player.getY()][player.getX()].setTileType(CHARACTER);
-		boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
-		boardGrid[9][14].setTileType(TREASURE);
-	}
+    public Gameboard() {
+        levels = new Levels(level);
+        player = new Player(9, 1, CHARACTER);
+        boardGrid = levels.getBoard();
+        boardGrid[player.getY()][player.getX()].setTileType(CHARACTER);
+        boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
+    }
 
-	// Returning the Point of requested position
-	public Point getPoint(int y, int x) {
-		return boardGrid[y][x];
-	}
+    public Point getPoint(int y, int x) {
+        return boardGrid[y][x];
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	// TODO This needs a better name
-	// No special handling for any other usecase other than door, so far. If they
-	// arise, put them here
-	private void fixPreviousTile(int y, int x, TileType tiletype) {
-		switch (tiletype) {
-		case DOOR:
-			boardGrid[y][x].setTileType(tiletype);
-			isPlayerOnDoor = false;
-			break;
-		default:
-			boardGrid[y][x].setTileType(tiletype);
-			break;
-		}
-	}
+    private void fixPreviousTile(int y, int x, TileType tiletype) {
+        if (tiletype == DOOR) {
+            isPlayerOnDoor = false;
+        }
+        boardGrid[y][x].setTileType(tiletype);
+    }
 
-	// Moving character in desired direction
+    // Moving character in desired direction
 	public boolean moveCharacter(Direction direction) {
 		int y = player.getY();
 		int x = player.getX();
@@ -99,29 +89,30 @@ public class Gameboard {
 		return false;
 	}
 
-	// Checks if the movement results in a collision
-	public boolean onCollision(Point p) {
-		if (p.getTileType() == WALL) {
-			return true; // Can't move, wall in the way
-		} else if (p.getTileType() == MONSTER) {			
-			player.setAlive(false);	
-			return true;
-		} else if (p.getTileType() == TREASURE) {
-			player.addTreasure(1);
-			return false;
-		} else if (p.getTileType() == DOOR) {
-			if (player.getTreasure() > 0) {
-				isFinished = true;
-			}
-			isPlayerOnDoor = true;
-			return false;
-		} else {
-			// Otherwise movement is a okay
-			return false;
-		}
-	}
+    // Checks if the movement results in a collision
+    public boolean onCollision(Point p) {
+        switch (p.getTileType()) {
+            case WALL:
+                return true;
+            case MONSTER:
+                player.setAlive(false);
+                return true;
+            case TREASURE:
+                player.addTreasure();
+                return false;
+            case DOOR:
+                if (player.getTreasure() > levels.getTreasureCount(level)) {
+                    isFinished = true;
+                }
+                isPlayerOnDoor = true;
+                return false;
+            default:
+                // Otherwise movement is a okay
+                return false;
+        }
+    }
 
-	public boolean isFinished() {
-		return isFinished;
-	}
+    public boolean isFinished() {
+        return isFinished;
+    }
 }
