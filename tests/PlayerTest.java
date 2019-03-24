@@ -63,6 +63,6 @@ public class PlayerTest {
 		player.setAlive(alive);
 		
 		//Assert
-		assertFalse(player.getAlive());
+		assertFalse(player.isAlive());
 	}
 }

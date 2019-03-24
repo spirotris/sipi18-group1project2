@@ -17,15 +17,11 @@ public class Player extends Point {
         treasures++;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
     public void setAlive(boolean status) {
         alive = status;
     }
     
-    public boolean getAlive() {
+    public boolean isAlive() {
         return alive;
     }
 }

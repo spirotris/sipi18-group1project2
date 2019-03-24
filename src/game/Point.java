@@ -15,6 +15,10 @@ public class Point {
     public TileType getTileType() {
         return tileType;
     }
+    
+    public Point getPoint() {
+        return this;
+    }
 
     public int getY() {
         return y;
