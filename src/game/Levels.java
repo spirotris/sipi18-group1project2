@@ -28,24 +28,24 @@ public class Levels {
     private void levelDesigner(int level) {
         switch (level) {
             case 1:
-                monsters.add(new Monster(3, 10, MONSTER));
-                monsters.add(new Monster(10, 3, MONSTER));
+                monsters.add(new Monster(3, 10));
+                monsters.add(new Monster(10, 3));
                 setWalls(true, 0, 6, 6);
                 break;
             case 2:
-                monsters.add(new Monster(3, 10, MONSTER));
-                monsters.add(new Monster(9, 15, MONSTER));
-                monsters.add(new Monster(9, 4, MONSTER));
+                monsters.add(new Monster(3, 10));
+                monsters.add(new Monster(9, 15));
+                monsters.add(new Monster(9, 4));
                 setWalls(true, 0, 6, 6);
                 setWalls(false, 17, 0, 7);
                 break;
             case 3:
-                monsters.add(new Monster(3, 10, MONSTER));
-                monsters.add(new Monster(9, 15, MONSTER));
-                monsters.add(new Monster(9, 4, MONSTER));
-                monsters.add(new Monster(15, 3, MONSTER));
-                monsters.add(new Monster(10, 18, MONSTER));
-                monsters.add(new Monster(12, 17, MONSTER));
+                monsters.add(new Monster(3, 10));
+                monsters.add(new Monster(9, 15));
+                monsters.add(new Monster(9, 4));
+                monsters.add(new Monster(15, 3));
+                monsters.add(new Monster(10, 18));
+                monsters.add(new Monster(12, 17));
                 setWalls(true, 4, 10, 10);
                 setWalls(false, 4, 5, 15);
                 setWalls(true, 2, 5, 10);
@@ -63,13 +63,19 @@ public class Levels {
         if (moveMonsters) {
             for (Monster m : monsters) {
                 while (true) {
-                    int y = m.getY() + (rnd.nextInt(3) - 1);
-                    int x = m.getX() + (rnd.nextInt(3) - 1);
+                    int x = m.getX(), oldX = m.getX();
+                    int y = m.getY(), oldY = m.getY();
+
+                    if ((rnd.nextInt(2)) > 0) {
+                        y = m.getY() + (rnd.nextInt(3) - 1);
+                    } else {
+                        x = m.getX() + (rnd.nextInt(3) - 1);
+                    }
+
                     if (boardGrid[y][x].getTileType() == FLOOR) {
-                        boardGrid[m.getY()][m.getX()] = new Point(m.getY(), m.getX(), FLOOR);
-                        boardGrid[y][x] = new Monster(y, x, MONSTER);
-                        m.setY(y);
-                        m.setX(x);
+                        m.move(boardGrid[y][x]);
+                        boardGrid[y][x].setTileType(MONSTER);
+                        boardGrid[oldY][oldX].setTileType(FLOOR);
                         break;
                     }
                 }
