@@ -39,4 +39,10 @@ public class Point {
     public boolean equals(Point p) {
         return (this.x == p.getX() && this.y == p.getY() && p.getTileType() == p.getTileType());
     }
+
+    public void move(Point p) {
+        y = p.getY();
+        x = p.getX();
+        tileType = p.getTileType();
+    }
 }

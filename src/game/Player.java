@@ -4,7 +4,7 @@ public class Player extends Point {
 
     private int treasures;
     private boolean alive = true;
-    
+
     public Player(int y, int x, TileType tileType) {
         super(y, x, tileType);
     }
@@ -18,6 +18,14 @@ public class Player extends Point {
     }
 
     public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean status) {
+        alive = status;
+    }
+    
+    public boolean getAlive() {
         return alive;
     }
 }
