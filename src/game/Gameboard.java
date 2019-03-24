@@ -16,11 +16,19 @@ public class Gameboard {
     private boolean isFinished = false;
 
     public Gameboard() {
+        startNewGame();
+    }
+    
+    private void startNewGame() {
         levels = new Levels(level);
         player = new Player(9, 1, CHARACTER);
         boardGrid = levels.getBoard();
         boardGrid[player.getY()][player.getX()].setTileType(CHARACTER);
         boardGrid[doorPosition.getY()][doorPosition.getX()].setTileType(DOOR);
+    }
+    
+    public void resetGame() {
+        startNewGame();
     }
 
     public Point getPoint(int y, int x) {

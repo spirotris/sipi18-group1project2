@@ -24,18 +24,25 @@ public class drawGameboard extends JPanel {
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
             if (!BOARD.getPlayer().isAlive()) {
-                drawGameOverScreen(getGraphics(), "Game over! You died!");
-                JOptionPane.showMessageDialog(this, "Game over!");
-                System.exit(0);
+                restartGameDialog("Game over! You died!");
             }
             if (BOARD.isFinished()) {
-                drawGameOverScreen(getGraphics(), "Game over! You WON!");
-                JOptionPane.showMessageDialog(this, "Game over!");
-                System.exit(0);
+                restartGameDialog("Game over! You WON!");
             }
             repaint();
         });
         timer.start();
+    }
+
+    private void restartGameDialog(String str) {
+        drawGameOverScreen(getGraphics(), str);
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to restart?", "GAME OVER!",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            BOARD.resetGame();
+        } else {
+            System.exit(0);
+        }
     }
 
     private void setUpImages() {
@@ -128,6 +135,6 @@ public class drawGameboard extends JPanel {
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.setColor(Color.WHITE);
-        g2.drawString(str, (getWidth() / 2)-str.length(), getHeight() / 4);
+        g2.drawString(str, (getWidth() / 2) - str.length(), getHeight() / 4);
     }
 }
