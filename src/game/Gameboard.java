@@ -107,7 +107,7 @@ public class Gameboard {
 			player.setAlive(false);	
 			return true;
 		} else if (p.getTileType() == TREASURE) {
-			player.setTreasure(1);
+			player.addTreasure(1);
 			return false;
 		} else if (p.getTileType() == DOOR) {
 			if (player.getTreasure() > 0) {

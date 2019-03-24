@@ -33,7 +33,7 @@ public class PlayerTest {
 	@Parameters({ "10", "0", "-1" })
 	public void testSetAndGetTreasureCount(int treasureCount) {
 		// Arrange
-		player.setTreasure(treasureCount);
+		player.addTreasure(treasureCount);
 
 		// Act
 		int actual = player.getTreasure();
