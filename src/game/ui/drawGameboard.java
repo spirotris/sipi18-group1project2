@@ -1,12 +1,11 @@
 package game.ui;
 
 import game.Gameboard;
+import game.Levels;
+import game.Point;
 import game.TileType;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

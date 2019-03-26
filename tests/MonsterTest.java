@@ -9,7 +9,7 @@ public class MonsterTest {
     @Test
     public void getTheTileTypeFromMonster_ReturnsMONSTER() {
         // Arrange
-        Point monster = new Monster(2,10, MONSTER);
+        Point monster = new Monster(2,10);
 
         // Act
         TileType actual = monster.getTileType();

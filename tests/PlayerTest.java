@@ -26,7 +26,7 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {
-		player = new Player(9, 1, CHARACTER);
+		player = new Player(9, 1);
 	}
 
 	@Test
@@ -45,13 +45,13 @@ public class PlayerTest {
 	@Test
 	public void testSetPlayerPosition() {
 		// Arrange
-		player = new Player(1, 1, TileType.CHARACTER);
+		player = new Player(1, 1);
 		
 		//Act
-		Point actual = (Point)player;
+		//Point actual = player;
 		
 		//Assert
-		assertTrue(actual.equals(player));
+		assertTrue(false);
 
 	}
 	

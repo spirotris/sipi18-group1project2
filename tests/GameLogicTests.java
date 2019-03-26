@@ -95,10 +95,10 @@ public class GameLogicTests {
 		Gameboard board = new Gameboard();
 
 		// Act
-		boolean actual = board.moveCharacter(direction);
+		//boolean actual = board.moveCharacter(direction);
 
 		// Assert
-		assertEquals(expected, actual);
+		assertTrue(false);
 	}
 
 	@Test
@@ -108,10 +108,10 @@ public class GameLogicTests {
 
 		// Act
 		board.moveCharacter(RIGHT);
-		boolean actual = board.moveCharacter(RIGHT);
+		//boolean actual = board.moveCharacter(RIGHT);
 
 		// Assert
-		assertTrue(actual);
+		assertTrue(false);
 	}
 
 	@Test
@@ -128,10 +128,10 @@ public class GameLogicTests {
 		board.moveCharacter(UP);
 		board.moveCharacter(UP);
 		board.moveCharacter(UP);
-		boolean actual = board.moveCharacter(UP);
+		//boolean actual = board.moveCharacter(UP);
 
 		// Assert
-		assertFalse(actual);
+		assertFalse(true);
 	}
 
 	@Test
@@ -187,9 +187,9 @@ public class GameLogicTests {
 	public void testPersistanceOfDoorWhenPlayerMovesOverIT(Direction[] direction) {
 		// Arrange
 		Gameboard board = new Gameboard();
-		Point door = board.getPoint(board.getPlayer().getY(), board.getPlayer().getX()+1);
+		//Point door = board.getPoint(board.getPlayer().getY(), board.getPlayer().getX()+1);
 
-		door.setTileType(DOOR);
+		//door.setTileType(DOOR);
 		//direction = (Direction[]) direction;
 		// Act
 		// Move onto the Door and past it
@@ -198,12 +198,12 @@ public class GameLogicTests {
 		}
 
 		boolean isPointStillDoor = false;
-		if (door.getTileType() == DOOR)
+		//if (door.getTileType() == DOOR)
 			isPointStillDoor = true;
 
 		// Assert
-		assertTrue(isPointStillDoor);
-
+		//assertTrue(isPointStillDoor);
+		fail();
 	}	
 	
 	@SuppressWarnings({"unused"})

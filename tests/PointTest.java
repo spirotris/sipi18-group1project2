@@ -2,14 +2,15 @@ import game.Point;
 import game.TileType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class PointTest {
-
     @Test
     @Parameters({
             "1,1,FLOOR", // Floor
@@ -19,15 +20,15 @@ public class PointTest {
             "10,20,DOOR", // Door
             "5,10,MONSTER" // Laser
     })
-    public void createPointGetTypeByInt(int x, int y, TileType tileType) {
+    public void createPointGetTypeByInt(int x, int y) {
         // Assert
-        Point p = new Point(x, y, tileType);
+        //Point p = new Point(x, y);
 
         // Act
-        TileType actual = p.getTileType();
+        //TileType actual = p.getTileType();
 
         // Assert
-        assertEquals(tileType,actual);
-    }    
+        assertTrue(false);
+    }
 }
 

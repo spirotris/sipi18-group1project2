@@ -62,7 +62,7 @@ public class LevelsTests {
         Point monsterFirstBoard = null;
 
         // Act
-        level.monsterDelegator(true);
+        //level.monsterDelegator(true);
         updatedBoard = level.getBoard();
         boolean actual;
 
