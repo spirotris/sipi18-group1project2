@@ -28,6 +28,7 @@ public class Gameboard {
     }
     
     public void resetGame() {
+        isFinished = false;
         startNewGame();
     }
 
