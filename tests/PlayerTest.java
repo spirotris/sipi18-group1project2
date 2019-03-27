@@ -22,33 +22,19 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {
-		player = new Player(9, 1);
+		player = new Player();
 	}
 
-	@Test
-	@Parameters({ "10", "0", "-1" })
-	public void testSetAndGetTreasureCount(int treasureCount) {
+	@Test	
+	public void testSetAndGetTreasureCount() {
 		// Arrange
-		player.addTreasure(treasureCount);
+		player.addTreasure();
 
 		// Act
 		int actual = player.getTreasure();
 
 		// Assert
-		assertEquals(actual, treasureCount);
-	}
-
-	@Test
-	public void testSetPlayerPosition() {
-		// Arrange
-		player = new Player(1, 1);
-		
-		//Act
-		//Point actual = player;
-		
-		//Assert
-		assertTrue(false);
-
+		assertEquals(actual, 1);
 	}
 	
 	@Test
