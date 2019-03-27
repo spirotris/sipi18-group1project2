@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Levels {
     private Point[][] boardGrid = new Point[20][20];
-    private List<Monster> monsters = new ArrayList<>();
     private List<Point> levelPoints = new ArrayList<>();
 
     public Levels(int level) {
@@ -15,6 +14,7 @@ public class Levels {
         }
         levelDesigner(level); // Create level
         setLevelPoints();
+        boardGrid[9][18].setTileType(TileType.DOOR);
     }
 
     // Sets the level
@@ -23,27 +23,25 @@ public class Levels {
     private void levelDesigner(int level) {
         switch (level){
             case 1:
-                /*monsters.add(new Monster(3,10));
-                monsters.add(new Monster(10,3));*/
-                boardGrid[3][10].setHasMonsterOnTile(true);
-                boardGrid[10][3].setHasMonsterOnTile(true);
                 setWalls(true, 0, 6, 6);
                 setWalls(true, 3,15,10);
+                setMonsters(3,10);
+                setMonsters(10,3);
                 break;
             case 2:
-                monsters.add(new Monster(3, 10));
-                monsters.add(new Monster(9, 15));
-                monsters.add(new Monster(9, 4));
+                setMonsters(3,10);
+                setMonsters(9,15);
+                setMonsters(9,4);
                 setWalls(true, 0, 6, 6);
                 setWalls(false, 17, 0, 7);
                 break;
             case 3:
-                monsters.add(new Monster(3, 10));
-                monsters.add(new Monster(9, 15));
-                monsters.add(new Monster(9, 4));
-                monsters.add(new Monster(15,3));
-                monsters.add(new Monster(10, 18));
-                monsters.add(new Monster(12, 17));
+                boardGrid[3][10].setHasMonsterOnTile(true);
+                boardGrid[9][15].setHasMonsterOnTile(true);
+                boardGrid[9][4].setHasMonsterOnTile(true);
+                boardGrid[15][3].setHasMonsterOnTile(true);
+                boardGrid[10][18].setHasMonsterOnTile(true);
+                boardGrid[12][17].setHasMonsterOnTile(true);
                 setWalls(true, 4,10, 10);
                 setWalls(false, 4,5, 15);
                 setWalls(true,2,5,10);
@@ -59,14 +57,19 @@ public class Levels {
         if(isYAxis) {
             for (int y = startPositionY; y < wallLength; y++) {
                 levelPoints.add(new Wall(y,startPositionX));
-                //boardGrid[y][startPositionX].setTileType(WALL);
             }
         } else {
             for (int x = startPositionX; x < wallLength; x++) {
                 levelPoints.add(new Wall(startPositionY,x));
-                //boardGrid[startPositionY][x].setTileType(WALL);
             }
         }
+    }
+
+    private void setMonsters(int y, int x) {
+        if(boardGrid[y][x].getClass() == Floor.class){
+            ((Floor) boardGrid[y][x]).setHasMonsterOnTile(true);
+        }
+
     }
 
     // Generating the basic board
@@ -75,7 +78,6 @@ public class Levels {
             boardGrid[y][x] = new Wall(y, x);
         else
             boardGrid[y][x] = new Floor(y, x);
-        boardGrid[9][18] = new Door(9,18);
     }
 
     private void setLevelPoints() {
@@ -83,10 +85,6 @@ public class Levels {
                 levelPoints) {
             boardGrid[p.getY()][p.getX()] = p;
         }
-    }
-
-    public List<Monster> getMonsters() {
-        return monsters;
     }
 
     public Point[][] getBoard() {

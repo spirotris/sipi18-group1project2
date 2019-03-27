@@ -13,10 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import game.Player;
-import game.Point;
-import game.TileType;
-
-import static game.TileType.*;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +29,7 @@ public class PlayerTest {
 	@Parameters({ "10", "0", "-1" })
 	public void testSetAndGetTreasureCount(int treasureCount) {
 		// Arrange
-		player.setTreasure(treasureCount);
+		player.addTreasure(treasureCount);
 
 		// Act
 		int actual = player.getTreasure();

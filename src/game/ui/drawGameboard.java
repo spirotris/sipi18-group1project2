@@ -1,8 +1,6 @@
 package game.ui;
 
 import game.Gameboard;
-import game.Levels;
-import game.Point;
 import game.TileType;
 
 import java.awt.*;

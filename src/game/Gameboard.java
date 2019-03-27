@@ -8,7 +8,7 @@ import static game.TileType.*;
 public class Gameboard {
 
 	private Point[][] boardGrid;
-	private List<Monster> monsters;
+	//private List<Monster> monsters;
 	private int level = 1;
 
 	private Levels levels;
@@ -19,7 +19,7 @@ public class Gameboard {
 
 	public Gameboard() {
 		levels = new Levels(level);
-		monsters = levels.getMonsters();
+		//monsters = levels.getMonsters();
 		boardGrid = levels.getBoard();
 		boardGrid[9][1].setHasPlayerOnTile(true);
 		boardGrid[9][14].setTileType(TREASURE);
@@ -81,7 +81,7 @@ public class Gameboard {
 			player.setAlive(false);	
 			return true;
 		} else if (p.getTileType() == TREASURE) {
-			player.setTreasure(1);
+			player.addTreasure(1);
 			boardGrid[p.getY()][p.getX()] = new Floor(p.getY(),p.getX());
 			p.setHasPlayerOnTile(true);
 			return false;

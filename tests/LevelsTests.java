@@ -41,14 +41,9 @@ public class LevelsTests {
         // Arrange
         Levels level = new Levels(levelParam);
         Point[][] board = level.getBoard();
-        boolean actual;
 
         // Act
-        if(board[y][x].getClass() == Monster.class) {
-            actual = true;
-        } else {
-            actual = false;
-        }
+        boolean actual = (board[y][x].isHasMonsterOnTile());
 
         // Assert
         assertEquals(expected, actual);

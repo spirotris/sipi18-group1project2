@@ -7,7 +7,7 @@ package game;
  */
 public class Player{
 
-	public Player(int y, int x) {
+	public Player() {
 	}
 	
 	private int treasures;
@@ -17,7 +17,7 @@ public class Player{
 		return treasures;
 	}
 	
-	public void setTreasure(int treasures) {
+	public void addTreasure(int treasures) {
 		this.treasures += treasures;
 	}
 
