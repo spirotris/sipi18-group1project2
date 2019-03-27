@@ -79,7 +79,7 @@ public class Gameboard {
 			player.setAlive(false);	
 			return true;
 		} else if (((Floor) p).isTreasureOnTile()) {
-			player.addTreasure(1);
+			player.addTreasure();
 			((Floor) p).setTreasureOnTile(false);
 			((Floor) p).setPlayerOnTile(true);
 			return false;
