@@ -23,6 +23,7 @@ public class GuiTests {
             SwingUtilities.invokeAndWait(() -> {
                 MainWindow ui = new MainWindow();
                 Gameboard board = ui.getBoard();
+                // TODO: 2019-03-27 Change getPlayer to getCharacterPosition and in that method loop through the boardgrid to find the position of character and return it
                 //Point charPos = board.getPlayer();
                 ui.requestFocus();
                 KeyEvent rArrow = new KeyEvent(ui.getComponent(0), 0, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED); 

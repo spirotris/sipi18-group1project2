@@ -33,17 +33,16 @@ public class LevelsTests {
             "2, 9, 15, true",
             "2, 9, 1, false",
             "3, 15, 3, true",
-            "3, 9, 4, true",
-            "3, 3, 16, false"
+            "3, 9, 4, true"
     })
     @Test
-    public void addMonstersToLevels_ChecksIfTheyAreActive_ExpectTrue(int levelParam, int y, int x, boolean expected) {
+    public void addMonstersToLevels_ChecksIfTheyArePlacedOnBoard_ExpectBoolean(int levelParam, int y, int x, boolean expected) {
         // Arrange
         Levels level = new Levels(levelParam);
         Point[][] board = level.getBoard();
 
         // Act
-        boolean actual = (board[y][x].isHasMonsterOnTile());
+        boolean actual = ((Floor) board[y][x]).isMonsterOnTile();
 
         // Assert
         assertEquals(expected, actual);

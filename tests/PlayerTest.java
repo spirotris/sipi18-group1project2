@@ -22,7 +22,7 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {
-		player = new Player(9, 1);
+		player = new Player();
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class PlayerTest {
 	@Test
 	public void testSetPlayerPosition() {
 		// Arrange
-		player = new Player(1, 1);
+		player = new Player();
 		
 		//Act
 		//Point actual = player;

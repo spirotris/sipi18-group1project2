@@ -24,7 +24,6 @@ public class Levels {
         switch (level){
             case 1:
                 setWalls(true, 0, 6, 6);
-                setWalls(true, 3,15,10);
                 setMonsters(3,10);
                 setMonsters(10,3);
                 break;

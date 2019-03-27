@@ -8,7 +8,6 @@ import static game.TileType.*;
 public class Gameboard {
 
 	private Point[][] boardGrid;
-	//private List<Monster> monsters;
 	private int level = 1;
 
 	private Levels levels;
@@ -19,7 +18,6 @@ public class Gameboard {
 
 	public Gameboard() {
 		levels = new Levels(level);
-		//monsters = levels.getMonsters();
 		boardGrid = levels.getBoard();
 		((Floor) boardGrid[9][1]).setPlayerOnTile(true);
 		((Floor) boardGrid[9][14]).setTreasureOnTile(true);
@@ -46,7 +44,7 @@ public class Gameboard {
 				boardGrid) {
 			for (Point px :
 					py) {
-				if(((Floor) boardGrid[px.getY()][px.getX()]).isPlayerOnTile()) {
+				if(boardGrid[px.getY()][px.getX()].getClass() == Floor.class && ((Floor) boardGrid[px.getY()][px.getX()]).isPlayerOnTile()) {
 					newY = px.getY();
 					oldY = newY;
 					newX = px.getX();
@@ -109,7 +107,7 @@ public class Gameboard {
 				for (int x = 1; x < boardGrid.length -1; x++) {
 					int newX;
 					int newY;
-					if(((Floor) boardGrid[y][x]).isMonsterOnTile()) {
+					if(boardGrid[y][x].getClass() == Floor.class && ((Floor) boardGrid[y][x]).isMonsterOnTile()) {
 						newY = y + rnd.nextInt(2) - 1;
 						newX = x + rnd.nextInt(2) - 1;
 						// TODO: 2019-03-26 Something is wrong with the randomizer, for now it is only moving left and upwards
