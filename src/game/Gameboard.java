@@ -8,7 +8,7 @@ import static game.TileType.*;
 public class Gameboard {
 
 	private Point[][] boardGrid;
-	private List<Monster> monsters;
+	//private List<Monster> monsters;
 	private int level = 1;
 
 	private Levels levels;
@@ -19,7 +19,7 @@ public class Gameboard {
 
 	public Gameboard() {
 		levels = new Levels(level);
-		monsters = levels.getMonsters();
+		//monsters = levels.getMonsters();
 		boardGrid = levels.getBoard();
 		boardGrid[9][1].setHasPlayerOnTile(true);
 		boardGrid[9][14].setTileType(TREASURE);

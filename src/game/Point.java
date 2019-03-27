@@ -1,6 +1,6 @@
 package game;
 
-public abstract class Point {
+public class Point {
     private final TileType ORIGINAL_TYPE;
     private int y; // On what y-axis the point is on
     private int x; // On what x-axis the point is on
