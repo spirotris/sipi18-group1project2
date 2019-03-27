@@ -8,6 +8,7 @@ package game;
 public class Player{
 
 	public Player() {
+		treasures = 0;
 	}
 	
 	private int treasures;
@@ -17,8 +18,8 @@ public class Player{
 		return treasures;
 	}
 	
-	public void addTreasure(int treasures) {
-		this.treasures += treasures;
+	public void addTreasure() {
+		this.treasures++;
 	}
 
 	public boolean getAlive() {
