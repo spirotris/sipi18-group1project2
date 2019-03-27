@@ -3,59 +3,59 @@ package game;
 import static game.TileType.*;
 
 public class Floor extends Point {
-    private boolean hasPlayerOnTile = false;
-    private boolean hasMonsterOnTile = false;
-    private boolean hasTreasureOnTile = false;
-    private boolean hasDoorOnTile = false;
+    private boolean playerOnTile = false;
+    private boolean monsterOnTile = false;
+    private boolean treasureOnTile = false;
+    private boolean doorOnTile = false;
 
     public Floor(int y, int x) {
         super(y, x, TileType.FLOOR);
     }
 
 
-    public boolean isHasPlayerOnTile() {
-        return hasPlayerOnTile;
+    public boolean isPlayerOnTile() {
+        return playerOnTile;
     }
 
-    public boolean isHasMonsterOnTile() {
-        return hasMonsterOnTile;
+    public boolean isMonsterOnTile() {
+        return monsterOnTile;
     }
 
-    public boolean isHasTreasureOnTile() {
-        return hasTreasureOnTile;
+    public boolean isTreasureOnTile() {
+        return treasureOnTile;
     }
 
-    public boolean isHasDoorOnTile() {
-        return hasDoorOnTile;
+    public boolean isDoorOnTile() {
+        return doorOnTile;
     }
 
-    public void setHasPlayerOnTile(boolean hasPlayerOnTile) {
-        if(hasPlayerOnTile)
+    public void setPlayerOnTile(boolean playerOnTile) {
+        if(playerOnTile)
             this.tileType = CHARACTER;
         else
             tileType = ORIGINAL_TYPE;
-        this.hasPlayerOnTile = hasPlayerOnTile;
+        this.playerOnTile = playerOnTile;
     }
 
-    public void setHasMonsterOnTile(boolean hasMonsterOnTile) {
-        if(hasMonsterOnTile)
+    public void setMonsterOnTile(boolean monsterOnTile) {
+        if(monsterOnTile)
             tileType = MONSTER;
         else
             tileType = ORIGINAL_TYPE;
-        this.hasMonsterOnTile = hasMonsterOnTile;
+        this.monsterOnTile = monsterOnTile;
     }
 
-    public void setHasTreasureOnTile(boolean hasTreasureOnTile) {
-        if(hasTreasureOnTile) {
+    public void setTreasureOnTile(boolean treasureOnTile) {
+        if(treasureOnTile) {
             this.tileType = TREASURE;
         }
-        this.hasTreasureOnTile = hasTreasureOnTile;
+        this.treasureOnTile = treasureOnTile;
     }
 
-    public void setHasDoorOnTile(boolean hasDoorOnTile) {
-        if(hasDoorOnTile) {
+    public void setDoorOnTile(boolean doorOnTile) {
+        if(doorOnTile) {
             this.tileType = DOOR;
         }
-        this.hasDoorOnTile = hasDoorOnTile;
+        this.doorOnTile = doorOnTile;
     }
 }

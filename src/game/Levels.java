@@ -14,7 +14,7 @@ public class Levels {
         }
         levelDesigner(level); // Create level
         setLevelPoints();
-        boardGrid[9][18].setTileType(TileType.DOOR);
+        ((Floor) boardGrid[9][18]).setDoorOnTile(true);
     }
 
     // Sets the level
@@ -36,12 +36,12 @@ public class Levels {
                 setWalls(false, 17, 0, 7);
                 break;
             case 3:
-                boardGrid[3][10].setHasMonsterOnTile(true);
-                boardGrid[9][15].setHasMonsterOnTile(true);
-                boardGrid[9][4].setHasMonsterOnTile(true);
-                boardGrid[15][3].setHasMonsterOnTile(true);
-                boardGrid[10][18].setHasMonsterOnTile(true);
-                boardGrid[12][17].setHasMonsterOnTile(true);
+                setMonsters(3,10);
+                setMonsters(9,15);
+                setMonsters(9,4);
+                setMonsters(15,3);
+                setMonsters(10,18);
+                setMonsters(12,17);
                 setWalls(true, 4,10, 10);
                 setWalls(false, 4,5, 15);
                 setWalls(true,2,5,10);
@@ -67,7 +67,7 @@ public class Levels {
 
     private void setMonsters(int y, int x) {
         if(boardGrid[y][x].getClass() == Floor.class){
-            ((Floor) boardGrid[y][x]).setHasMonsterOnTile(true);
+            ((Floor) boardGrid[y][x]).setMonsterOnTile(true);
         }
 
     }

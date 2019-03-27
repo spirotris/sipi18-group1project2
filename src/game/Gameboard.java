@@ -12,7 +12,7 @@ public class Gameboard {
 	private int level = 1;
 
 	private Levels levels;
-	private Player player = new Player(9, 1);
+	private Player player = new Player();
 
 	private boolean isFinished = false;
 	private SecureRandom rnd = new SecureRandom();
@@ -21,8 +21,8 @@ public class Gameboard {
 		levels = new Levels(level);
 		//monsters = levels.getMonsters();
 		boardGrid = levels.getBoard();
-		boardGrid[9][1].setHasPlayerOnTile(true);
-		boardGrid[9][14].setTileType(TREASURE);
+		((Floor) boardGrid[9][1]).setPlayerOnTile(true);
+		((Floor) boardGrid[9][14]).setTreasureOnTile(true);
 		monsterDelegator(false);
 		monsterTimer();
 	}
@@ -46,7 +46,7 @@ public class Gameboard {
 				boardGrid) {
 			for (Point px :
 					py) {
-				if(boardGrid[px.getY()][px.getX()].isHasPlayerOnTile()) {
+				if(((Floor) boardGrid[px.getY()][px.getX()]).isPlayerOnTile()) {
 					newY = px.getY();
 					oldY = newY;
 					newX = px.getX();
@@ -67,25 +67,25 @@ public class Gameboard {
 			}
 			if(!onCollision(boardGrid[newY][newX])) {
 				prevPoint = boardGrid[oldY][oldX];
-				boardGrid[newY][newX].setHasPlayerOnTile(true);
-				prevPoint.setHasPlayerOnTile(false);
+				((Floor) boardGrid[newY][newX]).setPlayerOnTile(true);
+				((Floor) prevPoint).setPlayerOnTile(false);
 			}
 		}
 	}
 
 	// Checks if the movement results in a collision
 	public boolean onCollision(Point p) {
-		if (p.getTileType() == WALL) {
+		if (p.getClass() == Wall.class) {
 			return true; // Can't move, wall in the way
-		} else if (p.getTileType() == MONSTER) {
+		} else if (((Floor) p).isMonsterOnTile()) {
 			player.setAlive(false);	
 			return true;
-		} else if (p.getTileType() == TREASURE) {
+		} else if (((Floor) p).isTreasureOnTile()) {
 			player.addTreasure(1);
-			boardGrid[p.getY()][p.getX()] = new Floor(p.getY(),p.getX());
-			p.setHasPlayerOnTile(true);
+			((Floor) p).setTreasureOnTile(false);
+			((Floor) p).setPlayerOnTile(true);
 			return false;
-		} else if (p.getTileType() == DOOR) {
+		} else if (((Floor) p).isDoorOnTile()) {
 			if (player.getTreasure() > 0) {
 				isFinished = true;
 			}
@@ -109,13 +109,13 @@ public class Gameboard {
 				for (int x = 1; x < boardGrid.length -1; x++) {
 					int newX;
 					int newY;
-					if(boardGrid[y][x].isHasMonsterOnTile()) {
+					if(((Floor) boardGrid[y][x]).isMonsterOnTile()) {
 						newY = y + rnd.nextInt(2) - 1;
 						newX = x + rnd.nextInt(2) - 1;
 						// TODO: 2019-03-26 Something is wrong with the randomizer, for now it is only moving left and upwards
 						if (boardGrid[newY][newX].getTileType() == FLOOR) {
-							boardGrid[newY][newX].setHasMonsterOnTile(true);
-							boardGrid[y][x].setHasMonsterOnTile(false);
+							((Floor) boardGrid[newY][newX]).setMonsterOnTile(true);
+							((Floor) boardGrid[y][x]).setMonsterOnTile(false);
 						}
 					}
 				}
