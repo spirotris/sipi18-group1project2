@@ -21,7 +21,7 @@ public class PointTest {
     })
     public void createPointGetTypeByInt(int x, int y, TileType tileType) {
         // Assert
-        Point p = new Point(x, y, tileType);
+        Point p = new Point(tileType);
 
         // Act
         TileType actual = p.getTileType();
@@ -33,7 +33,7 @@ public class PointTest {
     @Test
     public void getTheTileTypeFromMonster_ReturnsMONSTER() {
         // Arrange
-        Point monster = new Point(2, 10, MONSTER);
+        Point monster = new Point(MONSTER);
 
         // Act
         TileType actual = monster.getTileType();

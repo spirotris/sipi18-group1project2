@@ -1,8 +1,7 @@
 package game.ui;
 
-import game.Direction;
-import game.Gameboard;
-import java.awt.Color;
+import game.*;
+
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,18 +9,20 @@ import javax.swing.SwingUtilities;
 
 public class MainWindow extends JFrame {
 
-    private Gameboard BOARD;
+    private GameEngine BOARD;
+    private Player player;
     
     public MainWindow() {
         initComponents();
     }
     
-    public Gameboard getBoard() {
+    public GameEngine getBoard() {
         return BOARD;
     }
     
     private void initComponents() {
-        BOARD = new Gameboard();
+        BOARD = new GameEngine();
+        player = new Player();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dungeon Game");
         setMinimumSize(new java.awt.Dimension(640, 715));
@@ -42,16 +43,16 @@ public class MainWindow extends JFrame {
       private void arrowKeyPressed(java.awt.event.KeyEvent evt) {                                
         switch (evt.getKeyCode()) {
             case KeyEvent.VK_RIGHT:
-                BOARD.moveCharacter(Direction.RIGHT);
+                Mover.move(Direction.RIGHT);
                 break;
             case KeyEvent.VK_LEFT:
-                BOARD.moveCharacter(Direction.LEFT);
+                Mover.move(Direction.LEFT);
                 break;
             case KeyEvent.VK_UP:
-                BOARD.moveCharacter(Direction.UP);
+                Mover.move(Direction.UP);
                 break;
             case KeyEvent.VK_DOWN:
-                BOARD.moveCharacter(Direction.DOWN);
+                Mover.move(Direction.DOWN);
                 break;
         }
     }     

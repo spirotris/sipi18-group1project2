@@ -6,7 +6,6 @@
  */
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,10 +27,10 @@ public class PlayerTest {
 	@Test
 	public void testSetAndGetTreasureCount() {
 		// Arrange
-		player.addTreasure();
+		Player.addTreasure();
 
 		// Act
-		int actual = player.getTreasure();
+		int actual = Player.getTreasure();
 
 		// Assert
 		assertEquals(actual, 1);
@@ -40,25 +39,23 @@ public class PlayerTest {
 	@Test
 	public void testSetPlayerPosition() {
 		// Arrange
-		player = new Player();
+		Player.y = 9;
+		Player.x = 2;
 		
 		//Act
-		//Point actual = player;
+		boolean actual = Player.getY() == 9 && Player.getX() == 2;
 		
 		//Assert
-		assertTrue(false);
+		assertTrue(actual);
 
 	}
 	
 	@Test
 	public void testSetPlayerAlive() {
-		//Arrange
-		Boolean alive = false;
-		
 		//Act
-		player.setAlive(alive);
+		Player.isAlive = false;
 		
 		//Assert
-		assertFalse(player.getAlive());
+		assertFalse(Player.isAlive);
 	}
 }

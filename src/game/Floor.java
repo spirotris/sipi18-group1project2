@@ -8,8 +8,8 @@ public class Floor extends Point {
     private boolean treasureOnTile = false;
     private boolean doorOnTile = false;
 
-    public Floor(int y, int x) {
-        super(y, x, TileType.FLOOR);
+    public Floor() {
+        super(TileType.FLOOR);
     }
 
 
@@ -30,18 +30,26 @@ public class Floor extends Point {
     }
 
     public void setPlayerOnTile(boolean playerOnTile) {
-        if(playerOnTile)
+        if(playerOnTile) {
             this.tileType = CHARACTER;
-        else
-            tileType = ORIGINAL_TYPE;
+        } else {
+            if(doorOnTile) {
+                tileType = DOOR;
+            } else {
+                tileType = ORIGINAL_TYPE;
+            }
+        }
         this.playerOnTile = playerOnTile;
     }
 
     public void setMonsterOnTile(boolean monsterOnTile) {
-        if(monsterOnTile)
+        if(monsterOnTile) {
             tileType = MONSTER;
-        else
-            tileType = ORIGINAL_TYPE;
+        } else {
+            if(!treasureOnTile && !doorOnTile) {
+                tileType = ORIGINAL_TYPE;
+            }
+        }
         this.monsterOnTile = monsterOnTile;
     }
 

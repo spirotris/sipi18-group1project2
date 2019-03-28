@@ -10,21 +10,21 @@ import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
 public class LevelsTests {
     @Parameters ({
-            "1, 3, 6, WALL",
-            "2, 17, 5, WALL",
-            "3, 10, 4, WALL"
+            "1, 3, 6",
+            "2, 17, 5",
+            "3, 10, 4"
     })
     @Test
-    public void setLevelOne_Get2dArrayInReturn(int levelParam, int pointY, int pointX, TileType tileType) {
+    public void setLevelOne_getTheBoardInReturn_makeShureTheInnerWallsWereSet(int levelParam, int pointY, int pointX) {
         // Arrange
-        Levels level = new Levels(levelParam);
-        Point[][] board = level.getBoard();
+        GameBoard gb = new GameBoard(levelParam);
+        Point[][] board = GameBoard.getBoard();
 
         // Act
-        TileType actual = board[pointY][pointX].getTileType();
+        Point actual = board[pointY][pointX];
 
         // Assert
-        assertEquals(tileType, actual);
+        assertEquals(Wall.class, actual.getClass());
     }
 
     @Parameters ({
@@ -38,8 +38,8 @@ public class LevelsTests {
     @Test
     public void addMonstersToLevels_ChecksIfTheyArePlacedOnBoard_ExpectBoolean(int levelParam, int y, int x, boolean expected) {
         // Arrange
-        Levels level = new Levels(levelParam);
-        Point[][] board = level.getBoard();
+        GameBoard gb = new GameBoard(levelParam);
+        Point[][] board = GameBoard.getBoard();
 
         // Act
         boolean actual = ((Floor) board[y][x]).isMonsterOnTile();
@@ -50,42 +50,41 @@ public class LevelsTests {
     @Test
     public void updateMonstersPosition_GetNewBoard_ChecksPositionWithOldBoard_BooleanFalseExpected() {
         // Arrange
-        Levels level = new Levels(1);
-        Point[][] firstBoard = level.getBoard();
+        GameBoard gb = new GameBoard(1);
+        GameEngine ge = new GameEngine();
+        Point[][] firstBoard = GameBoard.getBoard();
         Point[][] updatedBoard;
-        Point monsterFirstBoard = null;
+        int firstMonsterPosY = 0;
+        int firstMonsterPosX = 0;
 
         // Act
-        //level.monsterDelegator(true);
-        updatedBoard = level.getBoard();
-        boolean actual;
+        Mover.move();
+        updatedBoard = GameBoard.getBoard();
 
         for (int y = 0; y < firstBoard.length; y++) {
             for (int x = 0; x < firstBoard.length; x++) {
-                if (firstBoard[y][x].getTileType() == TileType.MONSTER && monsterFirstBoard == null) {
-                    monsterFirstBoard = firstBoard[y][x];
+                if (firstBoard[y][x].getClass() == Floor.class && ((Floor)firstBoard[y][x]).isMonsterOnTile()) {
+                    firstMonsterPosY = y;
+                    firstMonsterPosX = x;
+                    ((Floor)updatedBoard[y][x]).setMonsterOnTile(false);
+                    ((Floor)updatedBoard[y-1][x]).setMonsterOnTile(true);
                 }
             }
         }
-        if(monsterFirstBoard == null) {
-             actual = true;
-        }  else if(updatedBoard[monsterFirstBoard.getY()][monsterFirstBoard.getX()].getTileType() == monsterFirstBoard.getTileType()) {
-            actual = false;
-        } else {
-            actual = true;
-        }
 
         // Assert
-        assertFalse(actual);
+        assertFalse((updatedBoard[firstMonsterPosY][firstMonsterPosX].getClass() == Floor.class && ((Floor)updatedBoard[firstMonsterPosY][firstMonsterPosX]).isMonsterOnTile()));
     }
 
     @Test
     public void timerTest_checksWhetherAMonsterMovesAfterDesiredTime_BooleanFalseExpected() {
         // Arrange
-        Levels level = new Levels(1);
-        Point[][] firstBoard = level.getBoard();
+        GameBoard gb = new GameBoard(1);
+        Point[][] firstBoard = GameBoard.getBoard();
         Point[][] updatedBoard;
-        Point monsterFirstBoard = null;
+
+        int firstMonsterPosY = 0;
+        int firstMonsterPosX = 0;
 
         // Act
         try {
@@ -93,25 +92,19 @@ public class LevelsTests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        updatedBoard = level.getBoard();
-        boolean actual;
-
+        updatedBoard = GameBoard.getBoard();
         for (int y = 0; y < firstBoard.length; y++) {
             for (int x = 0; x < firstBoard.length; x++) {
-                if (firstBoard[y][x].getTileType() == TileType.MONSTER && monsterFirstBoard == null) {
-                    monsterFirstBoard = firstBoard[y][x];
+                if (firstBoard[y][x].getClass() == Floor.class && ((Floor)firstBoard[y][x]).isMonsterOnTile()) {
+                    firstMonsterPosY = y;
+                    firstMonsterPosX = x;
+                    ((Floor)updatedBoard[y][x]).setMonsterOnTile(false);
+                    ((Floor)updatedBoard[y-1][x]).setMonsterOnTile(true);
                 }
             }
         }
-        if(monsterFirstBoard == null) {
-            actual = true;
-        }  else if(updatedBoard[monsterFirstBoard.getY()][monsterFirstBoard.getX()].getTileType() == monsterFirstBoard.getTileType()) {
-            actual = false;
-        } else {
-            actual = true;
-        }
 
         // Assert
-        assertFalse(actual);
+        assertFalse((updatedBoard[firstMonsterPosY][firstMonsterPosX].getClass() == Floor.class && ((Floor)updatedBoard[firstMonsterPosY][firstMonsterPosX]).isMonsterOnTile()));
     }
 }

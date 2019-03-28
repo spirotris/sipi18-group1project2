@@ -12,22 +12,25 @@ import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
 public class FloorTests {
 
-	Floor floor;
+	Point[][] board;
+
+	Point floor;
 
 	@Before
 	public void setup() {
-		floor = new Floor(0, 0);
+		board = new Point[20][20];
+		board[10][10] = new Floor();
+		floor = board[10][10];
 	}
 
 	@Test
 	public void testSetFloorOnPointAndCheckIfItIsThere() {
 		//Arrange - The arrange part is being done in @Before
-				
+
 		// Act
-		Point actual = (Point) floor;
 				
 		// Assert
-		assertTrue(actual.equals(floor));
+		assertSame(floor.getClass(), Floor.class);
 	}	
 
 	@Test
@@ -36,16 +39,16 @@ public class FloorTests {
 		// Arrange
 		switch (arg) {
 		case "Player":
-			floor.setPlayerOnTile(true);
+			((Floor)floor).setPlayerOnTile(true);
 			break;
 		case "Monster":
-			floor.setMonsterOnTile(true);
+			((Floor)floor).setMonsterOnTile(true);
 			break;
 		case "Treasure":
-			floor.setTreasureOnTile(true);
+			((Floor)floor).setTreasureOnTile(true);
 			break;
 		case "Door":
-			floor.setDoorOnTile(true);
+			((Floor)floor).setDoorOnTile(true);
 			break;
 		}
 		// Act
@@ -53,16 +56,16 @@ public class FloorTests {
 		
 		switch (arg) {
 		case "Player":
-			actual = floor.isPlayerOnTile();
+			actual = ((Floor)floor).isPlayerOnTile();
 			break;
 		case "Monster":
-			actual = floor.isMonsterOnTile();
+			actual = ((Floor)floor).isMonsterOnTile();
 			break;
 		case "Treasure":
-			actual = floor.isTreasureOnTile();
+			actual = ((Floor)floor).isTreasureOnTile();
 			break;
 		case "Door":
-			actual = floor.isDoorOnTile();
+			actual = ((Floor)floor).isDoorOnTile();
 			break;
 		}
 		// Assert

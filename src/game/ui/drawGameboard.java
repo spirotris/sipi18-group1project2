@@ -1,6 +1,7 @@
 package game.ui;
 
-import game.Gameboard;
+import game.GameEngine;
+import game.Player;
 import game.TileType;
 
 import java.awt.*;
@@ -11,20 +12,20 @@ import javax.swing.Timer;
 
 public class drawGameboard extends JPanel {
 
-    private final Gameboard BOARD;
+    private final GameEngine BOARD;
     private final int TILESIZE = 32;
     private final int DELAY = 50;
     private Image floorArray[], wall, character, ladder, treasure, monster, floor;
 
-    public drawGameboard(Gameboard board) {
+    public drawGameboard(GameEngine board) {
         this.BOARD = board;
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
-            if (!BOARD.getPlayer().getAlive()) {
+            if (!Player.isAlive) {
                 JOptionPane.showConfirmDialog(this, "LOL U DEDD!!!!!");
                 System.exit(0);
             }
-            if (BOARD.isFinished()) {
+            if (Player.isFinished) {
                 JOptionPane.showConfirmDialog(this, "LOL U ZE WINNARR!!!!!!!");
                 System.exit(0);
             }

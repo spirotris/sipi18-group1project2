@@ -5,19 +5,25 @@ import static org.junit.Assert.*;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
 public class GameLogicTests {
+	GameEngine ge;
+
+	@Before
+	public void setup() {
+		 ge = new GameEngine();
+	}
 
 	@Test
 	public void testCreateGameBoard_LevelOneRequired_ClassReturned() {
 		// Arrange
-		Gameboard board = new Gameboard();
 
 		// Act
-		Point actual = board.getPoint(1, 1);
+		Point actual = ge.getPoint(1, 1);
 
 		// Assert
 		assertEquals(Floor.class, actual.getClass());
@@ -26,11 +32,10 @@ public class GameLogicTests {
 	@Test
 	public void SetTheBoardsOuterEdgesToWalls_LevelOneRequired_ClassReturned() {
 		// Arrange
-		Gameboard board = new Gameboard();
 
 		// Act
-		Point wallPoint = board.getPoint(0, 0);
-		Point floorPoint = board.getPoint(5, 14);
+		Point wallPoint = ge.getPoint(0, 0);
+		Point floorPoint = ge.getPoint(5, 14);
 
 		// Assert
 		assertEquals(Wall.class, wallPoint.getClass());
@@ -40,41 +45,44 @@ public class GameLogicTests {
 	@Test
 	public void addDoorToGameBoard_PositionedRight_GettingBooleanTrueFromhasDoorOnTile() {
 		// Arrange
-		Gameboard board = new Gameboard();
 
 		// Act
-		Point doorPoint = board.getPoint(9, 18);
+		Point doorPoint = ge.getPoint(9, 18);
 
 		// Assert
 		assertTrue(((Floor)doorPoint).isDoorOnTile());
 	}
 
 	@Test
-	@Parameters({ "9,2,RIGHT,CHARACTER", "8,1,UP,CHARACTER", "9,0,LEFT,WALL", "10,1,DOWN,CHARACTER" })
-	public void moveCharacterOnePositionAccordingToDirection_GetIntWithResultMovement(int y, int x, Direction direction,
-			TileType expected) {
+	@Parameters({ "9,2,RIGHT", "8,1,UP", "9,0,LEFT", "10,1,DOWN" })
+	public void moveCharacterOnePositionAccordingToDirection_checksWhatsOnTheActualPoint(int y, int x, Direction direction) {
 		// Arrange
-		Gameboard board = new Gameboard();
-		board.moveCharacter(direction);
+		Point[][] board = GameBoard.getBoard();
+		Mover.move(direction);
 
 		// Act
-		Point actual = board.getPoint(y, x);
+		Point actual = board[y][x];
 
 		// Assert
-		assertEquals(expected, actual.getTileType());
+		if(actual.getClass() == Floor.class) {
+			assertTrue(((Floor)actual).isPlayerOnTile());
+		} else {
+			assertSame(actual.getClass(), Wall.class);
+		}
 	}
 
-	@Parameters({ "0, 1, true", // Wall
-			"1, 10, false", // Character
+	@Parameters({
+			"0, 1, true", // Wall
+			"9, 1, false", // Character
 			"5, 5, false" // Floor
 	})
 	@Test
-	public void gettingAPointToCheckWhatsThere_GetBooleanFalseIfThereIsAWall(int y, int x, boolean expected) {
+	public void gettingAPointToCheckWhatsThere_GetBooleanTrueIfThereIsAWall(int y, int x, boolean expected) {
 		// Arrange
-		Gameboard board = new Gameboard();
+		Point[][] board = GameBoard.getBoard();
 
 		// Act
-		boolean actual = board.onCollision(board.getPoint(x, y));
+		boolean actual = board[y][x].getClass() == Wall.class;
 
 		// Assert
 		assertEquals(expected, actual);
@@ -85,11 +93,10 @@ public class GameLogicTests {
 	public void moveCharacterIntoWall_CheckingIfCharacterIsOnSamePoint_GettingTrueIfThereWasACollideAndMovementWasNotPossible(Direction direction,
 			boolean expected) {
 		// Arrange
-		Gameboard board = new Gameboard();
-		Point character = board.getPoint(9,1);
+		Point character = ge.getPoint(9,1);
 
 		// Act
-		board.moveCharacter(direction);
+		Mover.move(direction);
 
 		// Assert
 		assertEquals(expected,((Floor)character).isPlayerOnTile());
@@ -98,12 +105,11 @@ public class GameLogicTests {
 	@Test
 	public void moveCharacterTwoSteps_ShouldReturnTrueSinceTheresIsntAWall() {
 		// Arrange
-		Gameboard board = new Gameboard();
 
 		// Act
-		board.moveCharacter(RIGHT);
-		board.moveCharacter(RIGHT);
-		Point character = board.getPoint(9,3);
+		Mover.move(RIGHT);
+		Mover.move(RIGHT);
+		Point character = ge.getPoint(9,3);
 
 		// Assert
 		assertTrue(((Floor) character).isPlayerOnTile());
@@ -112,30 +118,29 @@ public class GameLogicTests {
 	@Test
 	public void moveCharacterMultipleSteps_levelOneRequired_thePointReturnedShouldReturnTrueFromisPlayerOnTileSinceLastMoveStopsMovementOnWall() {
 		// Arrange
-		Gameboard board = new Gameboard();
 		int yPos = 0;
 		int xPos = 0;
 
 		// Act
-		board.moveCharacter(RIGHT);
+		Mover.move(RIGHT);
 		xPos++;
-		board.moveCharacter(RIGHT);
+		Mover.move(RIGHT);
 		xPos++;
-		board.moveCharacter(RIGHT);
+		Mover.move(RIGHT);
 		xPos++;
-		board.moveCharacter(RIGHT);
+		Mover.move(RIGHT);
 		xPos++;
-		board.moveCharacter(RIGHT);
+		Mover.move(RIGHT);
 		xPos++;
-		board.moveCharacter(UP);
+		Mover.move(UP);
 		yPos++;
-		board.moveCharacter(UP);
+		Mover.move(UP);
 		yPos++;
-		board.moveCharacter(UP);
+		Mover.move(UP);
 		yPos++;
-		board.moveCharacter(UP);
+		Mover.move(UP);
 		yPos++;
-		Point character = board.getPoint(yPos,xPos);
+		Point character = ge.getPoint(yPos,xPos);
 
 		// Assert
 		assertFalse(((Floor)character).isPlayerOnTile());
@@ -144,8 +149,7 @@ public class GameLogicTests {
 	@Test
 	public void addingAMonsterToBoard_booleanisMonsterOnTileShoulReturnTrue() {
 		// Arrange
-		Gameboard board = new Gameboard();
-		Point monster = board.getPoint(10, 10);
+		Point monster = ge.getPoint(10, 10);
 
 		// Act
 		((Floor) monster).setMonsterOnTile(true);
@@ -158,50 +162,44 @@ public class GameLogicTests {
 	@Test
 	public void testPlayerWalkOntoTreasureAndCollectIt() {
 		// Arrange
-		Gameboard board = new Gameboard();
-		Point treasure = board.getPoint(9, 2);
+		Point treasure = ge.getPoint(9, 2);
+		int expected = 1;
 
 		// Create a treasure at 9,2
 		((Floor) treasure).setTreasureOnTile(true);
 
 		// Act
-		// Move onto the treasure which should automatically collect it
-		board.moveCharacter(RIGHT);
-
-		// How many treasures do we expect the player to collect
-		int actual = 1;
+		Mover.move(RIGHT);
 
 		// Assert
-		assertEquals(actual, board.getPlayer().getTreasure());
+		assertEquals(expected, Player.getTreasure());
 	}
 
 	@Test
 	public void testPlayerWalkingOntoDoorWithTreasures_LevelOneRequired_PlayerisFinishedShouldReturnTrue() {
 		// Arrange
-		Gameboard board = new Gameboard();
-		Point treasure = board.getPoint(9,15);
+		Point treasure = ge.getPoint(9,15);
 
 		// Act
 		((Floor) treasure).setTreasureOnTile(true);
 		for (int i = 1; i < 18; i++) {
-			board.moveCharacter(Direction.RIGHT);
+			Mover.move(Direction.RIGHT);
 		}
 
 		// Assert
-		assertTrue(board.isFinished());
+		assertTrue(Player.isFinished);
 	}
 
 	@Test
 	@Parameters(method = "parametersFortestPersistanceOfDoorWhenPlayerMovesOverIT")
 	public void testPersistanceOfDoorWhenPlayerMovesOverIT(Direction[] direction) {
 		// Arrange
-		Gameboard board = new Gameboard();
-		Point door = board.getPoint(9, 2);
+		Point door = ge.getPoint(9, 2);
 		((Floor) door).setDoorOnTile(true);
 
 		// Act
 		for (int i = 0; i < direction.length; i++) {
-			board.moveCharacter(direction[i]);
+			Mover.move(direction[i]);
 		}
 
 		boolean isPointStillDoor = ((Floor) door).isDoorOnTile();
@@ -222,18 +220,15 @@ public class GameLogicTests {
 	@Test
 	public void testPlayerWalkingOntoMonsterResultsInGameOver() {
 		// Arrange
-		Gameboard g = new Gameboard();
-		Point monster = g.getPoint(10,3);
+		Point monster = ge.getPoint(10,3);
 		((Floor) monster).setMonsterOnTile(true);
 
 		// Act
-		g.moveCharacter(Direction.RIGHT);
-		g.moveCharacter(Direction.RIGHT);
-		g.moveCharacter(Direction.DOWN);
+		Mover.move(Direction.RIGHT);
+		Mover.move(Direction.RIGHT);
+		Mover.move(Direction.DOWN);
 
 		// Assert
-		assertFalse(g.getPlayer().getAlive());
+		assertFalse(Player.isAlive);
 	}
-	
-	
 }
