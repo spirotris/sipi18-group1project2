@@ -17,7 +17,7 @@ public class drawGameboard extends JPanel {
     private final Gameboard BOARD;
     private final int TILESIZE = 32;
     private final int DELAY = 50;
-    private Image floorArray[], wall, character, ladder, treasure, monster, floor;
+    private Image wall, character, ladder, treasure, monster, floor;
 
     public drawGameboard(Gameboard board) {
         this.BOARD = board;
@@ -46,11 +46,6 @@ public class drawGameboard extends JPanel {
     }
 
     private void setUpImages() {
-        floorArray = new Image[8];
-        for (int i = 0; i < floorArray.length; i++) {
-            floorArray[i] = Toolkit.getDefaultToolkit()
-                    .getImage("src/res/graphics/floor_" + (i + 1) + ".png");
-        }
         floor = Toolkit.getDefaultToolkit()
                 .getImage("src/res/graphics/floor_1.png");
         wall = Toolkit.getDefaultToolkit()
