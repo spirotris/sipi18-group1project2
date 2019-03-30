@@ -3,13 +3,8 @@ import game.Direction;
 import game.Gameboard;
 import game.Point;
 import game.ui.MainWindow;
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -23,18 +18,20 @@ public class GuiTests {
     }
 
     @Test
-    public void testSwingRightKeyMovesCharacterRight() throws AWTException {
+    public void testSwingRightKeyMovesCharacterRight() {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
                 MainWindow ui = new MainWindow();
                 Gameboard board = ui.getBoard();
-                Robot robot = new Robot();
-                ui.setVisible(true);
-                robot.delay(300);
-                int xPosBefore = board.getPlayer().getX();
-                robot.delay(50);
-                robot.keyPress(KeyEvent.VK_RIGHT);
-                robot.delay(50);
-                robot.keyPress(KeyEvent.VK_RIGHT);
-                robot.delay(500);
-                assertNotSame(xPosBefore, board.getPlayer().getX());
+                Point charPos = board.getPlayer().get;
+                ui.requestFocus();
+                KeyEvent rArrow = new KeyEvent(ui.getComponent(0), 0, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED); 
+                ui.getComponent(0).getComponentAt(0, 0).dispatchEvent(rArrow);
+                Point newCharPos = board.getCharacterPosition();
+                assertNotSame(charPos, newCharPos);
+            });
+        } catch (InvocationTargetException | InterruptedException ex) {
+            fail(ex.getCause().getMessage());
+        }
     }
 }

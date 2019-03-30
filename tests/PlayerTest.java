@@ -30,15 +30,16 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testPlayerPickupTreasureIncreasesTreasure() {
+	@Parameters({ "10", "0", "-1" })
+	public void testSetAndGetTreasureCount(int treasureCount) {
 		// Arrange
-		player.addTreasure();
+		player.setTreasure(treasureCount);
 
 		// Act
 		int actual = player.getTreasure();
 
 		// Assert
-		assertEquals(actual, 1);
+		assertEquals(actual, treasureCount);
 	}
 
 	@Test
@@ -63,6 +64,6 @@ public class PlayerTest {
 		player.setAlive(alive);
 		
 		//Assert
-		assertFalse(player.isAlive());
+		assertFalse(player.getAlive());
 	}
 }

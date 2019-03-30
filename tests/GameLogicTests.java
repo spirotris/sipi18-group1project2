@@ -227,7 +227,7 @@ public class GameLogicTests {
 		g.moveCharacter(Direction.DOWN);
 
 		// Assert
-		assertFalse(g.getPlayer().isAlive());
+		assertFalse(g.getPlayer().getAlive());
 	}
 	
 	
