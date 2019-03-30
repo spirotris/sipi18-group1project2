@@ -2,9 +2,9 @@ package game;
 
 public class Point {
 
-    private int y; // On what y-axis the point is on
-    private int x; // On what x-axis the point is on
-    private TileType tileType; // What kind of point it is
+    private int y;
+    private int x;
+    private TileType tileType;
 
     public Point(int y, int x, TileType tileType) {
         this.y = y;
@@ -12,9 +12,12 @@ public class Point {
         this.tileType = tileType;
     }
 
-    // Getters
     public TileType getTileType() {
         return tileType;
+    }
+    
+    public Point getPoint() {
+        return this;
     }
 
     public int getY() {
@@ -25,24 +28,25 @@ public class Point {
         return x;
     }
 
-    //Setters
-
-    // Setters
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
 
     public void setY(int y) {
-    	this.y = y;
+        this.y = y;
     }
 
     public void setX(int x) {
-    	this.x = x;
+        this.x = x;
     }
 
     public boolean equals(Point p) {
-    	if(this.x == p.getX() && this.y == p.getY() && p.getTileType() == p.getTileType())
-    		return true;
-    	return false;
+        return (this.x == p.getX() && this.y == p.getY() && p.getTileType() == p.getTileType());
+    }
+
+    public void move(Point p) {
+        y = p.getY();
+        x = p.getX();
+        tileType = p.getTileType();
     }
 }
