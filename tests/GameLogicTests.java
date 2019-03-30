@@ -157,7 +157,7 @@ public class GameLogicTests {
 
 		// Assert
 		assertTrue(((Floor) monster).isMonsterOnTile());
-	}	
+	}
 
 	@Test
 	public void testPlayerWalkOntoTreasureAndCollectIt() {
@@ -206,7 +206,7 @@ public class GameLogicTests {
 		// Assert
 		assertTrue(isPointStillDoor);
 	}
-	
+
 	@SuppressWarnings({"unused"})
 	private Object[] parametersFortestPersistanceOfDoorWhenPlayerMovesOverIT() {
 		return new Object[] {
@@ -229,6 +229,6 @@ public class GameLogicTests {
 		Mover.move(Direction.DOWN);
 
 		// Assert
-		assertFalse(Player.isAlive);
+		assertFalse(g.getPlayer().isAlive());
 	}
 }

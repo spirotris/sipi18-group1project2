@@ -1,7 +1,7 @@
 
 /**
  * @author Marcus Laitala
- * @Date 2019-03-17 
+ * @Date 2019-03-17
  * @version 0.8
  */
 
@@ -25,9 +25,9 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testSetAndGetTreasureCount() {
+	public void testPlayerPickupTreasureIncreasesTreasure() {
 		// Arrange
-		Player.addTreasure();
+		player.addTreasure();
 
 		// Act
 		int actual = Player.getTreasure();
@@ -41,21 +41,21 @@ public class PlayerTest {
 		// Arrange
 		Player.y = 9;
 		Player.x = 2;
-		
+
 		//Act
 		boolean actual = Player.getY() == 9 && Player.getX() == 2;
-		
+
 		//Assert
 		assertTrue(actual);
 
 	}
-	
+
 	@Test
 	public void testSetPlayerAlive() {
 		//Act
 		Player.isAlive = false;
-		
+
 		//Assert
-		assertFalse(Player.isAlive);
+		assertFalse(player.isAlive());
 	}
 }
