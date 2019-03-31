@@ -1,12 +1,10 @@
 package game.ui;
 
-import game.Gameboard;
+import game.GameEngine;
+import game.Player;
 import game.TileType;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,16 +12,16 @@ import javax.swing.Timer;
 
 public class drawGameboard extends JPanel {
 
-    private final Gameboard BOARD;
+    private final GameEngine BOARD;
     private final int TILESIZE = 32;
     private final int DELAY = 50;
     private Image wall, character, ladder, treasure, monster, floor;
 
-    public drawGameboard(Gameboard board) {
+    public drawGameboard(GameEngine board) {
         this.BOARD = board;
         setUpImages();
         Timer timer = new Timer(DELAY, (final ActionEvent e) -> {
-            if (!BOARD.getPlayer().isAlive()) {
+            if (!Player.isAlive) {
                 restartGameDialog("Game over! You died!");
             }
             if (BOARD.isFinished()) {
@@ -82,8 +80,8 @@ public class drawGameboard extends JPanel {
                 .getImage("src/res/graphics/chest_empty_open_anim_f0.png");
         Image openChest = Toolkit.getDefaultToolkit()
                 .getImage("src/res/graphics/chest_empty_open_anim_f2.png");
-        int collectedTreasures = BOARD.getPlayer().getTreasure();
-        int treasuresInLevel = BOARD.getLevels().getTreasureCount(BOARD.getCurrentLevel());
+        int collectedTreasures = Player.getTreasure();
+        int treasuresInLevel = BOARD.getGameBoard().getNrOfTreasures();
         for (int i = 0; i < collectedTreasures; i++) {
             g2.drawImage(openChest, i * 36, 1, TILESIZE, TILESIZE, this);
         }

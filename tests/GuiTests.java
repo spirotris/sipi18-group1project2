@@ -1,6 +1,7 @@
 
-import game.Direction;
-import game.Gameboard;
+import game.GameBoard;
+import game.GameEngine;
+import game.Player;
 import game.Point;
 import game.ui.MainWindow;
 import java.awt.AWTException;
@@ -25,16 +26,16 @@ public class GuiTests {
     @Test
     public void testSwingRightKeyMovesCharacterRight() throws AWTException {
                 MainWindow ui = new MainWindow();
-                Gameboard board = ui.getBoard();
+                GameEngine board = ui.getBoard();
                 Robot robot = new Robot();
                 ui.setVisible(true);
                 robot.delay(300);
-                int xPosBefore = board.getPlayer().getX();
+                int xPosBefore = Player.getX();
                 robot.delay(50);
                 robot.keyPress(KeyEvent.VK_RIGHT);
                 robot.delay(50);
                 robot.keyPress(KeyEvent.VK_RIGHT);
                 robot.delay(500);
-                assertNotSame(xPosBefore, board.getPlayer().getX());
+                assertNotSame(xPosBefore, Player.getX());
     }
 }
