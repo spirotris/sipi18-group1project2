@@ -39,8 +39,8 @@ public class PlayerTest {
 	@Test
 	public void testSetPlayerPosition() {
 		// Arrange
-		Player.y = 9;
-		Player.x = 2;
+		Player.setY(9);
+		Player.setX(2);
 
 		// Act
 		boolean actual = Player.getY() == 9 && Player.getX() == 2;

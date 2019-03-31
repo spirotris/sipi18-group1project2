@@ -10,10 +10,10 @@ public class Player{
     private static int treasures;
     public static boolean isAlive = true;
     public static boolean isFinished;
-    public static int y;
-    public static int x;
+    private static int y;
+    private static int x;
 
-    public Player() {
+	public Player() {
         treasures = 0;
     }
 
@@ -36,4 +36,12 @@ public class Player{
     public static int getX() {
         return x;
     }
+    
+    public static void setY(int y) {
+		Player.y = y;
+	}
+
+	public static void setX(int x) {
+		Player.x = x;
+	}
 }

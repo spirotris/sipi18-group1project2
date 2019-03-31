@@ -22,7 +22,7 @@ public class GameEngine {
 	}
 
 	public boolean isFinished() {
-		if(isPlayerOnDoorWithTreasures()) {
+		if (isPlayerOnDoorWithTreasures()) {
 			Player.isFinished = true;
 			level++;
 			return true;
@@ -31,9 +31,9 @@ public class GameEngine {
 	}
 
 	private boolean isPlayerOnDoorWithTreasures() {
-		if(((Floor) boardGrid[Player.getY()][Player.getX()]).isPlayerOnTile() &&
-				((Floor) boardGrid[Player.getY()][Player.getX()]).isDoorOnTile() &&
-				Player.getTreasure() == gb.getNrOfTreasures()) {
+		if (((Floor) boardGrid[Player.getY()][Player.getX()]).isPlayerOnTile()
+				&& ((Floor) boardGrid[Player.getY()][Player.getX()]).isDoorOnTile()
+				&& Player.getTreasure() == gb.getNrOfTreasures()) {
 			return true;
 		}
 		return false;
@@ -41,13 +41,13 @@ public class GameEngine {
 
 	private void startNewGame() {
 		gb = new GameBoard(level);
-		Player.y = 9;
-		Player.x = 1;
+		Player.setY(9);
+		Player.setX(1);
 		((Floor) boardGrid[Player.getY()][Player.getX()]).setPlayerOnTile(true);
-		
+
 		monsterTimer();
 	}
-	
+
 	public GameBoard getGameBoard() {
 		return this.gb;
 	}

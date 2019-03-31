@@ -47,7 +47,7 @@ public class Mover {
     public static void move(Direction direction) {
         isPlayer = true;
 
-        Floor character = (Floor)board[Player.y][Player.x];
+        Floor character = (Floor)board[Player.getY()][Player.getX()];
 
         for (int y = 1; y < board.length - 1; y++) {
             for (int x = 1; x < board.length - 1; x++) {
@@ -60,7 +60,7 @@ public class Mover {
                 }
             }
         }
-        performMove(Player.y, Player.x, direction);
+        performMove(Player.getY(), Player.getX(), direction);
         newY = 0;
         oldY = 0;
         newX = 0;
@@ -81,8 +81,8 @@ public class Mover {
             if(((Floor)board[y][x]).isPlayerOnTile()) {
                 ((Floor) GameBoard.boardGrid[oldY][oldX]).setPlayerOnTile(false);
                 ((Floor) GameBoard.boardGrid[newY][newX]).setPlayerOnTile(true);
-                Player.y = newY;
-                Player.x = newX;
+                Player.setY(newY);
+                Player.setX(newX);
             } else if(((Floor)board[y][x]).isMonsterOnTile()) {
                 ((Floor) GameBoard.boardGrid[oldY][oldX]).setMonsterOnTile(false);
                 ((Floor) GameBoard.boardGrid[newY][newX]).setMonsterOnTile(true);
