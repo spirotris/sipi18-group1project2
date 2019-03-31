@@ -20,9 +20,13 @@ public class Player{
     public static int getTreasure() {
         return treasures;
     }
-
+   
     public static void addTreasure() {
         treasures++;
+    }
+    
+    public static void resetTreasures() {
+    	treasures = 0;
     }
 
     public static int getY() {

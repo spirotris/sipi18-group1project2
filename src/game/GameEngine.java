@@ -16,8 +16,10 @@ public class GameEngine {
 	}
 
 	public void resetGame() {
-		gb.setNrOfTreasures(0);		
+		gb.setNrOfTreasures(0);
+		Player.resetTreasures();
 		isFinished = false;
+		Player.isAlive = true;
 		startNewGame();
 	}
 	

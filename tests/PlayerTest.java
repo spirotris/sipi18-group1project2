@@ -42,11 +42,25 @@ public class PlayerTest {
 		Player.y = 9;
 		Player.x = 2;
 
-		//Act
+		// Act
 		boolean actual = Player.getY() == 9 && Player.getX() == 2;
 
-		//Assert
+		// Assert
 		assertTrue(actual);
 
-	}	
+	}
+
+	@Test
+	public void testResettingPlayerTreasureCount() {
+		// Arrange
+		Player.addTreasure();
+
+		// Act
+		Player.resetTreasures();
+		int actual = Player.getTreasure();
+
+		// Assert
+		assertEquals(actual, 0);
+
+	}
 }
