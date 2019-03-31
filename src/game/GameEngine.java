@@ -26,6 +26,7 @@ public class GameEngine {
 	public boolean isFinished() {
 		if(isPlayerOnDoorWithTreasures()) {
 			isFinished = true;
+			level++;
 			return true;
 		}
 		return false;
