@@ -16,13 +16,23 @@ public class GameEngine {
 	}
 
 	public void resetGame() {
+		gb.setNrOfTreasures(0);		
 		isFinished = false;
 		startNewGame();
 	}
 	
 	public boolean isFinished() {
-		if(Player.getTreasure() == gb.getNrOfTreasures()) {
+		if(isPlayerOnDoorWithTreasures()) {
 			isFinished = true;
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isPlayerOnDoorWithTreasures() {
+		if(((Floor) boardGrid[Player.getY()][Player.getX()]).isPlayerOnTile() && 
+				((Floor) boardGrid[Player.getY()][Player.getX()]).isDoorOnTile() && 
+				Player.getTreasure() == gb.getNrOfTreasures()) {
 			return true;
 		}
 		return false;
