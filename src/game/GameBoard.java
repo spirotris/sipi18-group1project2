@@ -17,7 +17,6 @@ public class GameBoard {
 	private void levelDesigner(int level) {
 		switch (level) {
 			case 1:
-				setWalls(true, 1, 6, 12);
 				setWalls(false, 7, 2, 6);
 				setWalls(true, 11, 7, 7);
 				setWalls(false, 6, 10, 2);
@@ -26,8 +25,8 @@ public class GameBoard {
 				setWalls(true, 10, 15, 3);
 				((Floor) boardGrid[5][10]).setMonsterOnTile(true);
 				((Floor) boardGrid[10][3]).setMonsterOnTile(true);
-				setTreasureOnTile(13, 14);
-				setTreasureOnTile(1, 1);
+				setTreasureOnTile(9, 14);
+				setTreasureOnTile(9, 5);
 				break;
 			case 2:
 				setWalls(true, 0, 6, 6);

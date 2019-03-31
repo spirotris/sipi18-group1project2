@@ -13,12 +13,13 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnitParamsRunner.class)
 public class GameBoardTests {
     @Parameters({
-            "1,2,6",
-            "2,17,6",
-            "3,14,16"
+            "1,7,3",
+            "2,15,3",
+            "3,4,11",
+            "4,2,2"
     })
     @Test
-    public void setWallLevelOne(int levelParam, int y, int x) {
+    public void setWallLevel(int levelParam, int y, int x) {
         // Arrange
         GameBoard gb = new GameBoard(levelParam);
         Point[][] board = GameBoard.getBoard();

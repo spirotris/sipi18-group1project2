@@ -10,9 +10,10 @@ import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
 public class LevelsTests {
     @Parameters ({
-            "1, 3, 6",
-            "2, 17, 5",
-            "3, 10, 4"
+            "1, 7, 4",
+            "2, 2, 6",
+            "3, 4, 10",
+            "4, 7, 1"
     })
     @Test
     public void setLevelOne_getTheBoardInReturn_makeShureTheInnerWallsWereSet(int levelParam, int pointY, int pointX) {
@@ -28,12 +29,14 @@ public class LevelsTests {
     }
 
     @Parameters ({
-            "1, 3, 10, true",
-            "1, 4, 10, false",
+            "1, 5, 10, true",
+            "1, 10, 4, false",
             "2, 9, 15, true",
-            "2, 9, 1, false",
+            "2, 3, 11, false",
             "3, 15, 3, true",
-            "3, 9, 4, true"
+            "3, 10, 17, false",
+            "4, 10, 15, true",
+            "4, 18, 3, false"
     })
     @Test
     public void addMonstersToLevels_ChecksIfTheyArePlacedOnBoard_ExpectBoolean(int levelParam, int y, int x, boolean expected) {

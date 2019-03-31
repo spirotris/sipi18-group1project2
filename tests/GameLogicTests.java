@@ -231,4 +231,36 @@ public class GameLogicTests {
 		// Assert
 		assertFalse(Player.isAlive);
 	}
+
+	@Test
+	public void tryingToResetTheGame_ShouldGetBooleanFalseFromisFinished() {
+		// Arrange
+		GameEngine ge = new GameEngine();
+		Player.isAlive = false;
+
+		// Act
+		ge.resetGame();
+
+		// Assert
+		assertTrue(Player.isAlive);
+	}
+
+	@Test
+	public void tryingToSetTheGameToFinished_ShouldReturnTrueFromisFinished() {
+		// Arrange
+		GameEngine ge = new GameEngine();
+		Point[][] board = GameBoard.getBoard();
+		Player.setY(9);
+		Player.setX(18);
+		((Floor)board[9][18]).setPlayerOnTile(true);
+		Player.addTreasure();
+		Player.addTreasure();
+
+		// Act
+		ge.isFinished();
+
+		// Assert
+		assertTrue(Player.isFinished);
+
+	}
 }
