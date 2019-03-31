@@ -46,7 +46,11 @@ public class Floor extends Point {
         if(monsterOnTile) {
             tileType = MONSTER;
         } else {
-            if(!treasureOnTile && !doorOnTile) {
+            if(treasureOnTile) {
+                tileType = TREASURE;
+            } else if (doorOnTile) {
+                tileType = DOOR;
+            } else {
                 tileType = ORIGINAL_TYPE;
             }
         }

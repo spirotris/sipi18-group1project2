@@ -14,9 +14,6 @@ public class GameBoard {
 		((Floor) boardGrid[9][18]).setDoorOnTile(true);
 	}
 
-	// Sets the level
-	// Number of monsters for the actual level is set
-	// And the layout
 	private void levelDesigner(int level) {
 		switch (level) {
 		case 1:
@@ -75,7 +72,6 @@ public class GameBoard {
 	}
 
 	public boolean setTreasureOnTile(int y, int x) {
-		// ((Floor)boardGrid[9][14]).setTreasureOnTile(true);
 		if (isThereAnObstacle(y, x))
 			return false;
 		((Floor)boardGrid[y][x]).setTreasureOnTile(true);
@@ -85,7 +81,6 @@ public class GameBoard {
 	}
 
 	private boolean isThereAnObstacle(int y, int x) {
-		//Could add checks here for monsters, doors, etc
 		if (boardGrid[y][x].tileType == TileType.WALL)
 			return true;
 		return false;

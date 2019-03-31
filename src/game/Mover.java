@@ -10,9 +10,11 @@ public class Mover {
     private static int newX = 0, oldX = 0;
     private static Random rnd = new Random();
     private static Point[][]board = GameBoard.getBoard();
+    private static boolean isPlayer;
 
     public static void move() {
     Direction direction = DOWN;
+    isPlayer = false;
         for (int y = 1; y < board.length - 1; y++) {
             for (int x = 1; x < board.length - 1; x++) {
                 if (board[y][x].getClass() == Floor.class) {
@@ -43,6 +45,7 @@ public class Mover {
         oldX = 0;
     }
     public static void move(Direction direction) {
+        isPlayer = true;
 
         Floor character = (Floor)board[Player.y][Player.x];
 
@@ -87,23 +90,29 @@ public class Mover {
         }
     }
 
-    // TODO: 2019-03-28 Need some modifications to to handle monsters collision
     private static boolean onCollision(Point p) {
         if (p.getClass() == Wall.class) {
-            return true; // Can't move, wall in the way
+            return true;
         } else if (((Floor) p).isMonsterOnTile()) {
-            Player.isAlive = false;
+            if(isPlayer)
+                Player.isAlive = false;
             return true;
         } else if (((Floor) p).isTreasureOnTile()) {
-            Player.addTreasure();
-            ((Floor) p).setTreasureOnTile(false);
-            ((Floor) p).setPlayerOnTile(true);
-            return false;
+            if(isPlayer) {
+                Player.addTreasure();
+                ((Floor) p).setTreasureOnTile(false);
+                ((Floor) p).setPlayerOnTile(true);
+                return false;
+            } else
+                return true;
         } else if (((Floor) p).isDoorOnTile()) {
             if (Player.getTreasure() > 0) {
                 Player.isFinished = true;
             }
             return false;
+        } else if(!isPlayer && ((Floor)p).isPlayerOnTile()) {
+            Player.isAlive = false;
+            return true;
         } else {
             return false;
         }
