@@ -27,7 +27,7 @@ public class PlayerTest {
 	@Test
 	public void testPlayerPickupTreasureIncreasesTreasure() {
 		// Arrange
-		player.addTreasure();
+		Player.addTreasure();
 
 		// Act
 		int actual = Player.getTreasure();
@@ -48,14 +48,5 @@ public class PlayerTest {
 		//Assert
 		assertTrue(actual);
 
-	}
-
-	@Test
-	public void testSetPlayerAlive() {
-		//Act
-		Player.isAlive = false;
-
-		//Assert
-		assertFalse(player.isAlive());
-	}
+	}	
 }
